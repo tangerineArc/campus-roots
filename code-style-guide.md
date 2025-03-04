@@ -20,7 +20,7 @@ Please be sure to read this guide thoroughly before contributing as it will less
 - Keep the repository clean and organized.
 - Always use `camelCase` for variable names.
 - The variable names should be descriptive about their purpose.
-- Variables storing hard-coded special values which will never change and whose values are always known should named using `SCREAMING_SNAKE_CASE`;
+- Variables storing hard-coded special values which will never change and whose values are always known should be named using `SCREAMING_SNAKE_CASE`;
 - Always use `const` for declaring variables whenever possible. Never use `var`.
 - ALWAYS use `prettier` to format your code before committing. You can enable format-on-save in VSCode so that you don't have to worry about manually formatting your code.
 - The names of routes should always be in `kebab-case` and should not contain capital letters.
@@ -39,6 +39,6 @@ Please be sure to read this guide thoroughly before contributing as it will less
 
 ## More Advice
 
-- NEVER push changes directly to the `main` branch. Follow the procedure mentioned in the [contributing guide](https://github.com/tangerineArc/campus-roots/blob/main/contributing-guide.md).
+- NEVER push changes directly to the `main` branch. Follow the procedure mentioned in the [contributing guide](https://github.com/Dev-OSAbhi/campus-roots/blob/main/contributing-guide.md).
 - Make a pull request if and only if you are sure that the code is free of errors, introduces a new feature or fixes a bug, and follows the stylistic guidelines.
 - Always check with the team-members to review your pull-request. Do NOT merge your own PR.
