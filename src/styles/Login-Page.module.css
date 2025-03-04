@@ -1,7 +1,6 @@
 /* Navigation Bar */
 .navbar {
     display: flex;
-    font-family: "Inter", "Georgia", "serif";
     justify-content: space-between;
     align-items: center;
     padding: 10px 20px;
@@ -11,7 +10,6 @@
 
 .navLeft {
     display: flex;
-    font-family: "Inter", "Georgia", "serif";
     align-items: center;
 }
 
@@ -36,7 +34,6 @@
 }
 
 .languageSelector {
-    font-family: "Inter", "Georgia", "serif";
     margin-right: 10px;
     padding: 5px;
     border: 1px solid #ddd;
@@ -45,7 +42,6 @@
 }
 
 .signupButton {
-    font-family: "Inter", "Georgia", "serif";
     background-color: black;
     color: white;
     padding: 8px 12px;
@@ -73,7 +69,7 @@
 }
 
 .image {
-    max-width: 101%;
+    max-width: 100%;
     /* Prevents image overflow */
     height: auto;
     /* Ensures aspect ratio is maintained */
@@ -82,7 +78,6 @@
 }
 
 .loginSection {
-    font-family: "Inter", "Georgia", "serif";
     flex: 0.8;
     display: flex;
     flex-direction: column;
@@ -93,21 +88,18 @@
 }
 
 .heading {
-    font-family: "Inter", "Georgia", "serif";
     font-size: 24px;
     font-weight: bold;
     margin-bottom: 5px;
 }
 
 .subheading {
-    font-family: "Inter", "Georgia", "serif";
     font-size: 14px;
     color: #666;
     margin-bottom: 20px;
 }
 
 .form {
-    font-family: "Inter", "Georgia", "serif";
     width: 100%;
     max-width: 350px;
     display: flex;
@@ -115,14 +107,12 @@
 }
 
 .label {
-    font-family: "Inter", "Georgia", "serif";
     font-size: 14px;
     margin-bottom: 5px;
     font-weight: 500;
 }
 
 .input {
-    font-family: "Inter", "Georgia", "serif";
     width: 100%;
     padding: 10px;
     margin-bottom: 15px;
@@ -131,28 +121,24 @@
 }
 
 .passwordContainer {
-    font-family: "Inter", "Georgia", "serif";
     position: relative;
     display: flex;
     align-items: center;
 }
 
 .hideIcon {
-    font-family: "Inter", "Georgia", "serif";
     position: absolute;
     right: 10px;
     cursor: pointer;
 }
 
 .passwordHint {
-    font-family: "Inter", "Georgia", "serif";
     font-size: 12px;
     color: #888;
     margin-bottom: 15px;
 }
 
 .recaptcha {
-    font-family: "Inter", "Georgia", "serif";
     display: flex;
     align-items: center;
     gap: 10px;
@@ -160,7 +146,6 @@
 }
 
 .loginButton {
-    font-family: "Inter", "Georgia", "serif";
     width: 100%;
     padding: 12px;
     background-color: #ccc;
@@ -171,7 +156,6 @@
 }
 
 .forgotPassword {
-    font-family: "Inter", "Georgia", "serif";
     margin-top: 10px;
     font-size: 14px;
     font-weight: bold;
