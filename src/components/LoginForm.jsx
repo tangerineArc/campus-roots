@@ -1,6 +1,6 @@
-import { Eye, EyeOff } from "lucide-react"; // Importing icons from Lucide React
+import { Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
-import styles from "../styles/LoginForm.module.css";
+import styles from "../styles/login-form.module.css";
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
