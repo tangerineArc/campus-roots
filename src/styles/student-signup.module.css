@@ -1,0 +1,305 @@
+.container {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Inter', sans-serif;
+  overflow: hidden;
+}
+
+.background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('../assets/signup-background.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  filter: brightness(0.7) saturate(1.2);
+  z-index: -2;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 30px;
+  background: white;
+  /* float: left; */
+}
+
+.navLeft {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  width: 40px;
+  height: 40px;
+  background-color: #ccc;
+  border-radius: 50%;
+  margin-right: 20px;
+}
+
+.navLinks {
+  display: flex;
+  gap: 20px;
+}
+
+.navLinks a {
+  /* margin: 0 10px; */
+  /* float: right; */
+  text-decoration: none;
+  color: black;
+  font-size: 14px;
+  transition: color 0.3s ease;
+}
+
+.navLinks a:hover {
+  color: #6e44ff;
+}
+
+.languageLogin {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.languageSelect {
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.1);
+  color: black;
+  padding: 8px 12px;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.loginButton {
+  background: none;
+  border: 1px solid black;
+  border-radius: 8px;
+  color: white;
+  background-color: black;
+  padding: 8px 16px;
+  font-size: 14px;
+  transition: background 0.3s ease;
+}
+
+.loginButton:hover {
+  background: black;
+  cursor: pointer;
+}
+
+.signupWrapper {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.signupCard {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  padding: 40px;
+  width: 100%;
+  max-width: 600px;
+  position: relative;
+  z-index: 10;
+}
+
+.title {
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 24px;
+  color: #333;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.nameRow {
+  display: flex;
+  gap: 15px;
+}
+
+.halfInput {
+  flex: 1;
+  padding: 12px 15px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 16px;
+}
+
+.fullInput {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 16px;
+}
+
+.phoneRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.countryCode {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #f5f5f5;
+  padding: 10px 15px;
+  border-radius: 8px;
+}
+
+.flagIcon {
+  width: 30px;
+  height: 20px;
+  border-radius: 4px;
+}
+
+.phoneInput {
+  flex-grow: 1;
+  padding: 12px 15px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 16px;
+}
+
+.passwordContainer {
+  position: relative;
+}
+
+.passwordToggle {
+  /* position: absolute; */
+  margin-top: 5px;
+  margin-bottom: 0px;
+  float: right;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: #666;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.passwordHint {
+  font-size: 12px;
+  color: #666;
+  margin-top: 5px;
+}
+
+.termsCheckbox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  color: #666;
+}
+
+.termsCheckbox input {
+  accent-color: #6e44ff;
+}
+
+.signupButton {
+  background: #000000;
+  color: white;
+  border: none;
+  padding: 15px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.signupButton:disabled {
+  background: #cccccc;
+  cursor: not-allowed;
+}
+
+.signupButton:hover:not(:disabled) {
+  background: #5a36cc;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    gap: 15px;
+    padding: 20px;
+  }
+
+  .navLinks {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+  }
+
+  .nameRow {
+    flex-direction: column;
+  }
+
+  .signupCard {
+    width: 90%;
+    padding: 30px 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar {
+    padding: 15px;
+  }
+
+  .navLinks {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .languageLogin {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+
+.phoneRow {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.countryCodeInput {
+  width: 80px;
+  padding: 12px 15px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 16px;
+  text-align: center;
+}
+
+.phoneInput {
+  flex-grow: 1;
+  padding: 12px 15px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 16px;
+}
