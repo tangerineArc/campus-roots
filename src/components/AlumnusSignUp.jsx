@@ -1,5 +1,5 @@
 import { Eye, EyeOff } from 'lucide-react';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import styles from '../styles/alumnus-signup.module.css';
 
 const AlumnusSignUp = () => {
@@ -49,7 +49,7 @@ const AlumnusSignUp = () => {
       </div>
       <div className={styles.signupWrapper}>
         <div className={styles.signupCard}>
-          <h2 className={styles.title}>Sign up as a Alumnus</h2>
+          <h2 className={styles.title}>Sign up as an Alumnus</h2>
           <form onSubmit={handleSubmit} className={styles.form}>
             <div className={styles.nameRow}>
               <input
