@@ -1,6 +1,6 @@
 import React from "react";
 import campusImage from '../assets/campus.png';
-import styles from "../styles/Login-Page.module.css";
+import styles from "../styles/login-page.module.css";
 import LoginForm from "./LoginForm";
 
 const LoginPage = () => {
@@ -29,7 +29,7 @@ const LoginPage = () => {
           <img src={campusImage} alt="Campus" className={styles.image} />
         </div>
         <div className={styles.loginSection}>
-        <LoginForm></LoginForm>
+          <LoginForm></LoginForm>
         </div>
       </div>
     </div>
