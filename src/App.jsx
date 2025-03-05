@@ -1,11 +1,13 @@
 // import LoginPage from "./components/LoginPage.jsx";
-import StudentSignup from "./components/StudentSignUp.jsx";
+
+import AlumnusSignUp from "./components/AlumnusSignUp";
 
 export default function App() {
   return (
     <>
       {/* <LoginPage></LoginPage> */}
-      <StudentSignup />
+      {/* <StudentSignup /> */}
+      <AlumnusSignUp></AlumnusSignUp>
     </>
   );
 }
