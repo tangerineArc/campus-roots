@@ -1,173 +1,91 @@
-/* Navigation Bar */
+.mainContainer {
+  height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+}
+
 .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px;
-    background-color: white;
-    border-bottom: 1px solid #ddd;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid #e6e6e9;
 }
 
 .navLeft {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
 
 .logo {
-    width: 40px;
-    height: 40px;
-    background-color: #ccc;
-    border-radius: 50%;
-    margin-right: 10px;
+  width: 2.5rem;
+  height: 2.5rem;
+  background-color: #ccc;
+  border-radius: 50%;
 }
 
 .navLeft a {
-    margin: 0 10px;
-    text-decoration: none;
-    color: #555;
-    font-weight: 500;
+  margin-left: 0.5rem;
+
+  text-decoration: none;
+  color: #555;
+  font-weight: 500;
 }
 
 .navRight {
-    display: flex;
-    align-items: center;
-}
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 
-.languageSelector {
-    margin-right: 10px;
-    padding: 5px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    cursor: pointer;
+  margin-right: 0.5rem;
 }
 
 .signupButton {
-    background-color: black;
-    color: white;
-    padding: 8px 12px;
-    border: none;
-    border-radius: 5px;
-    margin-left: 10px;
-    cursor: pointer;
+  background-color: #343a40;
+  padding: 0.5rem 0.8rem;
+  border: none;
+  border-radius: 5px;
+
+  cursor: pointer;
+
+  color: #f4f4f6;
+  font-size: 0.9rem;
+  font-family: inherit;
+  text-transform: capitalize;
 }
 
-/* Existing styles */
+.signupButton:hover {
+  background-color: #212529;
+}
+
 .container {
-    display: flex;
-    height: 100vh;
+  display: flex;
+  flex-grow: 1;
 }
 
 .imageSection {
-    flex: 1;
-    display: flex;
-    /* Ensures content inside behaves flexibly */
-    justify-content: center;
-    align-items: center;
-    width: 140%;
-    /* Ensures it adapts to parent */
-    height: 100%;
-}
+  max-width: 1200px;
+  width: 60%;
+  height: 100%;
 
-.image {
-    max-width: 100%;
-    width: 100%;
-    /* Prevents image overflow */
-    height: 100%;
-    /* Ensures aspect ratio is maintained */
-    object-fit: cover;
-    /* Ensures the image fills its container */
+  background-image: url("../assets/campus.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .loginSection {
-    flex: 0.8;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 40px;
-    background-color: #fff;
-}
+  min-width: 500px;
+  width: 40%;
+  height: 100%;
 
-.loginButtonContainer {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-}
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 
-.heading {
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 5px;
-}
-
-.subheading {
-    font-size: 14px;
-    color: #666;
-    margin-bottom: 20px;
-}
-
-.form {
-    width: 100%;
-    max-width: 350px;
-    display: flex;
-    flex-direction: column;
-}
-
-.label {
-    font-size: 14px;
-    margin-bottom: 5px;
-    font-weight: 500;
-}
-
-.input {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-.passwordContainer {
-    position: relative;
-    display: flex;
-    align-items: center;
-}
-
-.hideIcon {
-    position: absolute;
-    right: 10px;
-    cursor: pointer;
-}
-
-.passwordHint {
-    font-size: 12px;
-    color: #888;
-    margin-bottom: 15px;
-}
-
-.recaptcha {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 20px;
-}
-
-.loginButton {
-    width: 50%;
-    padding: 12px;
-    background-color: #ccc;
-    border: none;
-    border-radius: 50px;
-    font-size: 16px;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.forgotPassword {
-    margin-top: 10px;
-    font-size: 14px;
-    font-weight: bold;
-    cursor: pointer;
+  flex-shrink: 0;
 }

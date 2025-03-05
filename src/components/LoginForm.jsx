@@ -1,59 +1,45 @@
 import { Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
+
 import styles from "../styles/login-form.module.css";
 
-const LoginForm = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
-  const [isChecked, setIsChecked] = useState(false);
 
   return (
     <div className={styles.loginContainer}>
-      <h2 className={styles.welcomeText}>Welcome Back</h2>
+      <p className={styles.welcomeText}>Welcome Back</p>
       <p className={styles.subtitle}>Pick up where you left off</p>
 
       <form className={styles.loginForm}>
-        <label>Email address</label>
-        <input
-          type="email"
-          className={styles.inputField}
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
+        <label htmlFor="email">Email address</label>
+        <input id="email" type="email" className={styles.inputField} required />
 
-        <label>Password</label>
+        <label htmlFor="password">Password</label>
         <div className={styles.passwordWrapper}>
           <input
             type={showPassword ? "text" : "password"}
             className={styles.inputField}
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            id="password"
             required
           />
           <span
             className={styles.togglePassword}
             onClick={() => setShowPassword(!showPassword)}
           >
-            {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+            {showPassword ? (
+              <>
+                <EyeOff size={18} /> Hide
+              </>
+            ) : (
+              <>
+                <Eye size={18} /> View
+              </>
+            )}
           </span>
         </div>
-        <p className={styles.passwordInfo}>
-          Use 8 or more characters with a mix of letters, numbers & symbols
-        </p>
 
-        <div className={styles.captchaContainer}>
-          <input
-            type="checkbox"
-            checked={isChecked}
-            onChange={() => setIsChecked(!isChecked)}
-          />
-          <label>I’m not a robot</label>
-          <div className={styles.captchaBox}>reCAPTCHA</div>
-        </div>
-
-        <button type="submit" className={styles.loginBtn} disabled={!isChecked}>
+        <button type="submit" className={styles.loginBtn}>
           Log In
         </button>
 
@@ -63,6 +49,4 @@ const LoginForm = () => {
       </form>
     </div>
   );
-};
-
-export default LoginForm;
+}
