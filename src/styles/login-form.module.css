@@ -1,0 +1,105 @@
+.loginContainer {
+  padding: 2rem 3rem;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.welcomeText {
+  font-size: 2.5rem;
+  color: #212529;
+}
+
+.subtitle {
+  color: #777;
+  margin-bottom: 2rem;
+  margin-left: 0.3rem;
+}
+
+.loginForm {
+  display: flex;
+  flex-direction: column;
+  gap:0.5rem;
+}
+
+label {
+  color: #6c757d;
+  font-size: 0.9rem;
+
+  width: fit-content;
+  margin-left: 0.3rem;
+}
+
+.inputField {
+  width: 360px;
+  padding: 0.7rem 0.8rem;
+  margin-bottom: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+
+  font-size: 0.9rem;
+  font-family: inherit;
+  color: inherit;
+}
+
+.passwordWrapper {
+  position: relative;
+}
+
+.togglePassword {
+  position: absolute;
+  right: 0.5rem;
+  bottom: calc(100% + 0.5rem);
+
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+
+  font-size: 0.8rem;
+  color: #6c757d;
+}
+
+.loginBtn {
+  width: 100%;
+  padding: 0.7rem;
+  margin-top: 0.5rem;
+  background-color: #343a40;
+  border: none;
+  border-radius: 5px;
+
+  font-size: inherit;
+  font-family: inherit;
+  color: #e9ecef;
+
+  cursor: pointer;
+}
+
+.loginBtn:hover {
+  background-color: #212529;
+}
+
+.loginBtn:disabled {
+  background-color: #e9ecef;
+  color: #6c757d;
+
+  cursor: not-allowed;
+}
+
+.forgotPassword {
+  width: fit-content;
+  margin-top: 0.5rem;
+  margin-left: 0.5rem;
+
+  color: #33a1fd;
+  font-size: 0.9rem;
+  text-decoration: none;
+}
+
+.forgotPassword:hover {
+  text-decoration: underline;
+}
