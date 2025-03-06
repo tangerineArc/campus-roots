@@ -2,17 +2,36 @@
   position: relative;
   min-height: 100vh;
   display: flex;
+  /* justify-content: center; */
+  /* align-items: center; */
   flex-direction: column;
   font-family: 'Inter', sans-serif;
   overflow: hidden;
+}
+
+.background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   background-image: url('../assets/signup-background.png');
   background-size: cover;
   background-position: center;
+  background-repeat: no-repeat;
+  filter: brightness(0.7) saturate(1.2);
+  z-index: -2;
+}
+
+.remainingBody {
   width: 100%;
-  height: 100%;
+  min-height: 90vh;
+  display: flex;
+  justify-content: center;
 }
 
 .navbar {
+  float: top;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -57,8 +76,8 @@
 }
 
 .languageSelect {
-  border: 1px solid rgba(0, 0, 0, 0.3);
-  background: white;
+  border: 0.063rem solid rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.1);
   color: black;
   padding: 0.5rem 0.75rem;
   border-radius: 0.25rem;
@@ -68,7 +87,7 @@
 
 .loginButton {
   background: black;
-  border: none;
+  border: 0.063rem solid black;
   border-radius: 0.5rem;
   color: white;
   padding: 0.5rem 1rem;
@@ -81,61 +100,7 @@
   cursor: pointer;
 }
 
-.content {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  max-width: 100%;
-  padding: 1rem;
-}
 
-.card {
-  background: white;
-  padding: 2rem;
-  border-radius: 0.75rem;
-  box-shadow: 0px 0.25rem 0.625rem rgba(0, 0, 0, 0.1);
-  text-align: center;
-  max-width: 25rem;
-  width: 100%;
-}
-
-.input {
-  width: 100%;
-  padding: 0.625rem;
-  margin: 0.625rem 0 1rem 0;
-  border: 1px solid #ccc;
-  border-radius: 0.313rem;
-  font-size: 1rem;
-}
-
-.resetText {
-  margin-bottom: 2rem;
-  font-size: 1.5rem;
-}
-
-.instructionsText {
-  text-align: left;
-  font-size: 1rem;
-  color: #575757;
-}
-
-.resetButton {
-  width: 100%;
-  padding: 0.75rem 1.25rem;
-  color: white;
-  background: black;
-  border: none;
-  border-radius: 0.375rem;
-  cursor: pointer;
-  font-size: 1rem;
-}
-
-.resetButton:hover {
-  background: #6e44ff;
-}
-
-/* Responsive Design */
 @media (max-width: 768px) {
   .navbar {
     flex-direction: column;
@@ -152,46 +117,95 @@
     flex-direction: column;
     gap: 0.5rem;
     text-align: center;
-    padding: 0.5rem 0;
   }
 
   .languageLogin {
     flex-direction: column;
     gap: 0.5rem;
   }
-
-  .card {
-    padding: 1.5rem;
-    max-width: 22rem;
-  }
-
-  .input,
-  .resetButton {
-    font-size: 0.875rem;
-  }
 }
 
-@media (max-width: 480px) {
+
+.remainingBody {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card {
+  background: white;
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+  max-width: 30rem;
+  text-align: center;
+  width: 100%;
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.description {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 1.5rem;
+}
+
+.inputContainer {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.input {
+  width: 3rem;
+  height: 3rem;
+  text-align: center;
+  font-size: 1.5rem;
+  border: 1px solid #ccc;
+  border-radius: 0.5rem;
+}
+
+.verifyButton {
+  background-color: #ddd;
+  color: #888;
+  font-size: 1rem;
+  padding: 0.75rem;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: not-allowed;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.resendText {
+  font-size: 0.875rem;
+  color: #555;
+}
+
+.resendLink {
+  color: #6200ea;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
   .card {
-    padding: 1rem;
-    max-width: 18rem;
+    padding: 1.5rem;
   }
 
-  .input,
-  .resetButton {
-    font-size: 0.75rem;
-  }
-
-  .resetText {
+  .input {
+    width: 2.5rem;
+    height: 2.5rem;
     font-size: 1.25rem;
   }
 
-  .instructionsText {
+  .verifyButton {
     font-size: 0.875rem;
-  }
-
-  .loginButton {
-    width: 100%;
-    text-align: center;
   }
 }
