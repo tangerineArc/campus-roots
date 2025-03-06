@@ -1,8 +1,10 @@
-import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
+
 import styles from "../styles/login-page.module.css";
+
 import LoginForm from "./LoginForm.jsx";
 
-export default function LoginPage({ handleOnClick }) {
+export default function LoginPage() {
   return (
     <div className={styles.mainContainer}>
       <nav className={styles.navbar}>
@@ -13,34 +15,26 @@ export default function LoginPage({ handleOnClick }) {
         </div>
 
         <div className={styles.navRight}>
-          <button
-            className={styles.signupButton}
-            type="button"
-            onClick={(event) => handleOnClick(event, "Student Sign Up")}
-          >
-            Student sign up
-          </button>
-          <button
-            className={styles.signupButton}
-            type="button"
-            onClick={(event) => handleOnClick(event, "Alumni Sign Up")}
-          >
-            Alumni sign up
-          </button>
+          <Link to="/signup/student">
+            <button className={styles.signupButton} type="button">
+              Student Sign Up
+            </button>
+          </Link>
+
+          <Link to="/signup/alumnus">
+            <button className={styles.signupButton} type="button">
+              Alumnus Sign Up
+            </button>
+          </Link>
         </div>
       </nav>
 
       <div className={styles.container}>
         <div className={styles.imageSection}></div>
         <div className={styles.loginSection}>
-          <LoginForm handleOnClick={handleOnClick} />
+          <LoginForm />
         </div>
       </div>
     </div>
   );
 }
-
-
-LoginPage.propTypes = {
-  handleOnClick: PropTypes.func.isRequired,
-};
