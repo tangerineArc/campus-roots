@@ -1,8 +1,10 @@
 import { Eye, EyeOff } from 'lucide-react';
-import React, { useState } from 'react';
+import PropTypes from "prop-types";
+import { useState } from 'react';
 import styles from '../styles/alumnus-signup.module.css';
 
-const AlumnusSignUp = () => {
+
+const AlumnusSignUp = ({ handleOnClick }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     firstName: '',
@@ -44,12 +46,12 @@ const AlumnusSignUp = () => {
           <select className={styles.languageSelect}>
             <option>English (United States)</option>
           </select>
-          <button className={styles.loginButton}>Log in</button>
+          <button className={styles.loginButton} onClick={(event) => handleOnClick(event, "Login Page")}>Log in</button>
         </div>
       </div>
       <div className={styles.signupWrapper}>
         <div className={styles.signupCard}>
-          <h2 className={styles.title}>Sign up as a Alumnus</h2>
+          <h2 className={styles.title}>Sign up as an Alumnus</h2>
           <form onSubmit={handleSubmit} className={styles.form}>
             <div className={styles.nameRow}>
               <input
@@ -150,3 +152,8 @@ const AlumnusSignUp = () => {
 };
 
 export default AlumnusSignUp;
+
+
+AlumnusSignUp.propTypes = {
+  handleOnClick: PropTypes.func.isRequired,
+};

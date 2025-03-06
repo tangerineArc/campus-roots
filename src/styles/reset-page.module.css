@@ -1,0 +1,197 @@
+.container {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Inter', sans-serif;
+  overflow: hidden;
+  background-image: url('../assets/signup-background.png');
+  background-size: cover;
+  background-position: center;
+  width: 100%;
+  height: 100%;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.625rem 1.875rem;
+  background: white;
+  width: 100%;
+}
+
+.navLeft {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  width: 2.5rem;
+  height: 2.5rem;
+  background-color: #ccc;
+  border-radius: 50%;
+  margin-right: 1.25rem;
+}
+
+.navLinks {
+  display: flex;
+  gap: 1.25rem;
+}
+
+.navLinks a {
+  text-decoration: none;
+  color: black;
+  font-size: 0.875rem;
+  transition: color 0.3s ease;
+}
+
+.navLinks a:hover {
+  color: #6e44ff;
+}
+
+.languageLogin {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.languageSelect {
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  background: white;
+  color: black;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.25rem;
+  font-size: 0.875rem;
+  cursor: pointer;
+}
+
+.loginButton {
+  background: black;
+  border: none;
+  border-radius: 0.5rem;
+  color: white;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  transition: background 0.3s ease;
+}
+
+.loginButton:hover {
+  background: #6e44ff;
+  cursor: pointer;
+}
+
+.content {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 100%;
+  padding: 1rem;
+}
+
+.card {
+  background: white;
+  padding: 2rem;
+  border-radius: 0.75rem;
+  box-shadow: 0px 0.25rem 0.625rem rgba(0, 0, 0, 0.1);
+  text-align: center;
+  max-width: 25rem;
+  width: 100%;
+}
+
+.input {
+  width: 100%;
+  padding: 0.625rem;
+  margin: 0.625rem 0 1rem 0;
+  border: 1px solid #ccc;
+  border-radius: 0.313rem;
+  font-size: 1rem;
+}
+
+.resetText {
+  margin-bottom: 2rem;
+  font-size: 1.5rem;
+}
+
+.instructionsText {
+  text-align: left;
+  font-size: 1rem;
+  color: #575757;
+}
+
+.resetButton {
+  width: 100%;
+  padding: 0.75rem 1.25rem;
+  color: white;
+  background: black;
+  border: none;
+  border-radius: 0.375rem;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.resetButton:hover {
+  background: #6e44ff;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    padding: 1rem;
+  }
+
+  .navLeft {
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 0.5rem;
+  }
+
+  .navLinks {
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: center;
+    padding: 0.5rem 0;
+  }
+
+  .languageLogin {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .card {
+    padding: 1.5rem;
+    max-width: 22rem;
+  }
+
+  .input,
+  .resetButton {
+    font-size: 0.875rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .card {
+    padding: 1rem;
+    max-width: 18rem;
+  }
+
+  .input,
+  .resetButton {
+    font-size: 0.75rem;
+  }
+
+  .resetText {
+    font-size: 1.25rem;
+  }
+
+  .instructionsText {
+    font-size: 0.875rem;
+  }
+
+  .loginButton {
+    width: 100%;
+    text-align: center;
+  }
+}

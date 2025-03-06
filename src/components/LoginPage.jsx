@@ -1,8 +1,8 @@
+import PropTypes from "prop-types";
 import styles from "../styles/login-page.module.css";
-
 import LoginForm from "./LoginForm.jsx";
 
-export default function LoginPage() {
+export default function LoginPage({ handleOnClick }) {
   return (
     <div className={styles.mainContainer}>
       <nav className={styles.navbar}>
@@ -13,10 +13,18 @@ export default function LoginPage() {
         </div>
 
         <div className={styles.navRight}>
-          <button className={styles.signupButton} type="button">
+          <button
+            className={styles.signupButton}
+            type="button"
+            onClick={(event) => handleOnClick(event, "Student Sign Up")}
+          >
             Student sign up
           </button>
-          <button className={styles.signupButton} type="button">
+          <button
+            className={styles.signupButton}
+            type="button"
+            onClick={(event) => handleOnClick(event, "Alumni Sign Up")}
+          >
             Alumni sign up
           </button>
         </div>
@@ -25,9 +33,14 @@ export default function LoginPage() {
       <div className={styles.container}>
         <div className={styles.imageSection}></div>
         <div className={styles.loginSection}>
-          <LoginForm />
+          <LoginForm handleOnClick={handleOnClick} />
         </div>
       </div>
     </div>
   );
 }
+
+
+LoginPage.propTypes = {
+  handleOnClick: PropTypes.func.isRequired,
+};
