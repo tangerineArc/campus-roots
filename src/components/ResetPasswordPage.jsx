@@ -1,11 +1,8 @@
-import PropTypes from "prop-types";
 import styles from "../styles/reset-page.module.css";
 
-
-const ResetPassword = ({ handleOnClick }) => {
+export default function ResetPasswordPage() {
   return (
     <div className={styles.container}>
-      {/* Navbar */}
       <nav className={styles.navbar}>
         <div className={styles.navLeft}>
           <div className={styles.logo} aria-label="Company Logo"></div>
@@ -16,22 +13,16 @@ const ResetPassword = ({ handleOnClick }) => {
             <a href="/terms">Terms of Use</a>
           </div>
         </div>
-        <div className={styles.languageLogin}>
-          <label htmlFor="language-select" className={styles.srOnly}>
-            Select Language
-          </label>
-          <select id="language-select" className={styles.languageSelect}>
-            <option>English (United States)</option>
-          </select>
-          <button className={styles.loginButton} onClick={(event) => handleOnClick(event, "Login Page")}>Log in</button>
-        </div>
+
+        <button className={styles.loginButton}>Log in</button>
       </nav>
 
-      {/* Reset Password Form */}
       <main className={styles.content}>
         <div className={styles.card}>
           <h2 className={styles.resetText}>Reset Password</h2>
-          <p className={styles.instructionsText}>Enter your registered email address</p>
+          <p className={styles.instructionsText}>
+            Enter your registered email address
+          </p>
 
           <form>
             <label htmlFor="email" className={styles.srOnly}>
@@ -53,11 +44,4 @@ const ResetPassword = ({ handleOnClick }) => {
       </main>
     </div>
   );
-};
-
-export default ResetPassword;
-
-
-ResetPassword.propTypes = {
-  handleOnClick: PropTypes.func.isRequired,
-};
+}

@@ -1,11 +1,10 @@
 import { Eye, EyeOff } from "lucide-react";
-import PropTypes from "prop-types";
 import { useState } from "react";
-
+import { Link } from "react-router-dom";
 
 import styles from "../styles/login-form.module.css";
 
-export default function LoginForm({ handleOnClick }) {
+export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
@@ -45,15 +44,10 @@ export default function LoginForm({ handleOnClick }) {
           Log In
         </button>
 
-        <a href="#" className={styles.forgotPassword} onClick={(event) => handleOnClick(event, "Reset Password")}>
+        <Link to="/reset-password" className={styles.forgotPassword}>
           Forgot Password
-        </a>
+        </Link>
       </form>
     </div>
   );
 }
-
-
-LoginForm.propTypes = {
-  handleOnClick: PropTypes.func.isRequired,
-};

@@ -1,26 +1,26 @@
-import { Eye, EyeOff } from 'lucide-react';
-import PropTypes from "prop-types";
-import { useState } from 'react';
-import styles from '../styles/student-signup.module.css';
+import { Eye, EyeOff } from "lucide-react";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 
+import styles from "../styles/student-signup.module.css";
 
-const StudentSignup = ({ handleOnClick }) => {
+export default function StudentSignup() {
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    countryCode: '+91',
-    phoneNumber: '',
-    password: '',
-    termsAgreed: false
+    firstName: "",
+    lastName: "",
+    email: "",
+    countryCode: "+91",
+    phoneNumber: "",
+    password: "",
+    termsAgreed: false,
   });
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: type === 'checkbox' ? checked : value
+      [name]: type === "checkbox" ? checked : value,
     }));
   };
 
@@ -42,12 +42,10 @@ const StudentSignup = ({ handleOnClick }) => {
             <a href="#">Terms of Use</a>
           </div>
         </div>
-        <div className={styles.languageLogin}>
-          <select className={styles.languageSelect}>
-            <option>English (United States)</option>
-          </select>
-          <button className={styles.loginButton} onClick={(event) => handleOnClick(event, "Login Page")}>Log in</button>
-        </div>
+
+        <Link to="/login">
+          <button className={styles.loginButton}>Log in</button>
+        </Link>
       </div>
       <div className={styles.signupWrapper}>
         <div className={styles.signupCard}>
@@ -121,7 +119,8 @@ const StudentSignup = ({ handleOnClick }) => {
                 className={styles.fullInput}
               />
               <p className={styles.passwordHint}>
-                Use 8 or more characters with a mix of letters, numbers & symbols
+                Use 8 or more characters with a mix of letters, numbers &
+                symbols
               </p>
             </div>
             <div className={styles.termsCheckbox}>
@@ -134,7 +133,8 @@ const StudentSignup = ({ handleOnClick }) => {
                 required
               />
               <label htmlFor="terms-agreement">
-                By creating an account, I agree to the Terms of use and Privacy Policy
+                By creating an account, I agree to the Terms of use and Privacy
+                Policy
               </label>
             </div>
             <button
@@ -149,11 +149,4 @@ const StudentSignup = ({ handleOnClick }) => {
       </div>
     </div>
   );
-};
-
-export default StudentSignup;
-
-
-StudentSignup.propTypes = {
-  handleOnClick: PropTypes.func.isRequired,
-};
+}
