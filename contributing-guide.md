@@ -48,6 +48,8 @@ Please be sure to read this guide thoroughly before contributing as it will less
 
 6. Install [DotENV extension](https://marketplace.visualstudio.com/items?itemName=mikestead.dotenv).
 
+7. Install [Prisma extension](https://marketplace.visualstudio.com/items?itemName=Prisma.prisma).
+
 ### Install and configure Git
 
 1. Open a WSL2 terminal, if you haven't already.
