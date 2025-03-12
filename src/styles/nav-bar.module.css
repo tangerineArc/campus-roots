@@ -1,0 +1,100 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 30px;
+  background: white;
+  width: 100%;
+  height: 9vh;
+  /* float: left; */
+}
+
+.navLeft {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  width: 40px;
+  height: 40px;
+  background-color: #ccc;
+  border-radius: 50%;
+  margin-right: 20px;
+}
+
+.navLinks {
+  display: flex;
+  gap: 20px;
+}
+
+.navLinks a {
+  /* margin: 0 10px; */
+  /* float: right; */
+  text-decoration: none;
+  color: black;
+  font-size: 14px;
+  transition: color 0.3s ease;
+}
+
+.navLinks a:hover {
+  color: #6e44ff;
+}
+
+.languageLogin {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.languageSelect {
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.1);
+  color: black;
+  padding: 8px 12px;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.loginButton {
+  background: none;
+  border: 1px solid black;
+  border-radius: 8px;
+  color: white;
+  background-color: black;
+  padding: 8px 16px;
+  font-size: 14px;
+  transition: background 0.3s ease;
+}
+
+.loginButton:hover {
+  background: #6e44ff;
+  border: none;
+  cursor: pointer;
+}
+
+
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    padding: 1rem;
+  }
+
+  .navLeft {
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 0.5rem;
+  }
+
+  .navLinks {
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: center;
+  }
+
+  .languageLogin {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}

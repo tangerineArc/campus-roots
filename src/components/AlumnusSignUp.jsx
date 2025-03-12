@@ -1,6 +1,7 @@
 import { Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import NavBar from "./NavigationBar";
+
 
 import styles from "../styles/alumnus-signup.module.css";
 
@@ -32,22 +33,7 @@ export default function AlumnusSignUp() {
   return (
     <div className={styles.container}>
       <div className={styles.background}></div>
-      <div className={styles.navbar}>
-        <div className={styles.navLeft}>
-          <div className={styles.logo}></div>
-          <div className={styles.navLinks}>
-            <a href="#">About Us</a>
-            <a href="#">Contact Us</a>
-            <a href="#">Privacy Policy</a>
-            <a href="#">Terms of Use</a>
-          </div>
-        </div>
-
-        <Link to="/login">
-          <button className={styles.loginButton}>Log in</button>
-        </Link>
-      </div>
-
+      <NavBar></NavBar>
       <div className={styles.signupWrapper}>
         <div className={styles.signupCard}>
           <h2 className={styles.title}>Sign up as an Alumnus</h2>
