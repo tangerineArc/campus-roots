@@ -1,0 +1,94 @@
+/* Post Styling */
+.post {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    /* Increased margin for better spacing */
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+/* Hover Effect */
+.post:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Post Header */
+.postHeader {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 10px;
+}
+
+.postHeader img {
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* Post Info */
+.postInfo h3 {
+    margin: 0;
+    font-size: 17px;
+    font-weight: 600;
+}
+
+.postInfo span {
+    color: gray;
+    font-size: 14px;
+}
+
+/* Post Content */
+.post p {
+    margin: 12px 0;
+    font-size: 15px;
+    line-height: 1.5;
+}
+
+/* Hashtags */
+.hashtags {
+    color: #6a0dad;
+    font-weight: 500;
+}
+
+/* Post Image */
+.postImage {
+    width: 100%;
+    border-radius: 10px;
+    margin-top: 12px;
+    object-fit: cover;
+}
+
+/* Post Actions */
+.postActions {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0 5px;
+    border-top: 1px solid #eee;
+    margin-top: 10px;
+}
+
+/* Action Buttons */
+.postActions button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: gray;
+    padding: 8px 12px;
+    border-radius: 6px;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+/* Hover Effect for Buttons */
+.postActions button:hover {
+    background: rgba(138, 43, 226, 0.1);
+    color: black;
+}

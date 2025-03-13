@@ -5,6 +5,7 @@ import SignupPage from "./components/SignupPage.jsx";
 import ChangePassword from "./components/ChangePassword.jsx";
 import EmailVerification from "./components/EmailVerification.jsx";
 import HomePageStudents from "./components/HomePageStudents.jsx";
+import HomePageAlumni from "./components/HomePageAlumni.jsx";
 const routes = [
   {
     path: "/",
@@ -29,6 +30,10 @@ const routes = [
   {
     path: "/HomePageStudents",
     element: <HomePageStudents />,
+  },
+  {
+    path: "/HomePageAlumni",
+    element: <HomePageAlumni />,
   },
   {
     path: "/ChangePassword",
