@@ -1,9 +1,10 @@
 import App from "./App.jsx";
-
 import LoginPage from "./components/LoginPage.jsx";
 import ResetPasswordPage from "./components/ResetPasswordPage.jsx";
 import SignupPage from "./components/SignupPage.jsx";
-
+import ChangePassword from "./components/ChangePassword.jsx";
+import EmailVerification from "./components/EmailVerification.jsx";
+import HomePageStudents from "./components/HomePageStudents.jsx";
 const routes = [
   {
     path: "/",
@@ -21,6 +22,18 @@ const routes = [
     path: "/reset-password",
     element: <ResetPasswordPage />,
   },
+  {
+    path: "/EmailVerification",
+    element: <EmailVerification />,
+  },
+  {
+    path: "/HomePageStudents",
+    element: <HomePageStudents />,
+  },
+  {
+    path: "/ChangePassword",
+    element: <ChangePassword />,
+  }
 ];
 
 export default routes;
