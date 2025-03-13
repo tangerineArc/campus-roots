@@ -8,7 +8,7 @@ const EmailVerification = () => {
       <NavBar></NavBar>
       <div className={styles.remainingBody}>
         <div className={styles.card}>
-          <h2 className={styles.title}>Check your email</h2>
+          <h2 className={styles.title}>CHECK YOUR EMAIL</h2>
           <p className={styles.description}>
             We have sent a reset link to your registered email id. <br />
             Enter the 5-digit code that is mentioned in the email.
