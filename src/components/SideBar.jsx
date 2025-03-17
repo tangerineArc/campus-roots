@@ -1,11 +1,11 @@
 import {
-  FaCog,
-  FaEnvelope,
-  FaHome,
-  FaSignOutAlt,
-  FaUser,
-  FaUserFriends
-} from "react-icons/fa";
+  Home,
+  LogOut,
+  Mail,
+  Settings,
+  User,
+  Users
+} from "lucide-react";
 import { NavLink, useLocation } from "react-router-dom";
 import styles from "../styles/side-bar.module.css";
 
@@ -21,24 +21,24 @@ export default function SideBar() {
           to="/HomePageStudents"
           className={isFeedActive ? styles.active : ""}
         >
-          <FaHome /> Feed
+          <Home /> Feed
         </NavLink>
         <NavLink to="/connections" className={({ isActive }) => isActive ? styles.active : ""}>
-          <FaUserFriends /> Connections
+          <Users /> Connections
         </NavLink>
         <NavLink to="/messages" className={({ isActive }) => isActive ? styles.active : ""}>
-          <FaEnvelope /> Messages
+          <Mail /> Messages
         </NavLink>
         <NavLink to="/" className={({ isActive }) => isActive ? styles.active : ""}>
-          <FaUser /> Profile
+          <User /> Profile
         </NavLink>
       </nav>
       <div className={styles.bottomMenu}>
         <NavLink to="/">
-          <FaCog /> Settings
+          <Settings /> Settings
         </NavLink>
         <NavLink to="/" className={styles.logout}>
-          <FaSignOutAlt className={styles.logoutIcon} /> <div className={styles.logoutText}>Logout</div>
+          <LogOut className={styles.logoutIcon} /> <div className={styles.logoutText}>Logout</div>
         </NavLink>
       </div>
     </aside>

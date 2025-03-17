@@ -1,9 +1,9 @@
 import {
-  FaComment,
-  FaPaperPlane,
-  FaShare,
-  FaThumbsUp
-} from "react-icons/fa";
+  MessageCircle,
+  Send,
+  Share2,
+  ThumbsUp
+} from "lucide-react";
 import postPic from "../assets/post_pic.png";
 import profilePic from "../assets/profile.jpeg";
 import styles from "../styles/post.module.css";
@@ -28,10 +28,10 @@ export default function Post() {
       src={postPic}
       alt="Red Panda" />
     <div className={styles.postActions}>
-      <button><FaThumbsUp /> Like</button>
-      <button><FaComment /> Comment</button>
-      <button><FaShare /> Share</button>
-      <button><FaPaperPlane /> Send</button>
+      <button><ThumbsUp /> Like</button>
+      <button><MessageCircle /> Comment</button>
+      <button><Share2 /> Share</button>
+      <button><Send /> Send</button>
     </div>
 
   </div>);

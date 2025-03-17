@@ -1,4 +1,4 @@
-import { FaCheckCircle } from "react-icons/fa";
+import { CheckCircle } from "lucide-react";
 import img from "../assets/prashant.png";
 import styles from "../styles/messages-page.module.css";
 import SearchBar from "./SearchBar";
@@ -31,7 +31,7 @@ const MessagesPage = () => {
               <div className={styles.messageDetails}>
                 <div className={styles.messageHeader}>
                   <span className={styles.name}>{msg.name}</span>
-                  {msg.verified && <FaCheckCircle className={styles.verifiedIcon} />}
+                  {msg.verified && <CheckCircle className={styles.verifiedIcon} />}
                 </div>
                 <span className={styles.messageText}>{msg.text}</span>
               </div>
