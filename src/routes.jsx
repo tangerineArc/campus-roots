@@ -5,6 +5,7 @@ import EmailVerification from "./components/EmailVerification.jsx";
 import HomePageAlumni from "./components/HomePageAlumni.jsx";
 import HomePageStudents from "./components/HomePageStudents.jsx";
 import LoginPage from "./components/LoginPage.jsx";
+import MessagesPage from "./components/MessagesPage.jsx";
 import ResetPasswordPage from "./components/ResetPasswordPage.jsx";
 import SignupPage from "./components/SignupPage.jsx";
 const routes = [
@@ -43,6 +44,10 @@ const routes = [
   {
     path: "/connections",
     element: <Connections />
+  },
+  {
+    path: "/messages",
+    element: <MessagesPage />
   }
 ];
 

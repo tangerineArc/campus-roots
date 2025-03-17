@@ -1,7 +1,7 @@
-import { FaSearch } from "react-icons/fa";
 import profilePic from "../assets/prashant.png";
 import styles from "../styles/homepage-alumni.module.css"; // Import CSS Module
 import Post from "./Post"; // Import Post Component
+import SearchBar from "./SearchBar";
 import SideBar from "./SideBar"; // Import SideBar Component
 
 const HomePageAlumni = () => {
@@ -14,11 +14,7 @@ const HomePageAlumni = () => {
       {/* Main Content */}
       <div className={styles.content}>
 
-        {/* SEARCH BAR */}
-        <div className={styles.searchContainer}>
-          <input type="text" placeholder="Search..." className={styles.searchBar} />
-          <FaSearch className={styles.searchIcon} />
-        </div>
+        <SearchBar />
 
         {/* Donation Banner */}
         <div className={styles.donationBanner}>

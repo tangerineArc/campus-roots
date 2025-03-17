@@ -26,7 +26,7 @@ export default function SideBar() {
         <NavLink to="/connections" className={({ isActive }) => isActive ? styles.active : ""}>
           <FaUserFriends /> Connections
         </NavLink>
-        <NavLink to="/" className={({ isActive }) => isActive ? styles.active : ""}>
+        <NavLink to="/messages" className={({ isActive }) => isActive ? styles.active : ""}>
           <FaEnvelope /> Messages
         </NavLink>
         <NavLink to="/" className={({ isActive }) => isActive ? styles.active : ""}>

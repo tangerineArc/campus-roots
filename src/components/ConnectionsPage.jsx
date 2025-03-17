@@ -1,6 +1,6 @@
-import { FaSearch } from "react-icons/fa";
 import img from "../assets/prashant.png";
 import styles from "../styles/connections.module.css";
+import SearchBar from "./SearchBar.jsx";
 import SideBar from "./SideBar.jsx";
 
 const connections = [
@@ -34,10 +34,7 @@ const Connections = () => {
   return (
     <div className={styles.container}>
       <SideBar></SideBar>
-      <div className={styles.searchContainer}>
-        <input type="text" placeholder="Search..." className={styles.searchBar} />
-        <FaSearch className={styles.searchIcon} />
-      </div>
+      <SearchBar />
       <div className={styles.connectionList}>
         {connections.map((connection, index) => (
           <div key={index} className={styles.connectionCard}>

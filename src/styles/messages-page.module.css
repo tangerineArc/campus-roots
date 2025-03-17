@@ -1,0 +1,118 @@
+/* Container Layout */
+.container {
+  display: flex;
+  height: 100vh;
+  width: 82rem;
+  float: right;
+  background: #f5f5f5;
+}
+
+/* Main Content Area */
+.mainContent {
+  flex: 1;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  max-width: 80rem;
+  margin: 0 auto;
+}
+
+/* Messages List */
+.messagesList {
+  margin-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Message Card */
+.messageCard {
+  background: #e8e8e8;
+  padding: 1.2rem;
+  border-radius: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: transform 0.2s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.messageCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Profile Image */
+.profileImage {
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* Message Details */
+.messageDetails {
+  flex-grow: 1;
+  margin-left: 1rem;
+}
+
+.messageHeader {
+  display: flex;
+  align-items: center;
+}
+
+.name {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #333;
+  margin-right: 0.4rem;
+}
+
+.verifiedIcon {
+  color: #6c42f5;
+  font-size: 1rem;
+}
+
+/* Message Text */
+.messageText {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+/* Time & Unread Messages */
+.messageMeta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.time {
+  font-size: 0.9rem;
+  color: #888;
+}
+
+.unreadCount {
+  background: black;
+  color: white;
+  font-size: 0.9rem;
+  font-weight: bold;
+  padding: 0.3rem 0.6rem;
+  border-radius: 50%;
+  margin-top: 0.5rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .mainContent {
+    padding: 1rem;
+  }
+
+  .messageCard {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .messageMeta {
+    align-items: flex-start;
+    margin-top: 0.5rem;
+  }
+}
