@@ -1,4 +1,11 @@
 /* Post Styling */
+
+.postContainer {
+    display: flex;
+    flex-direction: column;
+    margin: 2rem 0rem;
+}
+
 .post {
     background: white;
     padding: 20px;
@@ -66,10 +73,10 @@
 /* Post Actions */
 .postActions {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     padding: 12px 0 5px;
     border-top: 1px solid #eee;
-    margin-top: 10px;
+    margin-top: 0.6rem;
 }
 
 /* Action Buttons */

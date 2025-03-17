@@ -1,4 +1,3 @@
-import React from "react";
 import SideBar from "./SideBar"; // Import SideBar Component
 import Post from "./Post"; // Import Post Component
 import styles from "../styles/homepage-alumni.module.css"; // Import CSS Module
@@ -22,7 +21,7 @@ const HomePageAlumni = () => {
         {/* Donation Banner */}
         <div className={styles.donationBanner}>
           <p>
-            Your alma mater shaped your journey—now, you can shape someone else's.A small gift can fund 
+            Your alma mater shaped your journey—now, you can shape someone else's. A small gift can fund 
           </p>
           <p>scholarships, enhance research, and create
           opportunities for the next generation of IIT Patna graduates.</p>
