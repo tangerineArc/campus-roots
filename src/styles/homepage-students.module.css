@@ -8,13 +8,13 @@
     justify-content: center;
 }
 
-
 /* Main content */
 .feed {
     flex: 1;
-    padding: 20px;
-    margin-left: 270px;
-    width: calc(100% - 270px);
+    padding: 2rem;
+    margin-left: 15rem;
+    /* Adjusted for sidebar */
+    width: calc(100% - 15rem);
 }
 
 /* Search Bar Container */
@@ -23,30 +23,20 @@
     display: flex;
     align-items: center;
     background: rgba(255, 255, 255, 0.8);
-    /* Subtle transparency for glass effect */
     backdrop-filter: blur(10px);
     border-radius: 30px;
     border: 1px solid rgba(200, 200, 200, 0.5);
     padding: 12px 18px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease-in-out;
+    position: relative;
 }
 
-/* Hover Effect */
 .searchContainer:hover {
     box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
     transform: scale(1.02);
 }
 
-/* Search Icon */
-.searchIcon {
-    font-size: 20px;
-    color: #888;
-    margin-right: 12px;
-    transition: color 0.3s ease-in-out;
-}
-
-/* Search Input */
 .searchBar {
     width: 100%;
     border: none;
@@ -54,24 +44,41 @@
     font-size: 16px;
     color: #333;
     background: transparent;
+    padding-right: 35px;
+    /* Space for the icon */
     transition: all 0.3s ease-in-out;
 }
 
+.searchBar:focus {
+    color: #000;
+}
+
+.searchIcon {
+    font-size: 18px;
+    color: #888;
+    position: absolute;
+    right: 15px;
+    cursor: pointer;
+    transition: color 0.3s ease-in-out;
+}
+
+.searchContainer:focus-within .searchIcon {
+    color: #6c42f5;
+}
+
 /* Notifications */
-/* Notifications Container */
 .notifications {
     display: flex;
-    gap: 15px;
-    margin: 20px 0;
+    gap: 1.5rem;
+    margin: 2rem 0;
     justify-content: space-between;
     width: 100%;
 }
 
-/* Notification Card */
 .notificationCard {
     background: white;
-    padding: 15px;
-    border-radius: 15px;
+    padding: 1.5rem;
+    border-radius: 1rem;
     flex: 1;
     display: flex;
     align-items: center;
@@ -80,17 +87,15 @@
     transition: transform 0.2s ease-in-out, box-shadow 0.3s ease-in-out;
 }
 
-/* Hover Effect for Cards */
 .notificationCard:hover {
     transform: translateY(-2px);
     box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.12);
 }
 
-/* Icon Container */
 .iconContainer {
     background: linear-gradient(135deg, #d1c4ff, #f3e8ff);
-    width: 50px;
-    height: 50px;
+    width: 3rem;
+    height: 3rem;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -99,26 +104,23 @@
     transition: background 0.3s ease-in-out;
 }
 
-/* Bell Icon */
 .notificationIcon {
-    font-size: 22px;
+    font-size: 1.5rem;
     color: #6c42f5;
     transition: transform 0.2s ease-in-out;
 }
 
-/* Bell Icon Hover Effect */
 .iconContainer:hover .notificationIcon {
     transform: scale(1.1);
 }
 
-/* Notification Text */
 .notificationContent {
     flex-grow: 1;
-    padding: 0 12px;
+    padding: 0 1rem;
 }
 
 .notificationContent span {
-    font-size: 14px;
+    font-size: 0.9rem;
     color: #666;
     font-weight: 500;
 }
@@ -126,19 +128,38 @@
 .notificationContent p {
     margin: 0;
     font-weight: bold;
-    font-size: 16px;
+    font-size: 1rem;
     color: #333;
 }
 
-/* More Options (•••) */
 .moreOptions {
-    font-size: 22px;
+    font-size: 1.4rem;
     color: #888;
     cursor: pointer;
     transition: color 0.2s ease-in-out;
 }
 
-/* Hover Effect for More Options */
 .moreOptions:hover {
     color: #6c42f5;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .feed {
+        margin-left: 12rem;
+        width: calc(100% - 12rem);
+    }
+
+    .notifications {
+        flex-direction: column;
+        gap: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .feed {
+        margin-left: 0;
+        width: 100%;
+        padding: 1rem;
+    }
 }

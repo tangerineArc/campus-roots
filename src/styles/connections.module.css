@@ -1,9 +1,12 @@
+/* Main Content (Right Section) */
 .container {
   flex: 1;
   padding: 2rem;
-  width: 82rem;
-  float: right;
   font-family: 'Inter';
+  width: calc(100% - 15rem);
+  margin-left: 15rem;
+  /* Leaves space for sidebar */
+  background-color: #f5f5f5;
 }
 
 /* Search Bar Container */
@@ -12,22 +15,20 @@
   display: flex;
   align-items: center;
   background: rgba(255, 255, 255, 0.8);
-  /* Subtle transparency for glass effect */
   backdrop-filter: blur(10px);
   border-radius: 30px;
   border: 1px solid rgba(200, 200, 200, 0.5);
   padding: 12px 18px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease-in-out;
+  position: relative;
 }
 
-/* Hover Effect */
 .searchContainer:hover {
   box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
   transform: scale(1.02);
 }
 
-/* Search Input */
 .searchBar {
   width: 100%;
   border: none;
@@ -35,13 +36,28 @@
   font-size: 16px;
   color: #333;
   background: transparent;
+  padding-right: 35px;
+  /* Space for the icon */
   transition: all 0.3s ease-in-out;
 }
 
-/* Input Focus Effect */
 .searchBar:focus {
   color: #000;
 }
+
+.searchIcon {
+  font-size: 18px;
+  color: #888;
+  position: absolute;
+  right: 15px;
+  cursor: pointer;
+  transition: color 0.3s ease-in-out;
+}
+
+.searchContainer:focus-within .searchIcon {
+  color: #6c42f5;
+}
+
 
 .connectionList {
   display: flex;
@@ -98,6 +114,11 @@
 
 /* Responsive Design */
 @media (max-width: 768px) {
+  .container {
+    margin-left: 12rem;
+    width: calc(100% - 12rem);
+  }
+
   .connectionCard {
     flex-direction: column;
     text-align: center;
@@ -111,5 +132,13 @@
 
   .messageButton {
     width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    margin-left: 0;
+    width: 100%;
+    padding: 1rem;
   }
 }

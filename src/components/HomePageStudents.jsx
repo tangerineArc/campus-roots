@@ -1,3 +1,4 @@
+import { FaSearch } from "react-icons/fa";
 import styles from "../styles/homepage-students.module.css";
 import Post from "./Post";
 import SideBar from "./SideBar";
@@ -15,6 +16,7 @@ const HomePageStudents = () => {
         {/* SEARCH BAR */}
         <div className={styles.searchContainer}>
           <input type="text" placeholder="Search..." className={styles.searchBar} />
+          <FaSearch className={styles.searchIcon} />
         </div>
 
         {/* NOTIFICATION SECTION */}
