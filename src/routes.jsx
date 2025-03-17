@@ -1,5 +1,6 @@
 import App from "./App.jsx";
 import ChangePassword from "./components/ChangePassword.jsx";
+import Connections from "./components/ConnectionsPage.jsx";
 import EmailVerification from "./components/EmailVerification.jsx";
 import HomePageAlumni from "./components/HomePageAlumni.jsx";
 import HomePageStudents from "./components/HomePageStudents.jsx";
@@ -40,12 +41,8 @@ const routes = [
     element: <ChangePassword />,
   },
   {
-    path: "/home-page-alumnus",
-    element: <HomePageAlumni />
-  },
-  {
-    path: "/home-page-student",
-    element: <HomePageStudents />
+    path: "/connections",
+    element: <Connections />
   }
 ];
 

@@ -6,20 +6,41 @@ import {
   FaUser,
   FaUserFriends
 } from "react-icons/fa";
+import { NavLink, useLocation } from "react-router-dom";
 import styles from "../styles/side-bar.module.css";
 
 export default function SideBar() {
-  return (<aside className={styles.sidebar}>
-    <div className={styles.logo}>SAAR</div>
-    <nav className={styles.menu}>
-      <a href="#" className={styles.active}><FaHome /> Feed</a>
-      <a href="#"><FaUserFriends /> Connections</a>
-      <a href="#"><FaEnvelope /> Messages</a>
-      <a href="#"><FaUser /> Profile</a>
-    </nav>
-    <div className={styles.bottomMenu}>
-      <a href="#"><FaCog /> Settings</a>
-      <a href="/" className={styles.logout}><FaSignOutAlt className={styles.logoutIcon} /> <div className={styles.logoutText}>Logout</div></a>
-    </div>
-  </aside>);
+  const location = useLocation();
+  const isFeedActive = location.pathname === "/" || location.pathname === "/HomePageStudents";
+
+  return (
+    <aside className={styles.sidebar}>
+      <div className={styles.logo}>SAAR</div>
+      <nav className={styles.menu}>
+        <NavLink
+          to="/HomePageStudents"
+          className={isFeedActive ? styles.active : ""}
+        >
+          <FaHome /> Feed
+        </NavLink>
+        <NavLink to="/connections" className={({ isActive }) => isActive ? styles.active : ""}>
+          <FaUserFriends /> Connections
+        </NavLink>
+        <NavLink to="/" className={({ isActive }) => isActive ? styles.active : ""}>
+          <FaEnvelope /> Messages
+        </NavLink>
+        <NavLink to="/" className={({ isActive }) => isActive ? styles.active : ""}>
+          <FaUser /> Profile
+        </NavLink>
+      </nav>
+      <div className={styles.bottomMenu}>
+        <NavLink to="/">
+          <FaCog /> Settings
+        </NavLink>
+        <NavLink to="/" className={styles.logout}>
+          <FaSignOutAlt className={styles.logoutIcon} /> <div className={styles.logoutText}>Logout</div>
+        </NavLink>
+      </div>
+    </aside>
+  );
 }
