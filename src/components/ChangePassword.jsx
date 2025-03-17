@@ -32,7 +32,6 @@ const ChangePassword = () => {
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
           />
-
           <button type="submit" className={styles.button} disabled={!password || password !== confirmPassword}>
             Update Password
           </button>

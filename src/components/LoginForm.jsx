@@ -39,11 +39,9 @@ export default function LoginForm() {
             )}
           </span>
         </div>
-
-        <button type="submit" className={styles.loginBtn}>
-          Log In
-        </button>
-
+          <button type="submit" className={styles.loginBtn}>
+            Log In
+          </button>
         <Link to="/reset-password" className={styles.forgotPassword}>
           Forgot Password
         </Link>
