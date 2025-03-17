@@ -1,11 +1,11 @@
 import App from "./App.jsx";
+import ChangePassword from "./components/ChangePassword.jsx";
+import EmailVerification from "./components/EmailVerification.jsx";
+import HomePageAlumni from "./components/HomePageAlumni.jsx";
+import HomePageStudents from "./components/HomePageStudents.jsx";
 import LoginPage from "./components/LoginPage.jsx";
 import ResetPasswordPage from "./components/ResetPasswordPage.jsx";
 import SignupPage from "./components/SignupPage.jsx";
-import ChangePassword from "./components/ChangePassword.jsx";
-import EmailVerification from "./components/EmailVerification.jsx";
-import HomePageStudents from "./components/HomePageStudents.jsx";
-import HomePageAlumni from "./components/HomePageAlumni.jsx";
 const routes = [
   {
     path: "/",
@@ -38,6 +38,14 @@ const routes = [
   {
     path: "/ChangePassword",
     element: <ChangePassword />,
+  },
+  {
+    path: "/home-page-alumnus",
+    element: <HomePageAlumni />
+  },
+  {
+    path: "/home-page-student",
+    element: <HomePageStudents />
   }
 ];
 

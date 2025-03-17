@@ -1,5 +1,6 @@
-// import LoginPage from "./components/LoginPage.jsx";
-import HomePageStudents from "./components/HomePageStudents.jsx";
+import LoginPage from "./components/LoginPage.jsx";
+
 export default function App() {
-  return <HomePageStudents />;
+  return <LoginPage />;
+
 }

@@ -65,5 +65,13 @@
 
 /* Logout Style */
 .logout {
-    color: red;
+    color: #F13E3E;
+}
+
+.logoutText {
+    color: #F13E3E;
+}
+
+.logoutIcon {
+    color: #F13E3E;
 }

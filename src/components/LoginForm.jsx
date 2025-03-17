@@ -39,9 +39,11 @@ export default function LoginForm() {
             )}
           </span>
         </div>
+        <Link to="/home-page-student">
           <button type="submit" className={styles.loginBtn}>
             Log In
           </button>
+        </Link>
         <Link to="/reset-password" className={styles.forgotPassword}>
           Forgot Password
         </Link>
