@@ -1,5 +1,6 @@
 import styles from "../styles/homepage-students.module.css";
 import Post from "./Post";
+import SearchBar from "./SearchBar";
 import SideBar from "./SideBar";
 
 const HomePageStudents = () => {
@@ -12,10 +13,7 @@ const HomePageStudents = () => {
 
       <main className={styles.feed}>
 
-        {/* SEARCH BAR */}
-        <div className={styles.searchContainer}>
-          <input type="text" placeholder="Search..." className={styles.searchBar} />
-        </div>
+        <SearchBar />
 
         {/* NOTIFICATION SECTION */}
         {/* <div className={styles.notifications}>
