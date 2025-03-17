@@ -39,7 +39,7 @@ export default function LoginForm() {
             )}
           </span>
         </div>
-        <Link to="/home-page-student">
+        <Link to="/HomePageStudents">
           <button type="submit" className={styles.loginBtn}>
             Log In
           </button>
