@@ -34,7 +34,7 @@ export default function SideBar() {
         </NavLink>
       </nav>
       <div className={styles.bottomMenu}>
-        <NavLink to="/">
+        <NavLink to="/settings" className={({ isActive }) => isActive ? styles.active : ""}>
           <Settings /> Settings
         </NavLink>
         <NavLink to="/" className={styles.logout}>

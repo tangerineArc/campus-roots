@@ -48,7 +48,9 @@
 
 /* Hover & Active Effects */
 .menu a:hover,
-.menu .active {
+.menu .active,
+.bottomMenu a:hover,
+.bottomMenu .active {
     color: #6a0dad !important;
     background: none !important;
 }
