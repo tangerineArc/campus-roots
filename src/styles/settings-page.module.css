@@ -1,0 +1,76 @@
+/* Container for the entire page */
+.container {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  background-color: #f9f9f9;
+  width: 82rem;
+  float: right;
+}
+
+/* Main content area */
+.mainContent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+}
+
+/* Settings container */
+.settingsContainer {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Individual setting option */
+.settingOption {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #e0e0e0;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.settingOption:hover {
+  background-color: #d6d6d6;
+}
+
+/* Arrow and dropdown styling */
+.arrow,
+.dropdown {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .mainContent {
+    padding: 1.5rem;
+  }
+
+  .settingOption {
+    font-size: 1.1rem;
+    padding: 0.9rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+  }
+
+  .mainContent {
+    padding: 1rem;
+  }
+
+  .settingOption {
+    font-size: 1rem;
+    padding: 0.8rem;
+  }
+}
