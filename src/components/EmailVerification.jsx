@@ -1,11 +1,12 @@
 import styles from "../styles/email-verification.module.css";
-import NavBar from "./NavigationBar";
+
+import Navbar from "./Navbar.jsx";
 
 const EmailVerification = () => {
   return (
     <div className={styles.container}>
       <div className={styles.background}></div>
-      <NavBar></NavBar>
+      <Navbar />
       <div className={styles.remainingBody}>
         <div className={styles.card}>
           <h2 className={styles.title}>CHECK YOUR EMAIL</h2>

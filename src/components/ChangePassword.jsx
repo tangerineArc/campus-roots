@@ -1,13 +1,14 @@
 import { useState } from "react";
 import styles from "../styles/change-password.module.css";
-import NavBar from "./NavigationBar";
+
+import Navbar from "./Navbar.jsx";
 
 const ChangePassword = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
   return (<>
-    <NavBar></NavBar>
+    <Navbar />
     <div className={styles.container}>
       <div className={styles.card}>
         <h2 className={styles.title}>Set a new password</h2>
