@@ -19,18 +19,25 @@
   margin-left: 0.3rem;
 }
 
-.loginForm {
+.form {
   display: flex;
   flex-direction: column;
-  gap:0.5rem;
+  gap: 0.5rem;
 }
 
-label {
+.label {
   color: #6c757d;
   font-size: 0.9rem;
 
   width: fit-content;
   margin-left: 0.3rem;
+}
+
+.labelContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
 }
 
 .inputField {
@@ -45,30 +52,25 @@ label {
   color: inherit;
 }
 
-.passwordWrapper {
-  position: relative;
-}
-
 .togglePassword {
-  position: absolute;
-  right: 0.5rem;
-  bottom: calc(100% + 0.5rem);
-
   cursor: pointer;
+  margin-right: 0.4rem;
 
   display: flex;
   align-items: center;
   gap: 0.3rem;
 
-  font-size: 0.8rem;
   color: #6c757d;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1ch;
 }
 
 .loginBtn {
   width: 100%;
   padding: 0.7rem;
   margin-top: 0.5rem;
-  background-color: #343a40;
+  background-color: #02010a;
   border: none;
   border-radius: 5px;
 
@@ -80,7 +82,8 @@ label {
 }
 
 .loginBtn:hover {
-  background-color: #212529;
+  background-color: #702dff;
+  transition: background-color 0.2s;
 }
 
 .loginBtn:disabled {
