@@ -1,6 +1,5 @@
-import LoginPage from "./components/LoginPage.jsx";
+import SignInPage from "./pages/SignInPage.jsx";
 
 export default function App() {
-  return <LoginPage />;
-
+  return <SignInPage />;
 }

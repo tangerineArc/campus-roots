@@ -4,23 +4,26 @@ import Connections from "./components/ConnectionsPage.jsx";
 import EmailVerification from "./components/EmailVerification.jsx";
 import HomePageAlumni from "./components/HomePageAlumni.jsx";
 import HomePageStudents from "./components/HomePageStudents.jsx";
-import LoginPage from "./components/LoginPage.jsx";
+
+import SignInPage from "./pages/SignInPage.jsx";
+import SignUpPage from "./pages/SignUpPage.jsx";
+import ResetPasswordPage from "./pages/ResetPasswordPage.jsx";
+
 import MessagesPage from "./components/MessagesPage.jsx";
-import ResetPasswordPage from "./components/ResetPasswordPage.jsx";
 import SettingsPage from "./components/SettingsPage.jsx";
-import SignupPage from "./components/SignupPage.jsx";
+
 const routes = [
   {
     path: "/",
     element: <App />,
   },
   {
-    path: "/login",
-    element: <LoginPage />,
+    path: "/sign-in",
+    element: <SignInPage />,
   },
   {
-    path: "/signup/:category",
-    element: <SignupPage />,
+    path: "/sign-up/:category",
+    element: <SignUpPage />,
   },
   {
     path: "/reset-password",
@@ -44,16 +47,16 @@ const routes = [
   },
   {
     path: "/connections",
-    element: <Connections />
+    element: <Connections />,
   },
   {
     path: "/messages",
-    element: <MessagesPage />
+    element: <MessagesPage />,
   },
   {
     path: "/settings",
-    element: <SettingsPage />
-  }
+    element: <SettingsPage />,
+  },
 ];
 
 export default routes;
