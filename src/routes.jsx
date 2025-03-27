@@ -1,7 +1,6 @@
 import App from "./App.jsx";
-import ChangePassword from "./components/ChangePassword.jsx";
+
 import Connections from "./components/ConnectionsPage.jsx";
-import EmailVerification from "./components/EmailVerification.jsx";
 import HomePageAlumni from "./components/HomePageAlumni.jsx";
 import HomePageStudents from "./components/HomePageStudents.jsx";
 
@@ -26,12 +25,8 @@ const routes = [
     element: <SignUpPage />,
   },
   {
-    path: "/reset-password",
+    path: "/reset-password/:category",
     element: <ResetPasswordPage />,
-  },
-  {
-    path: "/EmailVerification",
-    element: <EmailVerification />,
   },
   {
     path: "/HomePageStudents",
@@ -40,10 +35,6 @@ const routes = [
   {
     path: "/HomePageAlumni",
     element: <HomePageAlumni />,
-  },
-  {
-    path: "/ChangePassword",
-    element: <ChangePassword />,
   },
   {
     path: "/connections",
