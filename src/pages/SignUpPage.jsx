@@ -22,7 +22,8 @@ export default function SignUpPage() {
       <main className={styles.main}>
         <div className={styles.card}>
           <h2 className={styles.title}>
-            Sign up as {category === "alumnus" ? "Alumnus" : "Student"}
+            Sign up as {category === "alumnus" && "Alumnus"}
+            {category === "student" && "Student"}
           </h2>
 
           <form className={styles.form}>
