@@ -26,10 +26,7 @@ export default function SignInForm() {
           <label htmlFor="password" className={styles.label}>
             Password
           </label>
-          <span
-            className={styles.togglePassword}
-            onClick={togglePassword}
-          >
+          <span className={styles.togglePassword} onClick={togglePassword}>
             {showPassword ? <EyeOff size="18" /> : <Eye size="18" />}
             {showPassword ? "hide" : "view"}
           </span>
@@ -41,13 +38,14 @@ export default function SignInForm() {
           required
         />
 
-        <Link to="/HomePageStudents">
-          <button type="submit" className={styles.loginBtn}>
-            Log In
-          </button>
-        </Link>
+        <button type="button" className={styles.loginBtn}>
+          Log In
+        </button>
 
-        <Link to="/reset-password" className={styles.forgotPassword}>
+        <Link
+          to="/reset-password/email-input"
+          className={styles.forgotPassword}
+        >
           Forgot Password
         </Link>
       </form>
