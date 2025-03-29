@@ -1,18 +1,31 @@
-.page {
+/* General styles */
+.background {
     font-family: 'Inter', sans-serif;
     margin: 0;
     padding: 0;
     background: #f5f5f5;
+    min-height: 100vh;
     display: flex;
-    justify-content: center;
+    position: relative;
 }
 
-.content {
+/* Main content */
+.mainContent {
     flex: 1;
-    padding: 2rem;
-    margin-left: 15rem;
-    /* Adjusted for sidebar */
-    width: calc(100% - 15rem);
+    padding: 1rem;
+    margin-left: 250px;
+    /* Width of the sidebar */
+    width: calc(100% - 250px);
+    transition: all 0.3s ease;
+}
+
+.searchWrapper {
+    position: sticky;
+    top: 1rem;
+    z-index: 10;
+    padding: 0 1rem;
+    max-width: 800px;
+    margin: 0 auto;
 }
 
 /* Search Bar Container */
@@ -21,7 +34,6 @@
     display: flex;
     align-items: center;
     background: rgba(255, 255, 255, 0.8);
-    /* Subtle transparency for glass effect */
     backdrop-filter: blur(10px);
     border-radius: 30px;
     border: 1px solid rgba(200, 200, 200, 0.5);
@@ -30,21 +42,11 @@
     transition: all 0.3s ease-in-out;
 }
 
-/* Hover Effect */
 .searchContainer:hover {
     box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
     transform: scale(1.02);
 }
 
-/* Search Icon */
-.searchIcon {
-    font-size: 20px;
-    color: #888;
-    margin-right: 12px;
-    transition: color 0.3s ease-in-out;
-}
-
-/* Search Input */
 .searchBar {
     width: 100%;
     border: none;
@@ -55,17 +57,9 @@
     transition: all 0.3s ease-in-out;
 }
 
-/* Input Focus Effect */
 .searchBar:focus {
     color: #000;
 }
-
-/* Search Container Focus Effect */
-.searchContainer:focus-within .searchIcon {
-    color: #6c42f5;
-    /* Highlight search icon on focus */
-}
-
 
 /* Donation Banner */
 .donationBanner {
@@ -77,22 +71,21 @@
     color: white;
     padding: 25px;
     border-radius: 15px;
-    margin: 20px 0;
+    margin: 20px auto;
     font-size: 18px;
     font-weight: 600;
     position: relative;
     width: 100%;
+    max-width: 800px;
     box-shadow: 0px 5px 15px rgba(108, 66, 245, 0.3);
     overflow: hidden;
     transition: transform 0.2s ease-in-out;
 }
 
-/* Subtle hover effect */
 .donationBanner:hover {
     transform: scale(1.02);
 }
 
-/* Animated glowing stars in the background */
 .donationBanner::after {
     content: "";
     position: absolute;
@@ -107,7 +100,6 @@
     animation: twinkle 1.5s infinite alternate ease-in-out;
 }
 
-/* Twinkling animation for stars */
 @keyframes twinkle {
     0% {
         opacity: 0.3;
@@ -137,32 +129,9 @@
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
 }
 
-/* Hover effect - subtle glowing */
 .donateButton:hover {
     background: #222;
     box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.4);
-}
-
-/* Circular play icon inside the button */
-.donateButton i {
-    background: white;
-    color: black;
-    border-radius: 50%;
-    width: 24px;
-    height: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-left: 8px;
-    font-size: 14px;
-    transition: all 0.3s ease-in-out;
-}
-
-/* Play icon hover effect */
-.donateButton:hover i {
-    background: #ffcc00;
-    color: black;
-    transform: rotate(90deg);
 }
 
 /* Start a Post Container */
@@ -176,20 +145,18 @@
     box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.08);
     transition: all 0.3s ease-in-out;
     border: 1px solid rgba(200, 200, 200, 0.3);
-    margin-bottom: 20px;
-    /* Add space between "Start a Post" and posts */
+    margin: 20px auto;
+    width: 100%;
+    max-width: 800px;
 }
 
-/* Hover Effect */
 .startPost:hover {
     box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.12);
     transform: scale(1.02);
 }
 
-/* User Avatar */
 .avatar {
     width: 40px;
-    /* Slightly smaller avatar */
     height: 40px;
     border-radius: 50%;
     margin-right: 10px;
@@ -197,18 +164,14 @@
     transition: transform 0.3s ease-in-out;
 }
 
-/* Avatar Hover Effect */
 .avatar:hover {
     transform: scale(1.1);
 }
 
-/* Post Input Field */
 .postInput {
     flex: 1;
     padding: 10px 14px;
-    /* Reduced padding to shrink height */
     border-radius: 25px;
-    /* Adjusted for a sleeker look */
     border: 1px solid #ddd;
     outline: none;
     font-size: 15px;
@@ -217,7 +180,6 @@
     transition: all 0.3s ease-in-out;
 }
 
-/* Input Focus Effect */
 .postInput:focus {
     border-color: #6c42f5;
     background: rgba(255, 255, 255, 0.9);
@@ -225,23 +187,98 @@
     box-shadow: 0px 0px 8px rgba(108, 66, 245, 0.3);
 }
 
+.postContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 1rem;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
 /* Responsive Design */
+@media (max-width: 1024px) {
+    .mainContent {
+        margin-left: 200px;
+        width: calc(100% - 200px);
+    }
+}
+
 @media (max-width: 768px) {
-    .content {
-        margin-left: 12rem;
-        width: calc(100% - 12rem);
+    .mainContent {
+        margin-left: 0;
+        width: 100%;
+        padding: 0.5rem;
+        position: relative;
+        z-index: 1;
     }
 
-    .notifications {
-        flex-direction: column;
+    .searchWrapper {
+        padding: 0 0.5rem;
+        margin-left: 3rem;
+        /* Space for hamburger menu */
+    }
+
+    .postContainer {
+        padding: 0.5rem;
         gap: 1rem;
+    }
+
+    .donationBanner {
+        padding: 20px;
+        font-size: 16px;
+        margin: 20px 0.5rem;
+    }
+
+    .donationBanner::after {
+        width: 120px;
+        height: 80px;
+    }
+
+    .startPost {
+        margin: 20px 0.5rem;
     }
 }
 
 @media (max-width: 480px) {
-    .content {
-        margin-left: 0;
-        width: 100%;
-        padding: 1rem;
+    .mainContent {
+        padding: 0.25rem;
+    }
+
+    .searchWrapper {
+        padding: 0 0.25rem;
+        margin-left: 2.5rem;
+        /* Reduced space for hamburger menu */
+    }
+
+    .postContainer {
+        padding: 0.25rem;
+        gap: 0.75rem;
+    }
+
+    .donationBanner {
+        padding: 15px;
+        font-size: 14px;
+        margin: 20px 0.25rem;
+    }
+
+    .donationBanner::after {
+        width: 100px;
+        height: 60px;
+    }
+
+    .startPost {
+        padding: 10px 12px;
+        margin: 20px 0.25rem;
+    }
+
+    .avatar {
+        width: 35px;
+        height: 35px;
+    }
+
+    .postInput {
+        font-size: 14px;
+        padding: 8px 12px;
     }
 }
