@@ -19,28 +19,28 @@ export default function Sidebar() {
 
       <nav className={styles.menu}>
         <NavLink
-          to="/HomePageStudents"
+          to="/home"
           className={({ isActive }) => (isActive ? styles.active : "")}
         >
-          <Film /> Feed
+          <Film className={styles.icon} /> Feed
         </NavLink>
         <NavLink
           to="/connections"
           className={({ isActive }) => (isActive ? styles.active : "")}
         >
-          <Satellite /> Connections
+          <Satellite className={styles.icon} /> Connections
         </NavLink>
         <NavLink
           to="/messages"
           className={({ isActive }) => (isActive ? styles.active : "")}
         >
-          <MessagesSquare /> Messages
+          <MessagesSquare className={styles.icon} /> Messages
         </NavLink>
         <NavLink
           to="/profile"
           className={({ isActive }) => (isActive ? styles.active : "")}
         >
-          <CircleUserRound /> Profile
+          <CircleUserRound className={styles.icon} /> Profile
         </NavLink>
       </nav>
 
@@ -49,7 +49,7 @@ export default function Sidebar() {
           to="/settings"
           className={({ isActive }) => (isActive ? styles.active : "")}
         >
-          <Settings /> Settings
+          <Settings className={styles.icon} /> Settings
         </NavLink>
         <NavLink to="/" className={styles.logout}>
           <LogOut className={styles.logoutIcon} />

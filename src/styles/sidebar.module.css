@@ -1,5 +1,5 @@
 .sidebar {
-  width: 240px;
+  width: 220px;
   background: #ffffff;
   padding: 1rem 1.5rem;
   height: 100vh;
@@ -10,6 +10,11 @@
   justify-content: space-between;
 
   overflow: auto;
+  flex-shrink: 0;
+}
+
+.icon {
+  flex-shrink: 0;
 }
 
 .menu {
@@ -50,10 +55,9 @@
 }
 
 .logoutIcon {
+  flex-shrink: 0;
   color: #f13e3e;
 }
-
-
 
 /* @media (max-width: 768px) {
   .sidebar {
