@@ -1,13 +1,9 @@
-/* Container Layout */
 .container {
   display: flex;
+
   height: 100vh;
-  width: 82rem;
-  float: right;
-  background: #f5f5f5;
 }
 
-/* Main Content Area */
 .mainContent {
   flex: 1;
   padding: 2rem;
@@ -17,7 +13,6 @@
   margin: 0 auto;
 }
 
-/* Messages List */
 .messagesList {
   margin-top: 1.5rem;
   display: flex;
@@ -26,7 +21,6 @@
   padding-bottom: 1.5rem;
 }
 
-/* Message Card */
 .messageCard {
   background: #e8e8e8;
   padding: 1.2rem;
@@ -43,7 +37,6 @@
   cursor: pointer;
 }
 
-/* Profile Image */
 .profileImage {
   width: 3.5rem;
   height: 3.5rem;
@@ -51,7 +44,6 @@
   object-fit: cover;
 }
 
-/* Message Details */
 .messageDetails {
   flex-grow: 1;
   margin-left: 1rem;
@@ -74,13 +66,11 @@
   font-size: 1rem;
 }
 
-/* Message Text */
 .messageText {
   font-size: 0.9rem;
   color: #666;
 }
 
-/* Time & Unread Messages */
 .messageMeta {
   display: flex;
   flex-direction: column;
@@ -102,7 +92,6 @@
   margin-top: 0.5rem;
 }
 
-/* Responsive Design */
 @media (max-width: 768px) {
   .mainContent {
     padding: 1rem;

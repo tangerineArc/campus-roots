@@ -1,7 +1,8 @@
 import img from "../assets/prashant.png";
-import styles from "../styles/connections.module.css";
 import SearchBar from "./SearchBar.jsx";
-import SideBar from "./SideBar.jsx";
+import SideBar from "./Sidebar.jsx";
+
+import styles from "../styles/connections.module.css";
 
 const connections = [
   {
@@ -30,15 +31,21 @@ const connections = [
   },
 ];
 
-const Connections = () => {
+export default function Connections() {
   return (
     <div className={styles.container}>
-      <SideBar></SideBar>
-      <SearchBar />
+      <SideBar />
+
       <div className={styles.connectionList}>
+        <SearchBar />
+
         {connections.map((connection, index) => (
           <div key={index} className={styles.connectionCard}>
-            <img src={connection.image} alt={connection.name} className={styles.profileImage} />
+            <img
+              src={connection.image}
+              alt={connection.name}
+              className={styles.profileImage}
+            />
             <div className={styles.details}>
               <h3 className={styles.name}>{connection.name}</h3>
               <p className={styles.description}>{connection.description}</p>
@@ -49,6 +56,4 @@ const Connections = () => {
       </div>
     </div>
   );
-};
-
-export default Connections;
+}

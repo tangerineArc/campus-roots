@@ -1,11 +1,12 @@
 import styles from "../styles/settings-page.module.css";
 import SearchBar from "./SearchBar";
-import SideBar from "./SideBar";
+import SideBar from "./Sidebar";
 
 const SettingsPage = () => {
   return (
     <div className={styles.container}>
       <SideBar />
+
       <div className={styles.mainContent}>
         <SearchBar />
         <div className={styles.settingsContainer}>

@@ -1,5 +1,4 @@
-import React from "react";
-import SideBar from "./SideBar"; // Import SideBar Component
+import SideBar from "./Sidebar"; // Import SideBar Component
 import Post from "./Post"; // Import Post Component
 import styles from "../styles/homepage-alumni.module.css"; // Import CSS Module
 import profilePic from "../assets/prashant.png";
@@ -22,7 +21,7 @@ const HomePageAlumni = () => {
         {/* Donation Banner */}
         <div className={styles.donationBanner}>
           <p>
-            Your alma mater shaped your journey—now, you can shape someone else's.A small gift can fund 
+            Your alma mater shaped your journey—now, you can shape someone else&apos;s. A small gift can fund
           </p>
           <p>scholarships, enhance research, and create
           opportunities for the next generation of IIT Patna graduates.</p>
@@ -40,7 +39,7 @@ const HomePageAlumni = () => {
         </div>
 
         {/* POST SECTION */}
-        <div className={styles.post}>  
+        <div className={styles.post}>
           <Post></Post>
           <Post></Post>
           <Post></Post>
