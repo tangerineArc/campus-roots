@@ -1,80 +1,47 @@
-/* Search Bar Container */
-.searchContainer {
-  width: 100%;
-  max-width: 600px;
-  display: flex;
-  align-items: center;
-  background: rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(10px);
-  border-radius: 30px;
-  border: 1px solid rgba(200, 200, 200, 0.5);
-  padding: 12px 18px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease-in-out;
-  margin: 1rem auto;
+.container {
   position: relative;
+  width: clamp(300px, 90%, 500px);
 }
 
-.searchContainer:hover {
-  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
-  transform: scale(1.02);
-}
-
-.searchBar {
-  width: 100%;
+.input {
   border: none;
+  appearance: none;
   outline: none;
-  font-size: 16px;
-  color: #333;
-  background: transparent;
-  padding-right: 35px;
-  transition: all 0.3s ease-in-out;
+  background-color: #f8f9fa;
+  width: 100%;
+  padding: 0.8rem;
+  padding-left: 2.5rem;
+  border-radius: 5px;
+  border-bottom: 3px solid #f4effa;
+
+  font-size: inherit;
+  font-family: inherit;
 }
 
-.searchBar:focus {
-  color: #000;
+.input:focus {
+  border-color: #b333e9;
+  transition: border-color 0.5s;
+
+  & + .icon {
+    stroke: #b333e9;
+    transition: stroke 0.5s;
+  }
 }
 
-.searchIcon {
-  width: 20px;
-  height: 20px;
-  color: #888;
+.input:hover {
+  & + .icon {
+    transform: scale(1.1) translateY(-50%);
+    transition: transform 0.3s;
+  }
+}
+
+.icon {
   position: absolute;
-  right: 15px;
-  cursor: pointer;
-  transition: color 0.3s ease-in-out;
-}
+  stroke: #dc93f6;
+  left: 0.8rem;
+  top: 50%;
+  transform: translateY(-50%);
 
-.searchContainer:focus-within .searchIcon {
-  color: #6c42f5;
-}
-
-/* Responsive styles */
-@media (max-width: 768px) {
-  .searchContainer {
-    max-width: 100%;
-    margin: 0.5rem;
-    padding: 10px 15px;
-  }
-
-  .searchBar {
-    font-size: 14px;
-  }
-}
-
-@media (max-width: 480px) {
-  .searchContainer {
-    margin: 0.5rem;
-    padding: 8px 12px;
-  }
-
-  .searchBar {
-    font-size: 14px;
-  }
-
-  .searchIcon {
-    width: 18px;
-    height: 18px;
-    right: 12px;
-  }
+  width: 1.2rem;
+  height: 1.2rem;
 }

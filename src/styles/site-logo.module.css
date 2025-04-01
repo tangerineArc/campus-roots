@@ -1,0 +1,36 @@
+.logo {
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: #6a0dad;
+  text-transform: uppercase;
+  font-family: "Fugaz One", sans-serif;
+
+  margin-bottom: 1rem;
+
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  transform-origin: left;
+  transform: scale(0.8);
+
+  & > div {
+    display: flex;
+    flex-direction: column;
+
+    & > span:first-of-type {
+      color: #c77dff;
+
+      transform: translate(0.5rem, 0.6rem) scale(1.5);
+    }
+
+    & > span:last-of-type {
+      transform: translate(2.4rem, 0.2rem);
+      z-index: 1;
+    }
+  }
+
+  & > .icon {
+    flex-shrink: 0;
+  }
+}

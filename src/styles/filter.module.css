@@ -1,0 +1,48 @@
+.container {
+  display: flex;
+  gap: 0.3rem;
+
+  background-color: #f4effa;
+  border-radius: 5px;
+  padding: 0.3rem;
+}
+
+.item {
+  appearance: none;
+  border: none;
+  outline-color: #6247aa;
+  background-color: #f8f9fa;
+  background-color: transparent;
+  padding: 0.5rem;
+  border-radius: 5px;
+  width: 5rem;
+
+  font-size: 0.9rem;
+  font-family: inherit;
+  color: #6818a5;
+  color: grey;
+  text-transform: capitalize;
+
+  cursor: pointer;
+}
+
+.selected {
+  background-color: #f8f9fa;
+  animation: selection 0.3s;
+}
+
+@keyframes selection {
+  0% {
+    background-color: transparent;
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(0.8);
+  }
+
+  100% {
+    background-color: #f8f9fa;
+    transform: scale(1);
+  }
+}
