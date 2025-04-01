@@ -2,8 +2,8 @@ import App from "./App.jsx";
 
 import Connections from "./components/ConnectionsPage.jsx";
 import HomePageAlumni from "./components/HomePageAlumni.jsx";
-import HomePageStudents from "./components/HomePageStudents.jsx";
 
+import HomePage from "./pages/HomePage.jsx";
 import SignInPage from "./pages/SignInPage.jsx";
 import SignUpPage from "./pages/SignUpPage.jsx";
 import ResetPasswordPage from "./pages/ResetPasswordPage.jsx";
@@ -29,8 +29,8 @@ const routes = [
     element: <ResetPasswordPage />,
   },
   {
-    path: "/HomePageStudents",
-    element: <HomePageStudents />,
+    path: "/home",
+    element: <HomePage />,
   },
   {
     path: "/HomePageAlumni",
