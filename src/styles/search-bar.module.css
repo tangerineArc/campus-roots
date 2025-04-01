@@ -1,5 +1,6 @@
 .container {
   position: relative;
+  width: clamp(300px, 90%, 500px);
 }
 
 .input {
@@ -7,7 +8,7 @@
   appearance: none;
   outline: none;
   background-color: #f8f9fa;
-  width: clamp(300px, 90vw, 500px);
+  width: 100%;
   padding: 0.8rem;
   padding-left: 2.5rem;
   border-radius: 5px;
