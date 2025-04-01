@@ -1,6 +1,6 @@
 import img from "../assets/prashant.png";
 import SearchBar from "./SearchBar.jsx";
-import SideBar from "./Sidebar.jsx";
+import Sidebar from "./Sidebar.jsx";
 
 import styles from "../styles/connections.module.css";
 
@@ -34,7 +34,7 @@ const connections = [
 export default function Connections() {
   return (
     <div className={styles.container}>
-      <SideBar />
+      <Sidebar />
 
       <div className={styles.connectionList}>
         <SearchBar />
