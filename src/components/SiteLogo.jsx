@@ -5,7 +5,7 @@ import styles from "../styles/site-logo.module.css";
 export default function SiteLogo() {
   return (
     <div className={styles.logo}>
-      <Sprout size={64} strokeWidth={1.2} className="icon" />
+      <Sprout size={64} strokeWidth={1.2} className={styles.icon} />
       <div>
         <span>Campus</span>
         <span>Roots</span>
