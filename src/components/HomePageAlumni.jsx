@@ -1,53 +1,68 @@
-import SideBar from "./Sidebar.jsx";
-import Post from "./Post";
-import styles from "../styles/homepage-alumni.module.css";
-import profilePic from "../assets/prashant.png";
-import Popup from 'reactjs-popup';
-import { useState } from 'react';
+import { useState } from "react";
+import Popup from "reactjs-popup";
 
-const HomePageAlumni = () => {
+import Filter from "./Filter.jsx";
+import Post from "./Post.jsx";
+import Sidebar from "./Sidebar.jsx";
+import SearchBar from "./SearchBar.jsx";
+import SecondarySidebar from "./SecondarySidebar.jsx";
+
+import profilePic from "../assets/prashant.png";
+
+import posts from "../data/posts-data.js";
+
+import styles from "../styles/homepage-alumni.module.css";
+
+export default function HomePageAlumni() {
   const [isPopupOpen, setPopupOpen] = useState(false);
 
   return (
-    <div className={styles.background}>
-      <SideBar />
-      <div className={styles.mainContent}>
-        <div className={styles.searchWrapper}>
-          <div className={styles.searchContainer}>
-            <input type="text" placeholder="Search..." className={styles.searchBar} />
+    <div className={styles.container}>
+      <Sidebar currSelection="feed" />
+
+      <main className={styles.main}>
+        <nav className={styles.nav}>
+          <SearchBar />
+          <div>
+            <Filter items={["top", "recent", "relevant"]} />
           </div>
-        </div>
+        </nav>
 
         <div className={styles.donationBanner}>
           <p>
-            Your alma mater shaped your journey—now, you can shape someone else&apos;s. A small gift can fund
+            Your alma mater shaped your journey—now, you can shape someone
+            else&apos;s. A small gift can fund
           </p>
-          <p>scholarships, enhance research, and create
-            opportunities for the next generation of IIT Patna graduates.</p>
+          <p>
+            scholarships, enhance research, and create opportunities for the
+            next generation of IIT Patna graduates.
+          </p>
           <button className={styles.donateButton}>Donate Now →</button>
         </div>
 
-        {/* POST BUTTON */}
         <div className={styles.startPost}>
-          <img
-            src={profilePic}
-            alt="User Avatar"
-            className={styles.avatar}
-          />
-          <button className={styles.postInput} onClick={() => setPopupOpen(true)}>
+          <img src={profilePic} alt="User Avatar" className={styles.avatar} />
+          <button
+            className={styles.postInput}
+            onClick={() => setPopupOpen(true)}
+          >
             Start a Post...
           </button>
         </div>
 
-        {/* POST POPUP */}
-
         <Popup open={isPopupOpen} onClose={() => setPopupOpen(false)} modal>
           <div className={styles.overlay}>
             <div className={styles.popupContent}>
-              <button className={styles.closeButton} onClick={() => setPopupOpen(false)}>
-                <span style={{ color: 'black' }}>✖</span>
+              <button
+                className={styles.closeButton}
+                onClick={() => setPopupOpen(false)}
+              >
+                <span style={{ color: "black" }}>✖</span>
               </button>
-              <textarea className={styles.textInput} placeholder="What's on your mind?" />
+              <textarea
+                className={styles.textInput}
+                placeholder="What's on your mind?"
+              />
               <label className={styles.attachButton}>
                 📎 Attach
                 <input type="file" accept="image/*,video/*" />
@@ -57,15 +72,14 @@ const HomePageAlumni = () => {
           </div>
         </Popup>
 
-        <div className={styles.postContainer}>
-          <Post />
-          <Post />
-          <Post />
-          <Post />
+        <div className={styles.feed}>
+          {posts.map((post) => (
+            <Post key={post.id} data={post} />
+          ))}
         </div>
-      </div>
+      </main>
+
+      <SecondarySidebar />
     </div>
   );
-};
-
-export default HomePageAlumni;
+}
