@@ -1,0 +1,28 @@
+.container {
+  display: flex;
+
+  height: 100vh;
+}
+
+.main {
+  padding: 2rem;
+  overflow: auto;
+
+  flex-grow: 1;
+}
+
+.feed {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+
+  margin-top: 2rem;
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
