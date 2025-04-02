@@ -19,3 +19,8 @@ a {
   text-decoration: none;
   color: inherit;
 }
+
+::selection {
+  color: #6818a5;
+  background-color: #ebd9fc;
+}

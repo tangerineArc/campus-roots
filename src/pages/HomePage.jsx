@@ -1,11 +1,12 @@
-import Post from "../components/Post.jsx";
-
 import Filter from "../components/Filter.jsx";
+import Post from "../components/Post.jsx";
 import SearchBar from "../components/SearchBar.jsx";
 import SecondarySidebar from "../components/SecondarySidebar.jsx";
 import Sidebar from "../components/Sidebar.jsx";
 
-import styles from "../styles/homepage.module.css";
+import posts from "../data/posts-data.js";
+
+import styles from "../styles/home-page.module.css";
 
 export default function HomePage() {
   return (
@@ -21,17 +22,13 @@ export default function HomePage() {
         </nav>
 
         <div className={styles.feed}>
-          <Post />
-          <Post />
-          <Post />
-          <Post />
-          <Post />
-          <Post />
-          <Post />
+          {posts.map((post) => (
+            <Post key={post.id} data={post} />
+          ))}
         </div>
       </main>
 
       <SecondarySidebar />
     </div>
   );
-};
+}
