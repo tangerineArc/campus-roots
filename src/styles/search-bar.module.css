@@ -1,6 +1,6 @@
 .container {
   position: relative;
-  width: clamp(300px, 90%, 500px);
+  width: clamp(400px, 90%, 500px);
 }
 
 .input {
@@ -22,14 +22,14 @@
   border-color: #b333e9;
   transition: border-color 0.5s;
 
-  & + .icon {
+  &+.icon {
     stroke: #b333e9;
     transition: stroke 0.5s;
   }
 }
 
 .input:hover {
-  & + .icon {
+  &+.icon {
     transform: scale(1.1) translateY(-50%);
     transition: transform 0.3s;
   }
