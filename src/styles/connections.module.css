@@ -1,6 +1,5 @@
 .container {
   display: flex;
-
   height: 100vh;
 }
 
@@ -8,15 +7,16 @@
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-
   padding: 1rem;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
 }
 
 .connectionCard {
   display: flex;
   align-items: center;
   gap: 1.5rem;
-
   background: #f3f3f3;
   padding: 1.5rem;
   border-radius: 1rem;
@@ -37,7 +37,6 @@
 .name {
   font-size: 1.2rem;
   font-weight: bold;
-
   margin-bottom: 0.5rem;
 }
 
@@ -52,7 +51,6 @@
   border: none;
   border-radius: 0.5rem;
   cursor: pointer;
-
   font-size: 1rem;
   color: white;
 }
@@ -61,10 +59,21 @@
   background: #333;
 }
 
+@media (max-width: 992px) {
+  .connectionList {
+    max-width: 100%;
+    padding: 1rem 2rem;
+  }
+}
+
 @media (max-width: 768px) {
   .container {
-    margin-left: 12rem;
-    width: calc(100% - 12rem);
+    padding-top: 4rem;
+    padding-bottom: 5rem;
+  }
+
+  .connectionList {
+    padding: 1rem;
   }
 
   .connectionCard {
@@ -85,8 +94,28 @@
 
 @media (max-width: 480px) {
   .container {
-    margin-left: 0;
-    width: 100%;
+    padding: 0.5rem;
+  }
+
+  .connectionList {
+    gap: 1rem;
+    padding: 0.5rem;
+  }
+
+  .connectionCard {
     padding: 1rem;
+  }
+
+  .name {
+    font-size: 1.1rem;
+  }
+
+  .description {
+    font-size: 0.9rem;
+  }
+
+  .messageButton {
+    padding: 0.7rem 1.2rem;
+    font-size: 0.9rem;
   }
 }
