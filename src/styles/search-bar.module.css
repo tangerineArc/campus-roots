@@ -13,7 +13,6 @@
   padding-left: 2.5rem;
   border-radius: 5px;
   border-bottom: 3px solid #f4effa;
-
   font-size: inherit;
   font-family: inherit;
 }
@@ -21,18 +20,16 @@
 .input:focus {
   border-color: #b333e9;
   transition: border-color 0.5s;
-
-  &+.icon {
-    stroke: #b333e9;
-    transition: stroke 0.5s;
-  }
 }
 
-.input:hover {
-  &+.icon {
-    transform: scale(1.1) translateY(-50%);
-    transition: transform 0.3s;
-  }
+.input:focus+.icon {
+  stroke: #b333e9;
+  transition: stroke 0.5s;
+}
+
+.input:hover+.icon {
+  transform: scale(1.1) translateY(-50%);
+  transition: transform 0.3s;
 }
 
 .icon {
@@ -41,7 +38,45 @@
   left: 0.8rem;
   top: 50%;
   transform: translateY(-50%);
-
   width: 1.2rem;
   height: 1.2rem;
+}
+
+@media (max-width: 768px) {
+  .container {
+    width: 100%;
+    max-width: 500px;
+  }
+}
+
+@media (max-width: 576px) {
+  .container {
+    width: 100%;
+  }
+
+  .input {
+    padding: 0.7rem;
+    padding-left: 2.2rem;
+    font-size: 0.95rem;
+  }
+
+  .icon {
+    left: 0.7rem;
+    width: 1rem;
+    height: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .input {
+    padding: 0.6rem;
+    padding-left: 2rem;
+    font-size: 0.9rem;
+  }
+
+  .icon {
+    left: 0.6rem;
+    width: 0.9rem;
+    height: 0.9rem;
+  }
 }
