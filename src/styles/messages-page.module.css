@@ -14,9 +14,7 @@
 }
 
 .messagesList {
-  width: 30%;
-  min-width: 300px;
-  max-width: 400px;
+  width: auto;
   display: flex;
   flex-direction: column;
   background: white;
@@ -24,7 +22,7 @@
   position: relative;
   z-index: 1;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  margin-left: 1rem;
+  padding: 1rem;
 }
 
 .messageCard {
@@ -36,6 +34,7 @@
   position: relative;
   border: none;
   margin-bottom: 1px;
+  padding: 1rem;
 }
 
 .messageCard:hover {
@@ -57,7 +56,7 @@
 }
 
 .messageCard:hover .profileImage {
-  border-color: #6c42f5;
+  border-color: #8b2fc9;
 }
 
 .messageDetails {
@@ -105,11 +104,21 @@
 }
 
 .time {
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   color: #667781;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 0.3rem;
 }
 
-/* Chat Container Styles */
+.timeSent {
+  font-size: 0.7rem;
+  color: #d1bfff;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 0.3rem;
+}
+
 .chatContainer {
   flex: 1;
   display: flex;
@@ -157,6 +166,9 @@
   background: #6c42f5;
   color: white;
   border-top-right-radius: 0;
+  max-width: 35rem;
+  overflow-wrap: break-word;
+  white-space: normal;
 }
 
 .receivedMessage {
@@ -164,6 +176,9 @@
   background: white;
   color: #111b21;
   border-top-left-radius: 0;
+  max-width: 35rem;
+  overflow-wrap: break-word;
+  white-space: normal;
 }
 
 .messageInput {
@@ -217,7 +232,6 @@
   text-align: left;
 }
 
-/* Mobile Styles */
 @media (max-width: 768px) {
   .mainContent {
     position: relative;
