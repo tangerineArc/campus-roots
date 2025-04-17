@@ -7,22 +7,22 @@ const suggestedPeople = [
         imageUrl: img
     },
     {
-        name: "Anurag Lodu",
+        name: "Anurag",
         about : "Software Developer",
         imageUrl: img
     },
     {
-      name: "Anurag Gandu",
+      name: "Anurag",
       about : "Software Developer",
       imageUrl: img
     },
     {
-    name: "Anurag Chutiya",
+    name: "Anurag",
       about : "Software Developer",
       imageUrl: img
     },
     {
-      name: "Anurag Jhaatu",
+      name: "Anurag",
       about : "Software Developer",
       imageUrl: img
     }

@@ -1,13 +1,11 @@
 .container {
   display: flex;
-
-  height: 100vh;
 }
 
 .main {
   padding: 2rem;
   overflow: auto;
-
+  height: 100vh;
   flex-grow: 1;
 }
 
@@ -158,5 +156,11 @@
     & > button:first-of-type {
       background-color: #f2ebfb;
     }
+  }
+}
+
+@media (max-width: 1024px) {
+  .main {
+    margin-bottom: 4rem;
   }
 }
