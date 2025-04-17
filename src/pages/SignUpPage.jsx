@@ -52,7 +52,7 @@ export default function SignUpPage() {
               className={styles.input}
             />
 
-            <div className={styles.row}>
+            <div className={`${styles.row}`}>
               <input
                 type="text"
                 name="countryCode"

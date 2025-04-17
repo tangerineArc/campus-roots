@@ -1,22 +1,19 @@
 .container {
-  height: 100vh;
-
+  height: auto;
   display: flex;
   flex-direction: column;
+  background-image: url("../assets/signup-background.png");
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .main {
-  background-image: url("../assets/signup-background.png");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
   padding: 1rem;
-
   flex-grow: 1;
-
   display: flex;
   justify-content: center;
   align-items: center;
+  height: auto;
 }
 
 .card {
@@ -28,6 +25,8 @@
   display: flex;
   flex-direction: column;
   gap: 2.5rem;
+  width: 90%;
+  height: 90%;
 }
 
 .title {
@@ -142,4 +141,10 @@
 .btn:hover {
   background-color: #5a36cc;
   transition: background-color 0.2s;
+}
+
+.phoneNumber {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
 }
