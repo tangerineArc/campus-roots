@@ -56,6 +56,22 @@ export default function Sidebar() {
               <CircleUserRound className={styles.icon} />
               <span>Profile</span>
             </NavLink>
+
+            {isMobile && (
+              <>
+                <NavLink
+                  to="/settings"
+                  className={({ isActive }) => (isActive ? styles.active : "")}
+                >
+                  <Settings className={styles.icon} />
+                  <span>Settings</span>
+                </NavLink>
+                <NavLink to="/" className={styles.logout}>
+                  <LogOut className={styles.logoutIcon} />
+                  <div className={styles.logoutText}>Logout</div>
+                </NavLink>
+              </>
+            )}
           </nav>
 
           {!isMobile && (
