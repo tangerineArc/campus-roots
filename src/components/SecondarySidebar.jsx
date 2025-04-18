@@ -82,7 +82,7 @@ export default function SecondarySidebar() {
                   <p>{person.about}</p>
                 </div>
               </div>
-              <button className={styles.followButton}>Follow</button>
+              <button className={styles.followButton}>Connect</button>
             </div>
           ))}
         </div>
