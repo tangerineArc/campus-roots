@@ -6,9 +6,7 @@ import SettingsPage from "./components/SettingsPage.jsx";
 import ProfilePage from "./components/ProfilePage.jsx";
 
 import HomePage from "./pages/HomePage.jsx";
-import ResetPasswordPage from "./pages/ResetPasswordPage.jsx";
 import SignInPage from "./pages/SignInPage.jsx";
-import SignUpPage from "./pages/SignUpPage.jsx";
 
 const routes = [
   {
@@ -18,14 +16,6 @@ const routes = [
   {
     path: "/sign-in",
     element: <SignInPage />,
-  },
-  {
-    path: "/sign-up/:category",
-    element: <SignUpPage />,
-  },
-  {
-    path: "/reset-password/:category",
-    element: <ResetPasswordPage />,
   },
   {
     path: "/home",
