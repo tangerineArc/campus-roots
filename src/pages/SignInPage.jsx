@@ -1,10 +1,19 @@
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 
 import microsoftLogo from "../assets/microsoft-logo.svg";
+
+import { useAuth } from "../contexts/auth-context.jsx";
 
 import styles from "../styles/sign-in-page.module.css";
 
 export default function SignInPage() {
+  const { user } = useAuth();
+
+  if (user) {
+    console.log(user);
+    return <Navigate to="/home" />;
+  }
+
   return (
     <div className={styles.mainContainer}>
       <div className={styles.imageSection}></div>

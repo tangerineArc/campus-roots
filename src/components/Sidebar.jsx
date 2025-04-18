@@ -8,10 +8,16 @@ import {
 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
-import styles from "../styles/sidebar.module.css";
+
+import { useAuth } from "../contexts/auth-context.jsx";
+
 import SiteLogo from "./SiteLogo.jsx";
 
+import styles from "../styles/sidebar.module.css";
+
 export default function Sidebar() {
+  const { signOut } = useAuth();
+
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
   useEffect(() => {
     const handleResize = () => {
@@ -21,6 +27,7 @@ export default function Sidebar() {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
   return (
     <>
       <div className={styles.mainLayout}>
@@ -83,7 +90,7 @@ export default function Sidebar() {
                 <Settings className={styles.icon} />
                 <span>Settings</span>
               </NavLink>
-              <NavLink to="/" className={styles.logout}>
+              <NavLink to="/" className={styles.logout} onClick={signOut}>
                 <LogOut className={styles.logoutIcon} />
                 <div className={styles.logoutText}>Logout</div>
               </NavLink>
