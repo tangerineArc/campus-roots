@@ -1,11 +1,11 @@
 import { ArrowLeft, CheckCircle, Send } from "lucide-react";
 import { useEffect, useState } from 'react';
-import conversations from "../data/conversations-data";
-import messages from "../data/messages-data";
+// import conversations from "../data/conversations-data";
+// import messages from "../data/messages-data";
 import styles from "../styles/messages-page.module.css";
 import SearchBar from "./SearchBar";
 import Sidebar from "./Sidebar";
-
+import Cookies from 'js-cookie';
 
 const MessagesPage = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -13,6 +13,8 @@ const MessagesPage = () => {
   const [converseId, setConverseId] = useState(1);
   const [messageInput, setMessageInput] = useState('');
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  const [conversations, setconversations] = useState([]);
+  const [messages, setmessages] = useState([]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -49,6 +51,33 @@ const MessagesPage = () => {
   };
 
   const currentConversation = conversations.find(c => c.id === converseId);
+
+  // IMPORTING CHATS FROM DATABASE FOR CURRENT USER
+  useEffect(() => {
+    async function fun() {
+      try {
+        const response = await fetch("http://localhost:3000/users/messages", {
+          method: "GET",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json"
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch data");
+        }
+        const { formattedConversations, formattedMessages } = await response.json();
+        
+        setmessages(formattedMessages);
+        setconversations(formattedConversations);
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    }
+
+    fun();
+  }, []);
 
   return (
     <div className={styles.container}>
