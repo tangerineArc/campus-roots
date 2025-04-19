@@ -5,7 +5,6 @@ import { useEffect, useState } from 'react';
 import styles from "../styles/messages-page.module.css";
 import SearchBar from "./SearchBar";
 import Sidebar from "./Sidebar";
-import Cookies from 'js-cookie';
 
 const MessagesPage = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -68,7 +67,7 @@ const MessagesPage = () => {
           throw new Error("Failed to fetch data");
         }
         const { formattedConversations, formattedMessages } = await response.json();
-        
+
         setmessages(formattedMessages);
         setconversations(formattedConversations);
       } catch (error) {

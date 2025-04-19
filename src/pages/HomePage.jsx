@@ -5,7 +5,6 @@ import Filter from "../components/Filter.jsx";
 import Post from "../components/Post.jsx";
 import RichEditor from "../components/RichEditor.jsx";
 import SearchBar from "../components/SearchBar.jsx";
-import SecondarySidebar from "../components/SecondarySidebar.jsx";
 import Sidebar from "../components/Sidebar.jsx";
 
 import profilePic from "../assets/default-profile-picture.jpg";
@@ -13,6 +12,7 @@ import profilePic from "../assets/default-profile-picture.jpg";
 import posts from "../data/posts-data.js";
 
 import styles from "../styles/home-page.module.css";
+import SecondarySidebar from "../components/SecondarySidebar.jsx";
 
 export default function HomePage() {
   const [isEditorVisible, setIsEditorVisible] = useState(false);

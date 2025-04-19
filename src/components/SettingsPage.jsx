@@ -11,10 +11,6 @@ const SettingsPage = () => {
         <SearchBar />
         <div className={styles.settingsContainer}>
           <div className={styles.settingOption}>
-            <span>Change Password</span>
-            <span className={styles.arrow}>&gt;</span>
-          </div>
-          <div className={styles.settingOption}>
             <span>Theme</span>
             <span className={styles.dropdown}>Light ▾</span>
           </div>
