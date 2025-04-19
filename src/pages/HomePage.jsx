@@ -13,7 +13,6 @@ import profilePic from "../assets/default-profile-picture.jpg";
 import posts from "../data/posts-data.js";
 
 import styles from "../styles/home-page.module.css";
-
 export default function HomePage() {
   const [isEditorVisible, setIsEditorVisible] = useState(false);
 

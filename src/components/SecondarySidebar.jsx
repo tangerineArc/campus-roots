@@ -1,18 +1,62 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import profileData from "../data/profile-data";
+import img from "../assets/default-profile-picture.jpg";
+import { useAuth } from '../contexts/auth-context.jsx';
 import suggestedPeople from "../data/suggested-people-data";
 import styles from "../styles/secondary-sidebar.module.css";
 
-export default function SecondarySidebar() {
+const SecondarySidebar = () => {
+  const { user } = useAuth();
+  const [profileData, setProfileData] = useState(null);
+  const [error, setError] = useState(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [touchStart, setTouchStart] = useState(null);
   const [touchEnd, setTouchEnd] = useState(null);
 
-  const time = new Date().getHours();
-  const greeting = (time < 12 && time >= 4) ? "Good Morning" : (time < 16 && time >= 12) ? "Good Afternoon" : "Good Evening";
-
+  const req_url = import.meta.env.VITE_API_SERVER_URL + `/user/${user?.id}`;
   const minSwipeDistance = 50;
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+      if (!user?.id) return;
+
+      try {
+        const response = await fetch(req_url, {
+          method: 'GET',
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        setProfileData(data.data);
+      } catch (error) {
+        console.error('Error fetching profile:', error);
+        setError('Failed to load profile data. Please try again later.');
+      }
+    };
+
+    fetchProfile();
+  }, [user?.id, req_url]);
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (window.innerWidth <= 768 && isSidebarOpen) {
+        const sidebar = document.getElementById('secondary-sidebar');
+        if (sidebar && !sidebar.contains(e.target)) {
+          setIsSidebarOpen(false);
+        }
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [isSidebarOpen]);
 
   const onTouchStart = (e) => {
     setTouchEnd(null);
@@ -36,19 +80,17 @@ export default function SecondarySidebar() {
       setIsSidebarOpen(true);
     }
   };
-  useEffect(() => {
-    const handleClickOutside = (e) => {
-      if (window.innerWidth <= 768 && isSidebarOpen) {
-        const sidebar = document.getElementById('secondary-sidebar');
-        if (sidebar && !sidebar.contains(e.target)) {
-          setIsSidebarOpen(false);
-        }
-      }
-    };
 
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, [isSidebarOpen]);
+  if (error) {
+    return <div className={styles.error}>{error}</div>;
+  }
+
+  if (!profileData) {
+    return <div className={styles.loading}>Loading...</div>;
+  }
+
+  const currentHour = new Date().getHours();
+  const greeting = currentHour < 12 ? "Good Morning" : currentHour < 18 ? "Good Afternoon" : "Good Evening";
 
   return (
     <aside
@@ -61,7 +103,7 @@ export default function SecondarySidebar() {
       <div className={styles.profileSection}>
         <div className={styles.profileImage}>
           <Link to="/profile">
-            <img src={profileData.imageUrl} alt="Profile" />
+            <img src={profileData.Avatar || img} alt="Profile" />
           </Link>
         </div>
         <h1 className={styles.greeting}>{greeting} {profileData.name}</h1>
@@ -89,4 +131,6 @@ export default function SecondarySidebar() {
       </div>
     </aside>
   );
-}
+};
+
+export default SecondarySidebar;

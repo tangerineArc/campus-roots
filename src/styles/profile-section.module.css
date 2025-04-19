@@ -115,7 +115,7 @@
 
 .modalActions {
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   gap: 0.75rem;
   margin-top: 1.5rem;
 }
@@ -138,6 +138,7 @@
   background-color: black;
   border: black;
   color: white;
+  width: 100%;
 }
 
 .updateButton:hover {
