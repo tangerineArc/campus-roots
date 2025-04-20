@@ -1,324 +1,39 @@
 .container {
   display: flex;
+
   height: 100vh;
-  position: relative;
-  overflow: hidden;
-  background: #f0f2f5;
 }
 
 .mainContent {
-  flex: 1;
-  display: flex;
-  height: 100%;
-  position: relative;
-}
-
-.messagesList {
-  width: 27rem;
-  display: flex;
-  flex-direction: column;
-  background: white;
-  height: 100%;
-  position: relative;
-  z-index: 1;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  padding: 1rem;
-}
-
-.messageCard {
-  background: white;
-  padding: 1.2rem;
-  display: flex;
-  align-items: center;
-  transition: all 0.2s ease;
-  position: relative;
-  border: none;
-  margin-bottom: 1px;
-  padding: 1rem;
-}
-
-.messageCard:hover {
-  background: #f5f5f5;
-  cursor: pointer;
-}
-
-.messageCard.active {
-  background: #f0e6ff;
-}
-
-.profileImage {
-  width: 3.5rem;
-  height: 3.5rem;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 2px solid #f0f2f5;
-  transition: all 0.2s ease;
-}
-
-.messageCard:hover .profileImage {
-  border-color: #8b2fc9;
-}
-
-.messageDetails {
   flex-grow: 1;
-  margin-left: 1rem;
-  overflow: hidden;
-}
 
-.messageHeader {
   display: flex;
-  align-items: center;
-  margin-bottom: 0.25rem;
-}
 
-.name {
-  font-size: 1.1rem;
-  font-weight: 500;
-  color: #111b21;
-  margin-right: 0.4rem;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.verifiedIcon {
-  color: #6c42f5;
-  font-size: 1rem;
-}
-
-.messageText {
-  font-size: 0.9rem;
-  color: #667781;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: flex;
-  justify-content: flex-start;
-}
-
-.messageMeta {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  margin-left: 0.5rem;
-}
-
-.time {
-  font-size: 0.7rem;
-  color: #667781;
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 0.3rem;
-}
-
-.timeSent {
-  font-size: 0.7rem;
-  color: #d1bfff;
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 0.3rem;
+  height: 100%;
 }
 
 .chatContainer {
-  flex: 1;
+  flex-grow: 1;
+
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+
   background: #f0f2f5;
+  border-left: 1px solid #ddd;
+
   position: relative;
-  height: 100%;
 }
 
-.chatHeader {
+.blank {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  padding: 0.75rem 1rem;
-  border-bottom: 1px solid #e8e8e8;
-  background: white;
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-}
+  justify-content: center;
 
-.chatMessages {
-  flex: 1;
-  overflow-y: auto;
-  padding: 1rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  background-image: url("data:image/svg+xml,%3Csvg width='64' height='64' viewBox='0 0 64 64' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M8 16c4.418 0 8-3.582 8-8s-3.582-8-8-8-8 3.582-8 8 3.582 8 8 8zm0-2c3.314 0 6-2.686 6-6s-2.686-6-6-6-6 2.686-6 6 2.686 6 6 6zm33.414-6l5.95-5.95L45.95.636 40 6.586 34.05.636 32.636 2.05 38.586 8l-5.95 5.95 1.414 1.414L40 9.414l5.95 5.95 1.414-1.414L41.414 8zM40 48c4.418 0 8-3.582 8-8s-3.582-8-8-8-8 3.582-8 8 3.582 8 8 8zm0-2c3.314 0 6-2.686 6-6s-2.686-6-6-6-6 2.686-6 6 2.686 6 6 6zM9.414 40l5.95-5.95-1.414-1.414L8 38.586l-5.95-5.95L.636 34.05 6.586 40l-5.95 5.95 1.414 1.414L8 41.414l5.95 5.95 1.414-1.414L9.414 40z' fill='%23f0f2f5' fill-opacity='0.4' fill-rule='evenodd'/%3E%3C/svg%3E");
-  -webkit-overflow-scrolling: touch;
-}
+  height: 100%;
+  padding: 2rem;
 
-.message {
-  max-width: 65%;
-  padding: 0.5rem 0.75rem;
-  border-radius: 7.5px;
-  position: relative;
-  font-size: 0.9rem;
-  line-height: 1.4;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-}
-
-.sentMessage {
-  align-self: flex-end;
-  background: #6c42f5;
-  color: white;
-  border-top-right-radius: 0;
-  max-width: 35rem;
-  overflow-wrap: break-word;
-  white-space: normal;
-}
-
-.receivedMessage {
-  align-self: flex-start;
-  background: white;
-  color: #111b21;
-  border-top-left-radius: 0;
-  max-width: 35rem;
-  overflow-wrap: break-word;
-  white-space: normal;
-}
-
-.messageInput {
-  display: flex;
-  gap: 0.5rem;
-  padding: 1rem;
-  background: white;
-  border-top: 1px solid #e8e8e8;
-  position: sticky;
-  bottom: 0;
-  z-index: 10;
-  box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.1);
-}
-
-.messageInput input {
-  flex: 1;
-  padding: 0.75rem 1rem;
-  border: 1px solid #e8e8e8;
-  border-radius: 8px;
-  font-size: 0.9rem;
-  background: #f0f2f5;
-  transition: all 0.2s ease;
-}
-
-.messageInput input:focus {
-  outline: none;
-  border-color: #6c42f5;
-  background: white;
-}
-
-.messageInput button {
-  padding: 0.75rem;
-  border: none;
-  background: #6c42f5;
-  color: white;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.messageInput button:hover {
-  background: #5a35e0;
-}
-
-.messageCard button {
-  border: none;
-  background: none;
-  padding: 0;
-  margin: 0;
-  width: 100%;
-  text-align: left;
-}
-
-@media (max-width: 768px) {
-  .mainContent {
-    position: relative;
-    overflow: hidden;
-  }
-
-  .messagesList {
-    width: 100%;
-    max-width: none;
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    transform: translateX(0);
-    transition: transform 0.3s ease;
-    box-shadow: none;
-    margin: 1rem;
-  }
-
-  .chatContainer {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 2;
-    transform: translateX(100%);
-    transition: transform 0.3s ease;
-  }
-
-  .chatContainer.active {
-    transform: translateX(0);
-  }
-
-  .messagesList.hidden {
-    transform: translateX(-100%);
-  }
-
-  .chatHeader {
-    padding: 0.5rem 1rem;
-    background: white;
-  }
-
-  .messageCard {
-    padding: 1rem;
-  }
-
-  .profileImage {
-    width: 3rem;
-    height: 3rem;
-  }
-
-  .name {
-    font-size: 1rem;
-  }
-
-  .messageText {
-    font-size: 0.85rem;
-  }
-
-  .time {
-    font-size: 0.7rem;
-  }
-
-  .backButton {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background: none;
-    border: none;
-    margin-right: 0.5rem;
-    cursor: pointer;
-    color: #6c42f5;
-  }
-
-  .backButton:hover {
-    background: rgba(108, 66, 245, 0.1);
-  }
-
-  .chatMessages {
-    padding-bottom: 5rem;
-  }
-
-  .messageInput {
-    padding: 0.75rem;
-  }
+  color: #667781;
+  text-align: center;
 }
