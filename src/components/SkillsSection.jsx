@@ -1,18 +1,13 @@
 import { Edit, Trash2 } from 'lucide-react';
-import { useEffect, useState } from 'react';
-import { useAuth } from '../contexts/auth-context.jsx';
+import { useState } from 'react';
 import styles from '../styles/section.module.css';
 import Modal from './ModalSection.jsx';
 
-const SkillsSection = () => {
-  const { user } = useAuth();
-  const [profileData, setProfileData] = useState(null);
-  const [skills, setSkills] = useState([]);
+const SkillsSection = ({ userProfileData }) => {
+  const [skills, setSkills] = useState(userProfileData?.Skills || []);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingSkill, setEditingSkill] = useState(null);
   const [newSkill, setNewSkill] = useState('');
-  const [error, setError] = useState(null);
-  const req_url = import.meta.env.VITE_API_SERVER_URL + `/user/${user?.id}`;
   const update_url = import.meta.env.VITE_API_SERVER_URL + `/user/skill/update`;
   const delete_url = import.meta.env.VITE_API_SERVER_URL + `/user/skill/delete`;
 
@@ -104,40 +99,6 @@ const SkillsSection = () => {
       setError('Failed to delete skill. Please try again.');
     }
   };
-
-  useEffect(() => {
-    const fetchProfile = async () => {
-      if (!user?.id) return;
-
-      try {
-        const response = await fetch(req_url, {
-          method: 'GET',
-          credentials: 'include',
-        });
-
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        const data = await response.json();
-        setProfileData(data.data);
-        setSkills(data.data.Skills || []);
-      } catch (error) {
-        console.error('Error fetching profile:', error);
-        setError('Failed to load profile data. Please try again later.');
-      }
-    };
-
-    fetchProfile();
-  }, [user?.id, req_url]);
-
-  if (error) {
-    return <div className={styles.error}>{error}</div>;
-  }
-
-  if (!profileData) {
-    return <div className={styles.loading}>Loading...</div>;
-  }
 
   return (
     <section className={styles.section}>

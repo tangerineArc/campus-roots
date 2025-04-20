@@ -1,13 +1,10 @@
 import { Edit, Trash2 } from 'lucide-react';
-import { useEffect, useState } from 'react';
-import { useAuth } from '../contexts/auth-context.jsx';
+import { useState } from 'react';
 import styles from '../styles/section.module.css';
 import Modal from './ModalSection.jsx';
 
-const AchievementsSection = () => {
-  const { user } = useAuth();
-  const [profileData, setProfileData] = useState(null);
-  const [achievements, setAchievements] = useState([]);
+const AchievementsSection = ({ userProfileData }) => {
+  const [achievements, setAchievements] = useState(userProfileData.Achievements || []);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingAchievement, setEditingAchievement] = useState(null);
   const [formErrors, setFormErrors] = useState({});
@@ -18,8 +15,6 @@ const AchievementsSection = () => {
     Year: '',
     Description: ''
   });
-
-  const req_url = import.meta.env.VITE_API_SERVER_URL + `/user/${user?.id}`;
   const update_url = import.meta.env.VITE_API_SERVER_URL + `/user/achievements/update`;
   const delete_url = import.meta.env.VITE_API_SERVER_URL + `/user/achievements/delete`;
 
@@ -39,38 +34,8 @@ const AchievementsSection = () => {
     return `${year}-${paddedMonth}-01T00:00:00.000Z`;
   };
 
-  useEffect(() => {
-    const fetchProfile = async () => {
-      if (!user?.id) return;
-
-      try {
-        const response = await fetch(req_url, {
-          method: 'GET',
-          credentials: 'include',
-        });
-
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        const data = await response.json();
-        setProfileData(data.data);
-        setAchievements(data.data.Achievements || []);
-      } catch (error) {
-        console.error('Error fetching profile:', error);
-        setError('Failed to load profile data. Please try again later.');
-      }
-    };
-
-    fetchProfile();
-  }, [user?.id, req_url]);
-
   if (error) {
     return <div className={styles.error}>{error}</div>;
-  }
-
-  if (!profileData) {
-    return <div className={styles.loading}>Loading...</div>;
   }
 
   const months = [
