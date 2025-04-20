@@ -12,7 +12,10 @@
 body {
   font-family: "Inter", sans-serif;
 
-  scrollbar-color: #eccaff #ffffff;
+  & * {
+    scrollbar-color: #eccaff #ffffff;
+    scrollbar-width: thin;
+  }
 }
 
 a {
