@@ -1,11 +1,10 @@
 import { Edit, Trash2 } from 'lucide-react';
 import { useState } from 'react';
-import profileData from '../data/profile-data.js';
 import styles from '../styles/section.module.css';
 import Modal from './ModalSection.jsx';
 
-const EducationSection = () => {
-  const [educations, setEducations] = useState(profileData.education);
+const EducationSection = ({ userProfileData }) => {
+  const [educations, setEducations] = useState(userProfileData?.Education || []);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingEducation, setEditingEducation] = useState(null);
   const [formErrors, setFormErrors] = useState({});
@@ -18,6 +17,24 @@ const EducationSection = () => {
     endYear: '',
     isPresent: false
   });
+  const update_url = import.meta.env.VITE_API_SERVER_URL + `/user/education/update`;
+  const delete_url = import.meta.env.VITE_API_SERVER_URL + `/user/education/delete`;
+
+  const parseDate = (dateString) => {
+    if (!dateString) return { month: '', year: '' };
+    const date = new Date(dateString);
+    return {
+      month: date.toLocaleString('default', { month: 'long' }),
+      year: date.getFullYear().toString()
+    };
+  };
+
+  const formatDateForDB = (month, year) => {
+    if (!month || !year) return null;
+    const monthIndex = new Date(`${month} 1, 2000`).getMonth() + 1;
+    const paddedMonth = monthIndex.toString().padStart(2, '0');
+    return `${year}-${paddedMonth}-01T00:00:00.000Z`;
+  };
 
   const months = [
     'January', 'February', 'March', 'April', 'May', 'June',
@@ -61,97 +78,105 @@ const EducationSection = () => {
     return Object.keys(errors).length === 0;
   };
 
-  const handleAddEducation = () => {
-    if (validateForm()) {
-      setEducations([
-        ...educations,
-        {
-          id: Date.now(),
-          ...newEducation,
-          logo: newEducation.institution.charAt(0)
-        }
-      ]);
-      setNewEducation({
-        institution: '',
-        degree: '',
-        startMonth: '',
-        startYear: '',
-        endMonth: '',
-        endYear: '',
-        isPresent: false
-      });
-      setFormErrors({});
-    }
-  };
-
   const handleEditEducation = (id) => {
     const education = educations.find(edu => edu.id === id);
     setEditingEducation(education);
 
-    const durationParts = education.duration ? education.duration.split(' - ') : [];
-    const hasDuration = durationParts.length === 2;
-    const startParts = hasDuration ? durationParts[0].split(' ') : [];
-    const endParts = hasDuration ? durationParts[1].split(' ') : [];
+    const startDate = parseDate(education.StartDate);
+    const endDate = parseDate(education.EndDate);
 
-    const educationData = {
-      institution: education.institution,
-      degree: education.degree,
-      isPresent: education.isPresent || (hasDuration && durationParts[1] === 'Present')
-    };
+    setNewEducation({
+      institution: education.Institution,
+      degree: education.Degree,
+      startMonth: startDate.month,
+      startYear: startDate.year,
+      endMonth: endDate.month,
+      endYear: endDate.year,
+      isPresent: education.isPresent
+    });
 
-    if (education.startMonth) {
-      educationData.startMonth = education.startMonth;
-    } else if (startParts.length >= 2) {
-      const fullMonthName = months.find(month => month.startsWith(startParts[0]));
-      educationData.startMonth = fullMonthName || '';
-    } else {
-      educationData.startMonth = '';
-    }
-
-    educationData.startYear = education.startYear || (startParts.length >= 2 ? startParts[1] : '');
-
-    if (!educationData.isPresent) {
-      if (education.endMonth) {
-        educationData.endMonth = education.endMonth;
-      } else if (endParts.length >= 2 && endParts[0] !== 'Present') {
-        const fullMonthName = months.find(month => month.startsWith(endParts[0]));
-        educationData.endMonth = fullMonthName || '';
-      } else {
-        educationData.endMonth = '';
-      }
-      educationData.endYear = education.endYear || (endParts.length >= 2 && endParts[0] !== 'Present' ? endParts[1] : '');
-    } else {
-      educationData.endMonth = '';
-      educationData.endYear = '';
-    }
-
-    setNewEducation(educationData);
     setFormErrors({});
     setIsModalOpen(true);
   };
 
-  const handleUpdateEducation = () => {
+  const handleUpdateEducation = async () => {
     if (validateForm()) {
-      if (editingEducation) {
-        setEducations(educations.map(edu =>
-          edu.id === editingEducation.id
-            ? {
-              ...edu,
-              ...newEducation,
-              logo: newEducation.institution.charAt(0)
-            }
-            : edu
-        ));
-        setEditingEducation(null);
-      } else {
-        handleAddEducation();
+      const educationData = {
+        Institution: newEducation.institution.trim(),
+        Degree: newEducation.degree.trim(),
+        StartDate: formatDateForDB(newEducation.startMonth, newEducation.startYear),
+        EndDate: newEducation.isPresent ? null : formatDateForDB(newEducation.endMonth, newEducation.endYear),
+        isPresent: newEducation.isPresent
+      };
+
+      try {
+        const updatedEducations = editingEducation
+          ? educations.map(edu =>
+            edu.id === editingEducation.id
+              ? {
+                ...edu,
+                ...educationData,
+                logo: newEducation.institution.charAt(0)
+              }
+              : edu
+          )
+          : [...educations, {
+            id: Date.now(),
+            ...educationData,
+            logo: newEducation.institution.charAt(0)
+          }];
+
+        const response = await fetch(update_url, {
+          method: 'PUT',
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            Education: updatedEducations
+          })
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to update education');
+        }
+
+        const data = await response.json();
+        setEducations(data.data.Education || []);
+        setIsModalOpen(false);
+        resetForm();
+      } catch (error) {
+        console.error('Error updating education:', error);
+        setError('Failed to update education. Please try again.');
       }
-      setIsModalOpen(false);
     }
   };
 
-  const handleDeleteEducation = (id) => {
-    setEducations(educations.filter(edu => edu.id !== id));
+  const handleDeleteEducation = async (id) => {
+    try {
+      const updatedEducations = educations.filter(edu => edu.id !== id);
+
+      const response = await fetch(delete_url, {
+        method: 'PUT',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          Education: updatedEducations
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to delete education');
+      }
+
+      const data = await response.json();
+      setEducations(data.data.Education || []);
+    } catch (error) {
+      console.error('Error deleting education:', error);
+      setError('Failed to delete education. Please try again.');
+    }
   };
 
   const handlePresentToggle = (isChecked) => {
@@ -186,6 +211,20 @@ const EducationSection = () => {
     });
   };
 
+  const resetForm = () => {
+    setEditingEducation(null);
+    setNewEducation({
+      institution: '',
+      degree: '',
+      startMonth: '',
+      startYear: '',
+      endMonth: '',
+      endYear: '',
+      isPresent: false
+    });
+    setFormErrors({});
+  };
+
   return (
     <section className={styles.section}>
       <div className={styles.sectionHeader}>
@@ -208,20 +247,25 @@ const EducationSection = () => {
       </div>
 
       <div className={styles.sectionContent}>
-        {educations.map((edu) => (
-          <div key={edu.id} className={styles.card}>
-            <div className={styles.cardLogo}>
-              {edu.logo}
+        {educations.map((edu) => {
+          const startDate = parseDate(edu.StartDate);
+          const endDate = parseDate(edu.EndDate);
+
+          return (
+            <div key={edu.id} className={styles.card}>
+              <div className={styles.cardLogo}>
+                {edu.Institution.charAt(0)}
+              </div>
+              <div className={styles.cardContent}>
+                <h3 className={styles.cardTitle}>{edu.Institution}</h3>
+                <p className={styles.cardSubtitle}>{edu.Degree}</p>
+                <p className={styles.cardDescription}>
+                  {startDate.month} {startDate.year} - {edu.isPresent ? "Present" : `${endDate.month} ${endDate.year}`}
+                </p>
+              </div>
             </div>
-            <div className={styles.cardContent}>
-              <h3 className={styles.cardTitle}>{edu.institution}</h3>
-              <p className={styles.cardSubtitle}>{edu.degree}</p>
-              <p className={styles.cardDescription}>
-                {edu.startMonth} {edu.startYear} - {edu.isPresent ? "Present" : `${edu.endMonth} ${edu.endYear}`}
-              </p>
-            </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
 
       {isModalOpen && (
@@ -230,8 +274,8 @@ const EducationSection = () => {
             {educations.map((edu) => (
               <div key={edu.id} className={styles.educationItem}>
                 <div className={styles.educationInfo}>
-                  <span className={styles.educationInstitution}>{edu.institution}</span>
-                  <span className={styles.educationDegree}>{edu.degree}</span>
+                  <span className={styles.educationInstitution}>{edu.Institution}</span>
+                  <span className={styles.educationDegree}>{edu.Degree}</span>
                 </div>
                 <div className={styles.educationActions}>
                   <button

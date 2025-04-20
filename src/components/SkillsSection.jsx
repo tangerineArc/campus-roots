@@ -2,50 +2,102 @@ import { Edit, Trash2 } from 'lucide-react';
 import { useState } from 'react';
 import styles from '../styles/section.module.css';
 import Modal from './ModalSection.jsx';
-import profileData from '../data/profile-data.js';
 
-const SkillsSection = () => {
-  const [skills, setSkills] = useState(profileData.skills);
-
+const SkillsSection = ({ userProfileData }) => {
+  const [skills, setSkills] = useState(userProfileData?.Skills || []);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingSkill, setEditingSkill] = useState(null);
   const [newSkill, setNewSkill] = useState('');
-
-  const handleAddSkill = () => {
-    if (newSkill.trim()) {
-      setSkills([
-        ...skills,
-        {
-          id: Date.now(),
-          name: newSkill
-        }
-      ]);
-      setNewSkill('');
-    }
-  };
+  const update_url = import.meta.env.VITE_API_SERVER_URL + `/user/skill/update`;
+  const delete_url = import.meta.env.VITE_API_SERVER_URL + `/user/skill/delete`;
 
   const handleEditSkill = (id) => {
     const skill = skills.find(s => s.id === id);
     setEditingSkill(skill);
-    setNewSkill(skill.name);
+    setNewSkill(skill.SkillName);
   };
 
-  const handleUpdateSkill = () => {
-    if (editingSkill && newSkill.trim()) {
-      setSkills(skills.map(s =>
-        s.id === editingSkill.id
-          ? { ...s, name: newSkill }
-          : s
-      ));
-      setEditingSkill(null);
-    } else {
-      handleAddSkill();
+  const validateForm = () => {
+    if (!newSkill.trim()) {
+      setError('Skill name cannot be empty');
+      return false;
     }
-    setNewSkill('');
+    return true;
   };
 
-  const handleDeleteSkill = (id) => {
-    setSkills(skills.filter(s => s.id !== id));
+  const handleUpdateSkill = async () => {
+    if (validateForm()) {
+      const skillData = {
+        SkillName: newSkill.trim()
+      };
+
+      try {
+        const updatedSkills = editingSkill
+          ? skills.map(skill =>
+            skill.id === editingSkill.id
+              ? {
+                ...skill,
+                ...skillData
+              }
+              : skill
+          )
+          : [...skills, {
+            id: Date.now(),
+            ...skillData
+          }];
+
+        const response = await fetch(update_url, {
+          method: 'PUT',
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            Skills: updatedSkills
+          })
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to update skill');
+        }
+
+        const data = await response.json();
+        setSkills(data.data.Skills || []);
+        setEditingSkill(null);
+        setNewSkill('');
+        setIsModalOpen(false);
+      } catch (error) {
+        console.error('Error updating skill:', error);
+        setError('Failed to update skill. Please try again.');
+      }
+    }
+  };
+
+  const handleDeleteSkill = async (id) => {
+    try {
+      const updatedSkills = skills.filter(skill => skill.id !== id);
+
+      const response = await fetch(delete_url, {
+        method: 'PUT',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          Skills: updatedSkills
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to delete skill');
+      }
+
+      const data = await response.json();
+      setSkills(data.data.Skills || []);
+    } catch (error) {
+      console.error('Error deleting skill:', error);
+      setError('Failed to delete skill. Please try again.');
+    }
   };
 
   return (
@@ -60,7 +112,7 @@ const SkillsSection = () => {
       <div className={styles.sectionContent}>
         {skills.map((skill) => (
           <div key={skill.id} className={styles.skillItem}>
-            {skill.name}
+            {skill.SkillName}
           </div>
         ))}
       </div>
@@ -74,7 +126,7 @@ const SkillsSection = () => {
           <div className={styles.skillsList}>
             {skills.map((skill) => (
               <div key={skill.id} className={styles.skillListItem}>
-                <span className={styles.skillName}>{skill.name}</span>
+                <span className={styles.skillName}>{skill.SkillName}</span>
                 <div className={styles.skillActions}>
                   <button
                     className={styles.actionButton}
