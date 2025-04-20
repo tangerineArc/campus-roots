@@ -1,17 +1,13 @@
 import { Edit, Trash2 } from 'lucide-react';
-import { useEffect, useState } from 'react';
-import { useAuth } from '../contexts/auth-context.jsx';
+import { useState } from 'react';
 import styles from '../styles/section.module.css';
 import Modal from './ModalSection.jsx';
 
-const ExperienceSection = () => {
-  const { user } = useAuth();
-  const [profileData, setProfileData] = useState(null);
-  const [experiences, setExperiences] = useState([]);
+const ExperienceSection = ({ userProfileData }) => {
+  const [experiences, setExperiences] = useState(userProfileData?.Experiences || []);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingExperience, setEditingExperience] = useState(null);
   const [formErrors, setFormErrors] = useState({});
-  const [error, setError] = useState(null);
   const [newExperience, setNewExperience] = useState({
     company: '',
     Role: '',
@@ -23,7 +19,6 @@ const ExperienceSection = () => {
     startMonth: '',
     startYear: ''
   });
-  const req_url = import.meta.env.VITE_API_SERVER_URL + `/user/${user?.id}`;
   const update_url = import.meta.env.VITE_API_SERVER_URL + `/user/experience/update`;
   const delete_url = import.meta.env.VITE_API_SERVER_URL + `/user/experience/delete`;
 
@@ -77,40 +72,6 @@ const ExperienceSection = () => {
       StartDate: formatDateForDB(month, year)
     }));
   };
-
-  useEffect(() => {
-    const fetchProfile = async () => {
-      if (!user?.id) return;
-
-      try {
-        const response = await fetch(req_url, {
-          method: 'GET',
-          credentials: 'include',
-        });
-
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        const data = await response.json();
-        setProfileData(data.data);
-        setExperiences(data.data.Experiences || []);
-      } catch (error) {
-        console.error('Error fetching profile:', error);
-        setError('Failed to load profile data. Please try again later.');
-      }
-    };
-
-    fetchProfile();
-  }, [user?.id, req_url]);
-
-  if (error) {
-    return <div className={styles.error}>{error}</div>;
-  }
-
-  if (!profileData) {
-    return <div className={styles.loading}>Loading...</div>;
-  }
 
   const months = [
     'January', 'February', 'March', 'April', 'May', 'June',

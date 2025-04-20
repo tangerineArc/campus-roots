@@ -1,17 +1,13 @@
 import { Edit, Trash2 } from 'lucide-react';
-import { useEffect, useState } from 'react';
-import { useAuth } from '../contexts/auth-context.jsx';
+import { useState } from 'react';
 import styles from '../styles/section.module.css';
 import Modal from './ModalSection.jsx';
 
-const EducationSection = () => {
-  const { user } = useAuth();
-  const [profileData, setProfileData] = useState(null);
-  const [educations, setEducations] = useState([]);
+const EducationSection = ({ userProfileData }) => {
+  const [educations, setEducations] = useState(userProfileData?.Education || []);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingEducation, setEditingEducation] = useState(null);
   const [formErrors, setFormErrors] = useState({});
-  const [error, setError] = useState(null);
   const [newEducation, setNewEducation] = useState({
     institution: '',
     degree: '',
@@ -21,7 +17,6 @@ const EducationSection = () => {
     endYear: '',
     isPresent: false
   });
-  const req_url = import.meta.env.VITE_API_SERVER_URL + `/user/${user?.id}`;
   const update_url = import.meta.env.VITE_API_SERVER_URL + `/user/education/update`;
   const delete_url = import.meta.env.VITE_API_SERVER_URL + `/user/education/delete`;
 
@@ -40,39 +35,6 @@ const EducationSection = () => {
     const paddedMonth = monthIndex.toString().padStart(2, '0');
     return `${year}-${paddedMonth}-01T00:00:00.000Z`;
   };
-
-  useEffect(() => {
-    const fetchProfile = async () => {
-      if (!user?.id) return;
-
-      try {
-        const response = await fetch(req_url, {
-          method: 'GET',
-          credentials: 'include',
-        });
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        const data = await response.json();
-        setProfileData(data.data);
-        setEducations(data.data.Education || []);
-      } catch (error) {
-        console.error('Error fetching profile:', error);
-        setError('Failed to load profile data. Please try again later.');
-      }
-    };
-
-    fetchProfile();
-  }, [user?.id, req_url]);
-
-  if (error) {
-    return <div className={styles.error}>{error}</div>;
-  }
-
-  if (!profileData) {
-    return <div className={styles.loading}>Loading...</div>;
-  }
 
   const months = [
     'January', 'February', 'March', 'April', 'May', 'June',

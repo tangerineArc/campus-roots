@@ -1,34 +1,21 @@
 import { Edit } from 'lucide-react';
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import img from "../assets/default-profile-picture.jpg";
-import { useAuth } from '../contexts/auth-context.jsx';
 import styles from '../styles/profile-section.module.css';
 import Modal from './ModalSection.jsx';
 
-const ProfileSection = () => {
-  const { user } = useAuth();
-  const [profileData, setProfileData] = useState(null);
-  const [name, setName] = useState('');
-  const [about, setAbout] = useState('');
-  const [imageUrl, setImageUrl] = useState(img);
+const ProfileSection = ({ userProfileData }) => {
+  const [name, setName] = useState(userProfileData?.name || '');
+  const [about, setAbout] = useState(userProfileData?.About || '');
+  const [imageUrl, setImageUrl] = useState(userProfileData?.Avatar || img);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [tempName, setTempName] = useState('');
-  const [tempAbout, setTempAbout] = useState('');
-  const [tempImageUrl, setTempImageUrl] = useState(img);
+  const [tempName, setTempName] = useState(userProfileData?.name || '');
+  const [tempAbout, setTempAbout] = useState(userProfileData?.About || '');
+  const [tempImageUrl, setTempImageUrl] = useState(userProfileData?.Avatar || img);
   const [error, setError] = useState(null);
   const fileInputRef = useRef(null);
-  const [newProfile, setNewProfile] = useState({
-    name: '',
-    about: '',
-    avatar: img
-  });
 
-  const req_url = import.meta.env.VITE_API_SERVER_URL + `/user/${user?.id}`;
   const update_url = import.meta.env.VITE_API_SERVER_URL + `/user/profile`;
-
-  const handleUpdate = () => {
-    handleUpdateProfile();
-  };
 
   const handleImageChange = (event) => {
     const file = event.target.files[0];
@@ -55,25 +42,22 @@ const ProfileSection = () => {
         Avatar: avatarToSend,
       };
 
-      console.log("Sending profileData:", profileData); // DEBUG LOG
-
       const response = await fetch(update_url, {
         method: 'PUT',
         credentials: 'include',
-        body: JSON.stringify(profileData),
         headers: {
           'Content-Type': 'application/json',
         },
+        body: JSON.stringify(profileData)
       });
 
       if (!response.ok) {
-        const errorBody = await response.text(); // Get server response text
+        const errorBody = await response.text();
         console.error('Server Response:', errorBody);
         throw new Error('Failed to update profile');
       }
 
       const data = await response.json();
-      setProfileData(data.data);
       setName(tempName);
       setAbout(tempAbout);
       setImageUrl(avatarToSend);
@@ -83,52 +67,6 @@ const ProfileSection = () => {
       setError('Failed to update profile. Please try again.');
     }
   };
-
-
-  useEffect(() => {
-    const fetchProfile = async () => {
-      if (!user?.id) return;
-
-      try {
-        const response = await fetch(req_url, {
-          method: 'GET',
-          credentials: 'include',
-        });
-
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        let data = await response.json();
-        data = data.data;
-
-        const avatarUrl = data.Avatar?.startsWith('data:image')
-          ? data.Avatar
-          : `data:image/jpeg;base64,${data.Avatar}`;
-
-        setProfileData(data);
-        setName(data.name || '');
-        setAbout(data.About || '');
-        setImageUrl(avatarUrl || img);
-        setTempName(data.name || '');
-        setTempAbout(data.About || '');
-        setTempImageUrl(avatarUrl || img);
-      } catch (error) {
-        console.error('Error fetching profile:', error);
-        setError('Failed to load profile data. Please try again later.');
-      }
-    };
-
-    fetchProfile();
-  }, [user?.id, req_url]);
-
-  if (error) {
-    return <div className={styles.error}>{error}</div>;
-  }
-
-  if (!profileData) {
-    return <div className={styles.loading}>Loading...</div>;
-  }
 
   return (
     <section className={styles.profileSection}>
@@ -146,7 +84,12 @@ const ProfileSection = () => {
       </div>
 
       {isModalOpen && (
-        <Modal title="Edit Profile" onClose={() => setIsModalOpen(false)}>
+        <Modal title="Edit Profile" onClose={() => {
+          setIsModalOpen(false);
+          setTempName(name);
+          setTempAbout(about);
+          setTempImageUrl(imageUrl);
+        }}>
           <div className={styles.formGroup}>
             <label>Profile Picture</label>
             <div className={styles.imageUploadContainer}>
@@ -187,7 +130,7 @@ const ProfileSection = () => {
             />
           </div>
           <div className={styles.modalActions}>
-            <button className={styles.updateButton} onClick={handleUpdate}>
+            <button className={styles.updateButton} onClick={handleUpdateProfile}>
               Update
             </button>
           </div>
