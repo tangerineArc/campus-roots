@@ -1,7 +1,7 @@
 import { Edit, Trash2 } from 'lucide-react';
 import { useState } from 'react';
 import styles from '../styles/section.module.css';
-import Modal from './ModalSection.jsx';
+import Modal from './Modal.jsx';
 
 const ExperienceSection = ({ userProfileData }) => {
   const [experiences, setExperiences] = useState(userProfileData?.Experiences || []);
