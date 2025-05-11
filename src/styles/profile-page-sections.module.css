@@ -106,14 +106,12 @@
   color: #6b7280;
 }
 
-.list,
-.achievementList {
+.list {
   border: 1px solid #eaeaea;
   border-radius: 10px;
 }
 
-.listItem,
-.achievementItem {
+.listItem {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -122,28 +120,23 @@
   border-bottom: 1px solid #eaeaea;
 }
 
-.listItem:last-child,
-.achievementItem:last-child {
+.listItem:last-child {
   border-bottom: none;
 }
 
-.listInfo,
-.educationInfo,
-.achievementInfo {
+.listInfo {
   display: flex;
   align-items: center;
   gap: 0.2rem;
 }
 
-.listOrg,
-.achievementTitle {
+.listOrg {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.listRole,
-.achievementSubtitle {
+.listRole {
   font-size: 0.9rem;
   color: #6b7280;
   white-space: nowrap;
@@ -151,8 +144,7 @@
   text-overflow: ellipsis;
 }
 
-.listActions,
-.achievementActions {
+.listActions {
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -222,6 +214,8 @@
 
     font-size: 0.9rem;
     font-family: inherit;
+
+    flex-grow: 2;
   }
 
   & > input {
@@ -231,6 +225,8 @@
 
     font-size: 0.9rem;
     font-family: inherit;
+
+    flex-grow: 1;
   }
 }
 
