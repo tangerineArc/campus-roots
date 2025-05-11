@@ -59,7 +59,12 @@ export default function ProfilePage() {
             experiences: profileData.user.experiences,
           }}
         />
-        <EducationSection userProfileData={profileData} />
+        <EducationSection
+          data={{
+            id: profileData.user.id,
+            education: profileData.user.education,
+          }}
+        />
         <SkillsSection userProfileData={profileData} />
         <AchievementsSection userProfileData={profileData} />
       </main>

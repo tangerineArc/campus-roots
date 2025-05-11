@@ -247,11 +247,6 @@
 }
 
 /* after this */
-.educationMonth {
-  padding-left: 0.5rem;
-  padding-right: -0.5rem;
-}
-
 .skillItem {
   background-color: #c7c8ca30;
   border-radius: 0.375rem;
