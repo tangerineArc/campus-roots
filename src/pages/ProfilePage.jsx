@@ -27,8 +27,6 @@ export default function ProfilePage() {
 
   if (loading) {
     return <p>Fetching data...</p>;
-  } else {
-    console.log(profileData); // to be removed
   }
 
   if (error) {

@@ -1,4 +1,4 @@
-import { Edit, Trash2 } from "lucide-react";
+import { Dot, Edit, Trash2 } from "lucide-react";
 import { array, exact, string } from "prop-types";
 import { useState } from "react";
 
@@ -133,6 +133,7 @@ export default function AchievementsSection({ data }) {
                 <div key={id} className={styles.listItem}>
                   <div className={styles.listInfo}>
                     <span className={styles.listOrg}>{title}</span>
+                    <Dot />
                     <span className={styles.listRole}>
                       {month} {year}
                     </span>
