@@ -1,171 +1,133 @@
-import { Edit, Trash2 } from 'lucide-react';
-import { useState } from 'react';
-import styles from '../styles/section.module.css';
-import Modal from './ModalSection.jsx';
+import { Edit, Trash2 } from "lucide-react";
+import { array, exact, string } from "prop-types";
+import { useState } from "react";
 
-const SkillsSection = ({ userProfileData }) => {
-  const [skills, setSkills] = useState(userProfileData?.Skills || []);
+import Modal from "./Modal.jsx";
+
+import styles from "../styles/profile-page-sections.module.css";
+
+export default function SkillsSection({ data }) {
+  const [skills, setSkills] = useState(data?.skills || []);
+
   const [isModalOpen, setIsModalOpen] = useState(false);
+
   const [editingSkill, setEditingSkill] = useState(null);
-  const [newSkill, setNewSkill] = useState('');
-  const update_url = import.meta.env.VITE_API_SERVER_URL + `/user/skill/update`;
-  const delete_url = import.meta.env.VITE_API_SERVER_URL + `/user/skill/delete`;
+  const [newSkill, setNewSkill] = useState({ label: "" });
+
+  const [error, setError] = useState();
 
   const handleEditSkill = (id) => {
-    const skill = skills.find(s => s.id === id);
+    const skill = skills.find((s) => s.id === id);
     setEditingSkill(skill);
-    setNewSkill(skill.SkillName);
-  };
-
-  const validateForm = () => {
-    if (!newSkill.trim()) {
-      setError('Skill name cannot be empty');
-      return false;
-    }
-    return true;
+    setNewSkill({ label: skill.label });
   };
 
   const handleUpdateSkill = async () => {
-    if (validateForm()) {
-      const skillData = {
-        SkillName: newSkill.trim()
-      };
-
-      try {
-        const updatedSkills = editingSkill
-          ? skills.map(skill =>
-            skill.id === editingSkill.id
-              ? {
-                ...skill,
-                ...skillData
-              }
-              : skill
+    try {
+      const updatedSkills = editingSkill
+        ? skills.map((skill) =>
+            skill.id === editingSkill.id ? { ...skill, ...newSkill } : skill
           )
-          : [...skills, {
-            id: Date.now(),
-            ...skillData
-          }];
+        : [...skills, newSkill];
 
-        const response = await fetch(update_url, {
-          method: 'PUT',
-          credentials: 'include',
+      const response = await fetch(
+        `${import.meta.env.VITE_API_SERVER_URL}/user/skills`,
+        {
+          method: "PUT",
+          credentials: "include",
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            Skills: updatedSkills
-          })
-        });
-
-        if (!response.ok) {
-          throw new Error('Failed to update skill');
+            skills: updatedSkills,
+          }),
         }
-
-        const data = await response.json();
-        setSkills(data.data.Skills || []);
-        setEditingSkill(null);
-        setNewSkill('');
-        setIsModalOpen(false);
-      } catch (error) {
-        console.error('Error updating skill:', error);
-        setError('Failed to update skill. Please try again.');
-      }
-    }
-  };
-
-  const handleDeleteSkill = async (id) => {
-    try {
-      const updatedSkills = skills.filter(skill => skill.id !== id);
-
-      const response = await fetch(delete_url, {
-        method: 'PUT',
-        credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          Skills: updatedSkills
-        })
-      });
+      );
 
       if (!response.ok) {
-        throw new Error('Failed to delete skill');
+        throw new Error("Failed to update skill");
       }
 
       const data = await response.json();
-      setSkills(data.data.Skills || []);
+      setSkills(data?.user?.skills);
+      handleCloseModal();
     } catch (error) {
-      console.error('Error deleting skill:', error);
-      setError('Failed to delete skill. Please try again.');
+      console.error(error);
+      setError("Failed to update skill. Please try again.");
     }
   };
 
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setEditingSkill(null);
+    setNewSkill("");
+  };
+
   return (
-    <section className={styles.section}>
-      <div className={styles.sectionHeader}>
-        <h2 className={styles.sectionTitle}>SKILLS</h2>
-        <button className={styles.editButton} onClick={() => setIsModalOpen(true)}>
-          <Edit size={18} />
+    <section className={styles.main}>
+      <div className={styles.header}>
+        <p className={styles.title}>Skills</p>
+        <button className={styles.edit} onClick={() => setIsModalOpen(true)}>
+          <Edit />
         </button>
       </div>
 
-      <div className={styles.sectionContent}>
+      <div className={styles.skillContent}>
         {skills.map((skill) => (
           <div key={skill.id} className={styles.skillItem}>
-            {skill.SkillName}
+            {skill.label}
           </div>
         ))}
       </div>
 
       {isModalOpen && (
-        <Modal title="Edit Skills" onClose={() => {
-          setIsModalOpen(false);
-          setEditingSkill(null);
-          setNewSkill('');
-        }}>
-          <div className={styles.skillsList}>
-            {skills.map((skill) => (
-              <div key={skill.id} className={styles.skillListItem}>
-                <span className={styles.skillName}>{skill.SkillName}</span>
-                <div className={styles.skillActions}>
-                  <button
-                    className={styles.actionButton}
-                    onClick={() => handleEditSkill(skill.id)}
-                  >
-                    <Edit size={16} />
-                  </button>
-                  <button
-                    className={styles.actionButton}
-                    onClick={() => handleDeleteSkill(skill.id)}
-                  >
-                    <Trash2 size={16} />
-                  </button>
+        <Modal title="Edit Skills" onClose={handleCloseModal}>
+          {skills.length !== 0 && (
+            <div className={styles.list}>
+              {skills.map((skill) => (
+                <div key={skill.id} className={styles.listItem}>
+                  <span className={styles.listOrg}>{skill.label}</span>
+                  <div className={styles.listActions}>
+                    <button
+                      className={styles.actionButton}
+                      onClick={() => handleEditSkill(skill.id)}
+                    >
+                      <Edit />
+                    </button>
+                    <button className={styles.actionButton}>
+                      <Trash2 />
+                    </button>
+                  </div>
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
 
           <div className={styles.formSection}>
             <h3 className={styles.formTitle}>
-              {editingSkill ? 'Edit Skill' : 'Add Skill'}
+              {editingSkill ? "Edit Skill" : "Add Skill"}
             </h3>
             <div className={styles.formGroup}>
               <label htmlFor="skill">Skill Name</label>
               <input
                 type="text"
                 id="skill"
-                value={newSkill}
-                onChange={(e) => setNewSkill(e.target.value)}
+                value={newSkill.label || ""}
+                onChange={(e) =>
+                  setNewSkill({ ...newSkill, label: e.target.value })
+                }
               />
             </div>
             <button className={styles.addButton} onClick={handleUpdateSkill}>
-              {editingSkill ? 'Update' : 'Add'} Skill
+              {editingSkill ? "Update" : "Add"} Skill
             </button>
           </div>
         </Modal>
       )}
     </section>
   );
-};
+}
 
-export default SkillsSection;
+SkillsSection.propTypes = {
+  data: exact({ id: string, skills: array }),
+};

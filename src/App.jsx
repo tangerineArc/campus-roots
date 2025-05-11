@@ -2,12 +2,12 @@ import { Navigate, Routes, Route } from "react-router-dom";
 
 import Connections from "./components/ConnectionsPage.jsx";
 import SettingsPage from "./components/SettingsPage.jsx";
-import ProfilePage from "./components/ProfilePage.jsx";
 
 import { useAuth } from "./contexts/auth-context.jsx";
 
 import HomePage from "./pages/HomePage.jsx";
 import MessagesPage from "./pages/MessagesPage.jsx";
+import ProfilePage from "./pages/ProfilePage.jsx";
 import SignInPage from "./pages/SignInPage.jsx";
 
 import ProtectedRoute from "./routes/ProtectedRoute.jsx";

@@ -1,13 +1,14 @@
-import { X } from 'lucide-react';
-import PropTypes from 'prop-types';
-import { useEffect } from 'react';
-import styles from '../styles/modal.module.css';
+import { X } from "lucide-react";
+import PropTypes from "prop-types";
+import { useEffect } from "react";
 
-const Modal = ({ title, children, onClose }) => {
+import styles from "../styles/modal.module.css";
+
+export default function Modal({ title, children, onClose }) {
   useEffect(() => {
-    document.body.style.overflow = 'hidden';
+    document.body.style.overflow = "hidden";
     return () => {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = "unset";
     };
   }, []);
 
@@ -20,9 +21,7 @@ const Modal = ({ title, children, onClose }) => {
             <X size={20} />
           </button>
         </div>
-        <div className={styles.modalContent}>
-          {children}
-        </div>
+        <div className={styles.modalContent}>{children}</div>
       </div>
     </div>
   );
@@ -33,5 +32,3 @@ Modal.propTypes = {
   children: PropTypes.node.isRequired,
   onClose: PropTypes.func.isRequired,
 };
-
-export default Modal;
