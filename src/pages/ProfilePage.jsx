@@ -71,7 +71,12 @@ export default function ProfilePage() {
             skills: profileData.user.skills,
           }}
         />
-        <AchievementsSection userProfileData={profileData} />
+        <AchievementsSection
+          data={{
+            id: profileData.user.id,
+            achievements: profileData.user.achievements,
+          }}
+        />
       </main>
     </div>
   );
