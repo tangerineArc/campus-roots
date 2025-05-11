@@ -28,7 +28,7 @@ export default function ProfileSection({ currUserId, data }) {
       const profileData = {
         name: tempName.trim(),
         about: tempAbout.trim(),
-        avatar: tempImageUrl,
+        avatar: data?.avatar,
       };
 
       const response = await fetch(
