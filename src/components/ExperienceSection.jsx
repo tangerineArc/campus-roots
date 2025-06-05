@@ -40,28 +40,56 @@ export default function ExperienceSection({ data }) {
     endYear: "",
   });
 
-  const [error, setError] = useState();
+  const [error, setError] = useState("");
 
   const handleEditExperience = (id) => {
     const experience = experiences.find((exp) => exp.id === id);
     setEditingExperience(experience);
+    setNewExperience({ ...experience });
+  };
 
-    setNewExperience({
-      organization: experience.organization,
-      title: experience.title,
-      startMonth: experience.startMonth,
-      startYear: experience.startYear,
-      endMonth: experience.endMonth,
-      endYear: experience.endYear,
-    });
+  const handleDeleteExperience = async (id) => {
+    try {
+      const updatedExperiences = experiences.filter(exp => exp.id !== id);
+
+      const response = await fetch(
+        `${import.meta.env.VITE_API_SERVER_URL}/user/experiences`,
+        {
+          method: "PUT",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            experiences: updatedExperiences,
+          }),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to delete experience");
+      }
+
+      const data = await response.json();
+      setExperiences(data?.user?.experiences);
+    } catch (error) {
+      console.error(error);
+      setError("Failed to delete experience. Please try again.");
+    }
   };
 
   const handleUpdateExperience = async () => {
     try {
+      if (!newExperience.organization?.trim() || !newExperience.title?.trim() ||
+        !newExperience.startMonth || !newExperience.startYear) {
+        setError("Organization, title, start month and start year are required");
+        return;
+      }
+
       const updatedExperiences = editingExperience
         ? experiences.map((exp) =>
-            exp.id === editingExperience.id ? { ...exp, ...newExperience } : exp
-          )
+          exp.id === editingExperience.id ? { ...exp, ...newExperience } : exp
+        )
         : [...experiences, newExperience];
 
       const response = await fetch(
@@ -86,7 +114,7 @@ export default function ExperienceSection({ data }) {
       setExperiences(data?.user?.experiences);
       handleCloseModal();
     } catch (error) {
-      console.log(error);
+      console.error(error);
       setError("Failed to update experience. Please try again.");
     }
   };
@@ -102,6 +130,7 @@ export default function ExperienceSection({ data }) {
       endMonth: "",
       endYear: "",
     });
+    setError("");
   };
 
   return (
@@ -145,24 +174,27 @@ export default function ExperienceSection({ data }) {
       </div>
 
       {isModalOpen && (
-        <Modal title="Edit Experiences" onClose={handleCloseModal}>
+        <Modal title="Edit Experience" onClose={handleCloseModal}>
           {experiences.length !== 0 && (
             <div className={styles.list}>
-              {experiences.map(({ id, organization, title }) => (
-                <div key={id} className={styles.listItem}>
+              {experiences.map((exp) => (
+                <div key={exp.id} className={styles.listItem}>
                   <div className={styles.listInfo}>
-                    <span className={styles.listOrg}>{organization}</span>
-                    <Dot />
-                    <span className={styles.listRole}>{title}</span>
+                    <span className={styles.listOrg}>{exp.organization}</span>
+                    <Dot className={styles.dot} />
+                    <span className={styles.listRole}>{exp.title}</span>
                   </div>
                   <div className={styles.listActions}>
                     <button
                       className={styles.actionButton}
-                      onClick={() => handleEditExperience(id)}
+                      onClick={() => handleEditExperience(exp.id)}
                     >
                       <Edit />
                     </button>
-                    <button className={styles.actionButton}>
+                    <button
+                      className={styles.actionButton}
+                      onClick={() => handleDeleteExperience(exp.id)}
+                    >
                       <Trash2 />
                     </button>
                   </div>
@@ -172,9 +204,9 @@ export default function ExperienceSection({ data }) {
           )}
 
           <div className={styles.formSection}>
-            <p className={styles.formTitle}>
-              {editingExperience ? "Update Experience" : "Add New Experience"}
-            </p>
+            <h3 className={styles.formTitle}>
+              {editingExperience ? "Edit Experience" : "Add Experience"}
+            </h3>
 
             <div className={styles.formGroup}>
               <label htmlFor="organization">Organization</label>
@@ -183,16 +215,13 @@ export default function ExperienceSection({ data }) {
                 id="organization"
                 value={newExperience.organization}
                 onChange={(e) =>
-                  setNewExperience({
-                    ...newExperience,
-                    organization: e.target.value,
-                  })
+                  setNewExperience({ ...newExperience, organization: e.target.value })
                 }
               />
             </div>
 
             <div className={styles.formGroup}>
-              <label htmlFor="title">Job Title</label>
+              <label htmlFor="title">Title</label>
               <input
                 type="text"
                 id="title"
@@ -207,7 +236,6 @@ export default function ExperienceSection({ data }) {
               <label>Start Date</label>
               <div className={styles.dateInputs}>
                 <select
-                  id="startMonth"
                   value={newExperience.startMonth}
                   onChange={(e) =>
                     setNewExperience({
@@ -223,12 +251,9 @@ export default function ExperienceSection({ data }) {
                     </option>
                   ))}
                 </select>
-
                 <input
-                  type="text"
-                  id="startYear"
-                  placeholder="YYYY"
-                  maxLength="4"
+                  type="number"
+                  placeholder="Year"
                   value={newExperience.startYear}
                   onChange={(e) =>
                     setNewExperience({
@@ -244,8 +269,7 @@ export default function ExperienceSection({ data }) {
               <label>End Date</label>
               <div className={styles.dateInputs}>
                 <select
-                  id="endMonth"
-                  value={newExperience.endMonth || ""}
+                  value={newExperience.endMonth}
                   onChange={(e) =>
                     setNewExperience({
                       ...newExperience,
@@ -260,13 +284,10 @@ export default function ExperienceSection({ data }) {
                     </option>
                   ))}
                 </select>
-
                 <input
-                  type="text"
-                  id="endYear"
-                  placeholder="YYYY"
-                  maxLength="4"
-                  value={newExperience.endYear || ""}
+                  type="number"
+                  placeholder="Year"
+                  value={newExperience.endYear}
                   onChange={(e) =>
                     setNewExperience({
                       ...newExperience,
@@ -277,10 +298,9 @@ export default function ExperienceSection({ data }) {
               </div>
             </div>
 
-            <button
-              className={styles.addButton}
-              onClick={handleUpdateExperience}
-            >
+            {error && <p className={styles.error}>{error}</p>}
+
+            <button className={styles.addButton} onClick={handleUpdateExperience}>
               {editingExperience ? "Update" : "Add"} Experience
             </button>
           </div>

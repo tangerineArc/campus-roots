@@ -1,34 +1,71 @@
 import { UserPen } from "lucide-react";
 import { exact, string } from "prop-types";
 import { useRef, useState } from "react";
-
-import Modal from "./Modal.jsx";
-
 import defaultProfilePic from "../assets/default-profile-picture.jpg";
-
 import styles from "../styles/profile-section.module.css";
+import Modal from "./Modal.jsx";
 
 export default function ProfileSection({ currUserId, data }) {
   const [name, setName] = useState(data?.name || "");
   const [about, setAbout] = useState(data?.about || "");
   const [avatar, setAvatar] = useState(data?.avatar || defaultProfilePic);
-
   const [isModalOpen, setIsModalOpen] = useState(false);
-
   const [tempName, setTempName] = useState(name || "");
   const [tempAbout, setTempAbout] = useState(about || "");
-  const [tempImageUrl, setTempImageUrl] = useState(avatar || "");
-
-  const [error, setError] = useState(null);
-
+  const [tempImageUrl, setTempImageUrl] = useState(data?.avatar || defaultProfilePic);
+  const [error, setError] = useState("");
   const fileInputRef = useRef(null);
+
+  const handleAvatarChange = async (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const img = new Image();
+      const reader = new FileReader();
+
+      reader.onload = (e) => {
+        img.src = e.target.result;
+
+        img.onload = () => {
+          const canvas = document.createElement('canvas');
+          const MAX_WIDTH = 400;
+          const MAX_HEIGHT = 400;
+          let width = img.width;
+          let height = img.height;
+          if (width > height) {
+            if (width > MAX_WIDTH) {
+              height *= MAX_WIDTH / width;
+              width = MAX_WIDTH;
+            }
+          } else {
+            if (height > MAX_HEIGHT) {
+              width *= MAX_HEIGHT / height;
+              height = MAX_HEIGHT;
+            }
+          }
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, width, height);
+          const base64String = canvas.toDataURL('image/jpeg', 0.7);
+          setTempImageUrl(base64String);
+          setAvatar(base64String);
+        };
+      };
+      reader.readAsDataURL(file);
+    }
+  };
 
   const handleUpdateProfile = async () => {
     try {
+      if (!tempName.trim()) {
+        setError("Name cannot be empty.");
+        return;
+      }
+
       const profileData = {
         name: tempName.trim(),
         about: tempAbout.trim(),
-        avatar: data?.avatar,
+        avatar: tempImageUrl,
       };
 
       const response = await fetch(
@@ -44,17 +81,17 @@ export default function ProfileSection({ currUserId, data }) {
       );
 
       if (!response.ok) {
-        throw new Error("Failed to update profile");
+        console.log(response);
       }
 
       const { user } = await response.json();
-
       setName(user.name);
       setAbout(user.about);
       setAvatar(user.avatar || defaultProfilePic);
-
       setIsModalOpen(false);
-    } catch {
+      setError("");
+    } catch (err) {
+      console.error(err);
       setError("Failed to update profile. Please try again.");
     }
   };
@@ -67,8 +104,7 @@ export default function ProfileSection({ currUserId, data }) {
           <div className={styles.text}>
             <p className={styles.name}>{name}</p>
             <p className={styles.about}>
-              {about ||
-                (currUserId === data.id ? "write a catchy headline..." : "")}
+              {about || (currUserId === data.id ? "write a catchy headline..." : "")}
             </p>
           </div>
         </div>
@@ -85,14 +121,17 @@ export default function ProfileSection({ currUserId, data }) {
             setTempName(name);
             setTempAbout(about);
             setTempImageUrl(avatar);
+            setError("");
           }}
         >
           <div className={styles.imageUploadContainer}>
-            <img src={tempImageUrl} className={styles.previewImage} />
+            <img src={tempImageUrl} alt="Preview" className={styles.previewImage} />
             <input
               type="file"
               ref={fileInputRef}
               className={styles.fileInput}
+              accept="image/*"
+              onChange={handleAvatarChange}
             />
             <button
               className={styles.uploadButton}
@@ -127,6 +166,8 @@ export default function ProfileSection({ currUserId, data }) {
               className={styles.input}
             />
           </div>
+
+          {error && <p className={styles.error}>{error}</p>}
 
           <button className={styles.updateButton} onClick={handleUpdateProfile}>
             Update

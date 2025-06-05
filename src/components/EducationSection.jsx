@@ -40,21 +40,56 @@ export default function EducationSection({ data }) {
     endYear: "",
   });
 
-  const [error, setError] = useState();
+  const [error, setError] = useState("");
 
   const handleEditExperience = (id) => {
     const education = allEducation.find((edu) => edu.id === id);
     setEditingEducation(education);
-
     setNewEducation({ ...education });
   };
 
-  const handleUpdateExperience = async () => {
+  const handleDeleteEducation = async (id) => {
     try {
-      const updatedAllEducation = editingEducation
-        ? allEducation.map((exp) =>
-            exp.id === editingEducation.id ? { ...exp, ...newEducation } : exp
-          )
+      const updatedEducation = allEducation.filter(edu => edu.id !== id);
+
+      const response = await fetch(
+        `${import.meta.env.VITE_API_SERVER_URL}/user/education`,
+        {
+          method: "PUT",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            education: updatedEducation,
+          }),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to delete education");
+      }
+
+      const data = await response.json();
+      setAllEducation(data?.user?.education);
+    } catch (error) {
+      console.error(error);
+      setError("Failed to delete education. Please try again.");
+    }
+  };
+
+  const handleUpdateEducation = async () => {
+    try {
+      if (!newEducation.school?.trim() || !newEducation.degree?.trim() ||
+        !newEducation.startMonth || !newEducation.startYear) {
+        setError("School, degree, start month and start year are required");
+        return;
+      }
+
+      const updatedEducation = editingEducation
+        ? allEducation.map((edu) =>
+          edu.id === editingEducation.id ? { ...edu, ...newEducation } : edu
+        )
         : [...allEducation, newEducation];
 
       const response = await fetch(
@@ -66,7 +101,7 @@ export default function EducationSection({ data }) {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            education: updatedAllEducation,
+            education: updatedEducation,
           }),
         }
       );
@@ -79,7 +114,7 @@ export default function EducationSection({ data }) {
       setAllEducation(data?.user?.education);
       handleCloseModal();
     } catch (error) {
-      console.log(error);
+      console.error(error);
       setError("Failed to update education. Please try again.");
     }
   };
@@ -95,6 +130,7 @@ export default function EducationSection({ data }) {
       endMonth: "",
       endYear: "",
     });
+    setError("");
   };
 
   return (
@@ -132,28 +168,31 @@ export default function EducationSection({ data }) {
           )
         )}
         {allEducation.length === 0 &&
-          (data.id === user.id ? "Add an experience" : "No experiences added")}
+          (data.id === user.id ? "Add an education" : "No education added")}
       </div>
 
       {isModalOpen && (
-        <Modal title="Edit Experiences" onClose={handleCloseModal}>
+        <Modal title="Edit Education" onClose={handleCloseModal}>
           {allEducation.length !== 0 && (
             <div className={styles.list}>
-              {allEducation.map(({ id, school, degree }) => (
-                <div key={id} className={styles.listItem}>
+              {allEducation.map((edu) => (
+                <div key={edu.id} className={styles.listItem}>
                   <div className={styles.listInfo}>
-                    <span className={styles.listOrg}>{school}</span>
-                    <Dot />
-                    <span className={styles.listRole}>{degree}</span>
+                    <span className={styles.listOrg}>{edu.school}</span>
+                    <Dot className={styles.dot} />
+                    <span className={styles.listRole}>{edu.degree}</span>
                   </div>
                   <div className={styles.listActions}>
                     <button
                       className={styles.actionButton}
-                      onClick={() => handleEditExperience(id)}
+                      onClick={() => handleEditExperience(edu.id)}
                     >
                       <Edit />
                     </button>
-                    <button className={styles.actionButton}>
+                    <button
+                      className={styles.actionButton}
+                      onClick={() => handleDeleteEducation(edu.id)}
+                    >
                       <Trash2 />
                     </button>
                   </div>
@@ -163,9 +202,9 @@ export default function EducationSection({ data }) {
           )}
 
           <div className={styles.formSection}>
-            <p className={styles.formTitle}>
-              {editingEducation ? "Update Experience" : "Add New Experience"}
-            </p>
+            <h3 className={styles.formTitle}>
+              {editingEducation ? "Edit Education" : "Add Education"}
+            </h3>
 
             <div className={styles.formGroup}>
               <label htmlFor="school">School</label>
@@ -174,10 +213,7 @@ export default function EducationSection({ data }) {
                 id="school"
                 value={newEducation.school}
                 onChange={(e) =>
-                  setNewEducation({
-                    ...newEducation,
-                    school: e.target.value,
-                  })
+                  setNewEducation({ ...newEducation, school: e.target.value })
                 }
               />
             </div>
@@ -198,7 +234,6 @@ export default function EducationSection({ data }) {
               <label>Start Date</label>
               <div className={styles.dateInputs}>
                 <select
-                  id="startMonth"
                   value={newEducation.startMonth}
                   onChange={(e) =>
                     setNewEducation({
@@ -214,12 +249,9 @@ export default function EducationSection({ data }) {
                     </option>
                   ))}
                 </select>
-
                 <input
-                  type="text"
-                  id="startYear"
-                  placeholder="YYYY"
-                  maxLength="4"
+                  type="number"
+                  placeholder="Year"
                   value={newEducation.startYear}
                   onChange={(e) =>
                     setNewEducation({
@@ -235,8 +267,7 @@ export default function EducationSection({ data }) {
               <label>End Date</label>
               <div className={styles.dateInputs}>
                 <select
-                  id="endMonth"
-                  value={newEducation.endMonth || ""}
+                  value={newEducation.endMonth}
                   onChange={(e) =>
                     setNewEducation({
                       ...newEducation,
@@ -251,13 +282,10 @@ export default function EducationSection({ data }) {
                     </option>
                   ))}
                 </select>
-
                 <input
-                  type="text"
-                  id="endYear"
-                  placeholder="YYYY"
-                  maxLength="4"
-                  value={newEducation.endYear || ""}
+                  type="number"
+                  placeholder="Year"
+                  value={newEducation.endYear}
                   onChange={(e) =>
                     setNewEducation({
                       ...newEducation,
@@ -268,11 +296,10 @@ export default function EducationSection({ data }) {
               </div>
             </div>
 
-            <button
-              className={styles.addButton}
-              onClick={handleUpdateExperience}
-            >
-              {editingEducation ? "Update" : "Add"} Experience
+            {error && <p className={styles.error}>{error}</p>}
+
+            <button className={styles.addButton} onClick={handleUpdateEducation}>
+              {editingEducation ? "Update" : "Add"} Education
             </button>
           </div>
         </Modal>
@@ -282,5 +309,8 @@ export default function EducationSection({ data }) {
 }
 
 EducationSection.propTypes = {
-  data: exact({ id: string, education: array }),
+  data: exact({
+    id: string,
+    education: array,
+  }),
 };

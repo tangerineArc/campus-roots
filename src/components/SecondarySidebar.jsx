@@ -34,7 +34,8 @@ const SecondarySidebar = () => {
         }
 
         const data = await response.json();
-        setProfileData(data.data);
+        console.log(data);
+        setProfileData(data);
       } catch (error) {
         console.error('Error fetching profile:', error);
         setError('Failed to load profile data. Please try again later.');
@@ -90,7 +91,13 @@ const SecondarySidebar = () => {
   }
 
   const currentHour = new Date().getHours();
-  const greeting = currentHour < 12 ? "Good Morning" : currentHour < 18 ? "Good Afternoon" : "Good Evening";
+  var firstName = "";
+  var fullName = profileData.user.name;
+  for (let i = 0; i < fullName.length; i++) {
+    if (fullName[i] == ' ') break;
+    else firstName += fullName[i];
+  }
+  const greeting = (currentHour < 12 ? "Good Morning" : currentHour < 18 ? "Good Afternoon" : "Good Evening") + ` ` + firstName;
 
   return (
     <aside
@@ -103,10 +110,10 @@ const SecondarySidebar = () => {
       <div className={styles.profileSection}>
         <div className={styles.profileImage}>
           <Link to="/profile">
-            <img src={profileData.Avatar || img} alt="Profile" />
+            <img src={profileData.user.avatar || img} alt="Profile" />
           </Link>
         </div>
-        <h1 className={styles.greeting}>{greeting} {profileData.name}</h1>
+        <h1 className={styles.greeting}>{greeting}</h1>
         <p className={styles.motto}>Continue Your Journey And Achieve Your Target</p>
       </div>
 

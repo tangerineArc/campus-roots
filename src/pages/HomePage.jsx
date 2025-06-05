@@ -1,8 +1,8 @@
 import { ArrowRight, Pencil, Send } from "lucide-react";
 import { useState } from "react";
+import { useAuth } from "../contexts/auth-context.jsx";
 
 import Filter from "../components/Filter.jsx";
-import Post from "../components/Post.jsx";
 import RichEditor from "../components/RichEditor.jsx";
 import SearchBar from "../components/SearchBar.jsx";
 import SecondarySidebar from "../components/SecondarySidebar.jsx";
@@ -10,11 +10,14 @@ import Sidebar from "../components/Sidebar.jsx";
 
 import profilePic from "../assets/default-profile-picture.jpg";
 
-import posts from "../data/posts-data.js";
 
+import useFetch from "../hooks/use-fetch.js";
 import styles from "../styles/home-page.module.css";
 export default function HomePage() {
+  const { user } = useAuth();
   const [isEditorVisible, setIsEditorVisible] = useState(false);
+  const options = { credentials: "include" };
+  const { posts } = useFetch(`${import.meta.env.VITE_API_SERVER_URL}/posts`, options);
 
   const handleStartPost = () => {
     setIsEditorVisible(true);

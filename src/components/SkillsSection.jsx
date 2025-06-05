@@ -22,12 +22,47 @@ export default function SkillsSection({ data }) {
     setNewSkill({ label: skill.label });
   };
 
+  const handleDeleteSkill = async (id) => {
+    try {
+      const updatedSkills = skills.filter(skill => skill.id !== id);
+
+      const response = await fetch(
+        `${import.meta.env.VITE_API_SERVER_URL}/user/skills`,
+        {
+          method: "PUT",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            skills: updatedSkills,
+          }),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to delete skill");
+      }
+
+      const data = await response.json();
+      setSkills(data?.user?.skills);
+    } catch (error) {
+      console.error(error);
+      setError("Failed to delete skill. Please try again.");
+    }
+  };
+
   const handleUpdateSkill = async () => {
     try {
+      if (!newSkill.label?.trim()) {
+        setError("Skill name is required");
+        return;
+      }
+
       const updatedSkills = editingSkill
         ? skills.map((skill) =>
-            skill.id === editingSkill.id ? { ...skill, ...newSkill } : skill
-          )
+          skill.id === editingSkill.id ? { ...skill, ...newSkill } : skill
+        )
         : [...skills, newSkill];
 
       const response = await fetch(
@@ -60,7 +95,8 @@ export default function SkillsSection({ data }) {
   const handleCloseModal = () => {
     setIsModalOpen(false);
     setEditingSkill(null);
-    setNewSkill("");
+    setNewSkill({ label: "" });
+    setError("");
   };
 
   return (
@@ -94,7 +130,10 @@ export default function SkillsSection({ data }) {
                     >
                       <Edit />
                     </button>
-                    <button className={styles.actionButton}>
+                    <button
+                      className={styles.actionButton}
+                      onClick={() => handleDeleteSkill(skill.id)}
+                    >
                       <Trash2 />
                     </button>
                   </div>
@@ -118,6 +157,7 @@ export default function SkillsSection({ data }) {
                 }
               />
             </div>
+            {error && <p className={styles.error}>{error}</p>}
             <button className={styles.addButton} onClick={handleUpdateSkill}>
               {editingSkill ? "Update" : "Add"} Skill
             </button>

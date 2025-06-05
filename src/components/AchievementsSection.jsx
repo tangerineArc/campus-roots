@@ -38,23 +38,55 @@ export default function AchievementsSection({ data }) {
     description: "",
   });
 
-  const [error, setError] = useState();
+  const [error, setError] = useState("");
 
   const handleEditAchievement = (id) => {
     const achievement = achievements.find((ach) => ach.id === id);
     setEditingAchievement(achievement);
-
     setNewAchievement({ ...achievement });
+  };
+
+  const handleDeleteAchievement = async (id) => {
+    try {
+      const updatedAchievements = achievements.filter(ach => ach.id !== id);
+
+      const response = await fetch(
+        `${import.meta.env.VITE_API_SERVER_URL}/user/achievements`,
+        {
+          method: "PUT",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            achievements: updatedAchievements,
+          }),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to delete achievement");
+      }
+
+      const data = await response.json();
+      setAchievements(data?.user?.achievements);
+    } catch (error) {
+      console.error(error);
+      setError("Failed to delete achievement. Please try again.");
+    }
   };
 
   const handleUpdateAchievement = async () => {
     try {
+      if (!newAchievement.title?.trim() || !newAchievement.month || !newAchievement.year) {
+        setError("Title, month and year are required");
+        return;
+      }
+
       const updatedAchievements = editingAchievement
         ? achievements.map((ach) =>
-            ach.id === editingAchievement.id
-              ? { ...ach, ...newAchievement }
-              : ach
-          )
+          ach.id === editingAchievement.id ? { ...ach, ...newAchievement } : ach
+        )
         : [...achievements, newAchievement];
 
       const response = await fetch(
@@ -79,7 +111,7 @@ export default function AchievementsSection({ data }) {
       setAchievements(data?.user?.achievements);
       handleCloseModal();
     } catch (error) {
-      console.log(error);
+      console.error(error);
       setError("Failed to update achievement. Please try again.");
     }
   };
@@ -93,6 +125,7 @@ export default function AchievementsSection({ data }) {
       year: "",
       description: "",
     });
+    setError("");
   };
 
   return (
@@ -129,23 +162,26 @@ export default function AchievementsSection({ data }) {
         <Modal title="Edit Achievements" onClose={handleCloseModal}>
           {achievements.length !== 0 && (
             <div className={styles.list}>
-              {achievements.map(({ id, title, month, year }) => (
-                <div key={id} className={styles.listItem}>
+              {achievements.map((ach) => (
+                <div key={ach.id} className={styles.listItem}>
                   <div className={styles.listInfo}>
-                    <span className={styles.listOrg}>{title}</span>
-                    <Dot />
+                    <span className={styles.listOrg}>{ach.title}</span>
+                    <Dot className={styles.dot} />
                     <span className={styles.listRole}>
-                      {month} {year}
+                      {ach.month} {ach.year}
                     </span>
                   </div>
                   <div className={styles.listActions}>
                     <button
                       className={styles.actionButton}
-                      onClick={() => handleEditAchievement(id)}
+                      onClick={() => handleEditAchievement(ach.id)}
                     >
                       <Edit />
                     </button>
-                    <button className={styles.actionButton}>
+                    <button
+                      className={styles.actionButton}
+                      onClick={() => handleDeleteAchievement(ach.id)}
+                    >
                       <Trash2 />
                     </button>
                   </div>
@@ -155,9 +191,9 @@ export default function AchievementsSection({ data }) {
           )}
 
           <div className={styles.formSection}>
-            <p className={styles.formTitle}>
-              {editingAchievement ? "Update Achievement" : "Add Achievement"}
-            </p>
+            <h3 className={styles.formTitle}>
+              {editingAchievement ? "Edit Achievement" : "Add Achievement"}
+            </h3>
 
             <div className={styles.formGroup}>
               <label htmlFor="title">Title</label>
@@ -166,10 +202,7 @@ export default function AchievementsSection({ data }) {
                 id="title"
                 value={newAchievement.title}
                 onChange={(e) =>
-                  setNewAchievement({
-                    ...newAchievement,
-                    title: e.target.value,
-                  })
+                  setNewAchievement({ ...newAchievement, title: e.target.value })
                 }
               />
             </div>
@@ -178,7 +211,6 @@ export default function AchievementsSection({ data }) {
               <label>Date</label>
               <div className={styles.dateInputs}>
                 <select
-                  id="month"
                   value={newAchievement.month}
                   onChange={(e) =>
                     setNewAchievement({
@@ -194,12 +226,9 @@ export default function AchievementsSection({ data }) {
                     </option>
                   ))}
                 </select>
-
                 <input
-                  type="text"
-                  id="year"
-                  placeholder="YYYY"
-                  maxLength="4"
+                  type="number"
+                  placeholder="Year"
                   value={newAchievement.year}
                   onChange={(e) =>
                     setNewAchievement({
@@ -226,10 +255,9 @@ export default function AchievementsSection({ data }) {
               />
             </div>
 
-            <button
-              className={styles.addButton}
-              onClick={handleUpdateAchievement}
-            >
+            {error && <p className={styles.error}>{error}</p>}
+
+            <button className={styles.addButton} onClick={handleUpdateAchievement}>
               {editingAchievement ? "Update" : "Add"} Achievement
             </button>
           </div>
