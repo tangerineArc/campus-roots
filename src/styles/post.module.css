@@ -3,7 +3,7 @@
   flex-direction: column;
   gap: 0.5rem;
 
-  max-width: 80ch;
+  width: 100%;
   border-radius: 10px;
   background-color: #fbfaff;
 }
@@ -202,4 +202,71 @@
   transform: translateY(-10px);
   max-height: 0;
   transition: opacity 0.2s ease, transform 0.2s ease, max-height 0.3s ease;
+}
+
+.commentEditor {
+  margin: 1rem 0;
+  padding: 1rem;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+}
+
+.commentEditorActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.commentEditorActions button {
+  font-size: 0.9rem;
+  font-family: inherit;
+  font-weight: inherit;
+  color: #9600ff;
+  border: none;
+  border-radius: 5px;
+  padding: 0.8rem 1rem;
+  width: 6rem;
+  background: #9600ff33;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.commentEditorActions button:first-of-type {
+  background-color: #f2ebfb;
+}
+
+.inlineCommentEditor {
+  margin-top: 1rem;
+  margin-left: 0.5rem;
+  padding: 0.5rem;
+  border-radius: 8px;
+  background-color: #f8f9fa;
+}
+
+.inlineCommentEditor .commentEditorActions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+  justify-content: flex-end;
+}
+
+.inlineCommentEditor .commentEditorActions button {
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.inlineCommentEditor .commentEditorActions button:first-child {
+  background-color: #e9ecef;
+  color: #495057;
+}
+
+.inlineCommentEditor .commentEditorActions button:last-child {
+  background-color: #0d6efd;
+  color: white;
 }

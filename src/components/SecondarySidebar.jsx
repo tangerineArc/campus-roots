@@ -34,7 +34,6 @@ const SecondarySidebar = () => {
         }
 
         const data = await response.json();
-        console.log(data);
         setProfileData(data);
       } catch (error) {
         console.error('Error fetching profile:', error);

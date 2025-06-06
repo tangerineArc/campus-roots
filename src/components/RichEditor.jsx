@@ -1,12 +1,13 @@
 import { Editor } from "@tinymce/tinymce-react";
 
-export default function RichEditor() {
+export default function RichEditor({ onEditorChange }) {
   return (
     <Editor
       apiKey={`${import.meta.env.VITE_TINY_MCE_API_KEY}`}
       initialValue="<p>Share your thoughts ...</p>"
+      onEditorChange={onEditorChange}
       init={{
-        height: 500,
+        height: 250,
         menu: {
           edit: { title: "Edit", items: "undo redo | searchreplace" },
           view: { title: "View", items: "preview | fullscreen" },
