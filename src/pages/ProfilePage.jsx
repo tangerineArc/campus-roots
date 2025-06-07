@@ -1,4 +1,5 @@
 import AchievementsSection from "../components/AchievementsSection.jsx";
+import AllPosts from "../components/AllPosts.jsx";
 import EducationSection from "../components/EducationSection.jsx";
 import ExperienceSection from "../components/ExperienceSection.jsx";
 import ProfileSection from "../components/ProfileSection.jsx";
@@ -75,6 +76,7 @@ export default function ProfilePage() {
             achievements: profileData.user.achievements,
           }}
         />
+        <AllPosts />
       </main>
     </div>
   );

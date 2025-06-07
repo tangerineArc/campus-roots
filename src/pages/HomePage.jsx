@@ -31,7 +31,6 @@ export default function HomePage() {
 
   const handleEditorChange = (content) => {
     setEditorContent(content);
-    console.log(content);
   };
 
   const makePost = async () => {
@@ -57,10 +56,7 @@ export default function HomePage() {
       setIsEditorVisible(false);
       setEditorContent("");
       const data = await response.json();
-      if (data.success) {
-        window.location.reload();
-      }
-      else {
+      if (!data.success) {
         console.error("Cannot make Post");
       }
     } catch (error) {
@@ -123,4 +119,4 @@ export default function HomePage() {
       <SecondarySidebar />
     </div>
   );
-}
+};

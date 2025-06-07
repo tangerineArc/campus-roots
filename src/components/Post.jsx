@@ -1,11 +1,11 @@
-import { CircleCheck, Heart, MessageCircle, Share2 } from "lucide-react";
+import DOMPurify from 'dompurify';
+import { CircleCheck, Heart, MessageCircle, Share2, Trash2 } from "lucide-react";
 import PropTypes from "prop-types";
-import { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
+import defaultProfilePicture from "../assets/default-profile-picture.jpg";
 import { useAuth } from "../contexts/auth-context.jsx";
 
-import DOMPurify from 'dompurify';
-import defaultProfilePicture from "../assets/default-profile-picture.jpg";
 import useFetch from "../hooks/use-fetch.js";
 import styles from "../styles/post.module.css";
 import ProfilePic from "./ProfilePic.jsx";
@@ -22,8 +22,11 @@ export default function Post({ data }) {
   const [showCommentEditor, setShowCommentEditor] = useState(false);
   const [commentContent, setCommentContent] = useState("");
   const [replyingTo, setReplyingTo] = useState(null);
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const commentRefs = useRef({});
   const options = { credentials: "include" };
   const { data: commentsData, loading, error } = useFetch(`${import.meta.env.VITE_API_SERVER_URL}/posts/comments/${data.id}`, options);
+
   const sanitizedBody = DOMPurify.sanitize(data.body);
 
   const getTimeDifference = (createdAt) => {
@@ -160,7 +163,6 @@ export default function Post({ data }) {
           createdAt: new Date().toISOString()
         };
         setCommentContent("");
-        setShowCommentEditor(false);
         setReplyingTo(null);
       }
     } catch (error) {
@@ -170,7 +172,49 @@ export default function Post({ data }) {
 
   const handleReplyClick = (commentId) => {
     setReplyingTo(commentId);
-    setShowCommentEditor(true);
+  };
+
+  const handleDeleteClick = async (commentId) => {
+    try {
+      const response = await fetch(`${import.meta.env.VITE_API_SERVER_URL}/posts/comment/delete/${commentId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+        body: JSON.stringify({
+          commentId: commentId
+        }),
+      });
+      if (!response.ok) {
+        throw new Error('Failed to delete comment');
+      }
+    } catch (error) {
+      console.error('Error delete comment:', error);
+    }
+  };
+
+  const handleDeletePost = async () => {
+    try {
+      const response = await fetch(`${import.meta.env.VITE_API_SERVER_URL}/posts/delete/${data.id}`, {
+        method: 'PUT',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to delete post');
+      }
+
+      const result = await response.json();
+      if (result.success) {
+        window.location.reload();
+      }
+    } catch (error) {
+      console.error('Error deleting post:', error);
+    }
   };
 
   useEffect(() => {
@@ -204,9 +248,15 @@ export default function Post({ data }) {
       const childReplies = filteredComments.filter(c => c.parentCommentId === comment.id);
       const showReplies = visibleReplies[comment.id];
 
+      // Ensure we have a ref for this comment
+      if (!commentRefs.current[comment.id]) {
+        commentRefs.current[comment.id] = React.createRef();
+      }
+
       return (
         <CSSTransition
           key={comment.id}
+          nodeRef={commentRefs.current[comment.id]}
           timeout={300}
           classNames={{
             enter: styles.commentEnter,
@@ -215,7 +265,7 @@ export default function Post({ data }) {
             exitActive: styles.commentExitActive,
           }}
         >
-          <div key={comment.id} className={styles.comment} style={{ marginLeft: `${depth * 0.8}rem` }}>
+          <div ref={commentRefs.current[comment.id]} className={styles.comment} style={{ marginLeft: `${depth * 0.8}rem` }}>
             <div>
               <strong>{comment.user.name}</strong>{" "}
               <span className={styles.commentCreatedBefore}>{getTimeDifference(comment.createdAt)}</span>{" "}
@@ -227,6 +277,9 @@ export default function Post({ data }) {
               <span className={styles.commentCreatedBefore}>
                 <button onClick={() => handleReplyClick(comment.id)}>Reply</button>
               </span>
+              {user.id === comment.user.id && <span className={styles.commentCreatedBefore}>
+                <button onClick={() => handleDeleteClick(comment.id)}>Delete</button>
+              </span>}
             </div>
             <div style={{ marginLeft: `0.5rem` }} className={styles.commentWriterHeadline}>
               {comment.user.about}
@@ -253,6 +306,7 @@ export default function Post({ data }) {
                 </button>
                 <CSSTransition
                   in={showReplies}
+                  nodeRef={commentRefs.current[comment.id]}
                   timeout={300}
                   classNames={{
                     enter: styles.commentEnter,
@@ -262,7 +316,7 @@ export default function Post({ data }) {
                   }}
                   unmountOnExit
                 >
-                  <div>
+                  <div ref={commentRefs.current[comment.id]}>
                     {renderComments(comment.id, depth + 1)}
                   </div>
                 </CSSTransition>
@@ -301,17 +355,17 @@ export default function Post({ data }) {
         <button>
           <Share2 className={styles.icon} />
         </button>
+        {user.id === data.userId && (
+          <button onClick={() => setShowDeleteConfirm(true)}>
+            <Trash2 className={styles.icon} />
+          </button>
+        )}
       </div>
 
       {showCommentEditor && (
         <div className={styles.commentEditor}>
           <RichEditor onEditorChange={setCommentContent} />
           <div className={styles.commentEditorActions}>
-            <button onClick={() => {
-              setShowCommentEditor(false);
-              setReplyingTo(null);
-              setCommentContent("");
-            }}>Cancel</button>
             <button onClick={handleCommentSubmit}>Comment</button>
           </div>
         </div>
@@ -322,6 +376,19 @@ export default function Post({ data }) {
           <TransitionGroup component={null}>
             {renderComments()}
           </TransitionGroup>
+        </div>
+      )}
+
+      {showDeleteConfirm && (
+        <div className={styles.deleteConfirmOverlay}>
+          <div className={styles.deleteConfirmModal}>
+            <h3>Delete Post</h3>
+            <p>Are you sure you want to delete this post? This action cannot be undone.</p>
+            <div className={styles.deleteConfirmActions}>
+              <button onClick={() => setShowDeleteConfirm(false)}>Cancel</button>
+              <button onClick={handleDeletePost} className={styles.deleteButton}>Delete</button>
+            </div>
+          </div>
         </div>
       )}
     </div>
