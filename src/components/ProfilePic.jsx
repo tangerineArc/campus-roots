@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import defaultProfilePic from "../assets/default-profile-picture.jpg";
 
-const ProfilePic = ({ src, className, alt = "Profile Picture" }) => {
+const ProfilePic = ({ src, alt = "Profile Picture" }) => {
   const isValidImage = src && (src.startsWith('data:image') || src.startsWith('http'));
 
   return (
@@ -18,7 +18,6 @@ const ProfilePic = ({ src, className, alt = "Profile Picture" }) => {
 
 ProfilePic.propTypes = {
   src: PropTypes.string,
-  className: PropTypes.string,
   alt: PropTypes.string
 };
 

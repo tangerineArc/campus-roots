@@ -4,7 +4,7 @@ import {
   LogOut,
   MessagesSquare,
   Satellite,
-  Settings,
+  Settings
 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
@@ -16,7 +16,7 @@ import SiteLogo from "./SiteLogo.jsx";
 import styles from "../styles/sidebar.module.css";
 
 export default function Sidebar() {
-  const { signOut } = useAuth();
+  const { signOut, user } = useAuth();
 
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
   useEffect(() => {
@@ -57,7 +57,7 @@ export default function Sidebar() {
               <span>Messages</span>
             </NavLink>
             <NavLink
-              to="/profile"
+              to={`/profile/${user.id}`}
               className={({ isActive }) => (isActive ? styles.active : "")}
             >
               <CircleUserRound className={styles.icon} />

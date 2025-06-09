@@ -1,10 +1,11 @@
 import { ArrowRight, Pencil, Send } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuth } from "../contexts/auth-context.jsx";
 
 import Filter from "../components/Filter.jsx";
 import RichEditor from "../components/RichEditor.jsx";
 import SearchBar from "../components/SearchBar.jsx";
+import SearchResults from "../components/SearchResults.jsx";
 import SecondarySidebar from "../components/SecondarySidebar.jsx";
 import Sidebar from "../components/Sidebar.jsx";
 
@@ -17,8 +18,14 @@ export default function HomePage() {
   const { user } = useAuth();
   const [isEditorVisible, setIsEditorVisible] = useState(false);
   const [editorContent, setEditorContent] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [showResults, setShowResults] = useState(false);
   const options = { credentials: "include" };
   const { data, loading, error } = useFetch(`${import.meta.env.VITE_API_SERVER_URL}/posts/data`, options);
+  const { data: searchResults } = useFetch(
+    searchQuery ? `${import.meta.env.VITE_API_SERVER_URL}/user/name/${searchQuery}` : null,
+    options
+  );
 
   const handleStartPost = () => {
     setIsEditorVisible(true);
@@ -64,13 +71,41 @@ export default function HomePage() {
     }
   };
 
+  const handleSearchBarChange = (event) => {
+    setSearchQuery(event.target.value);
+    // console.log("Search Query:", event.target.value);
+    setShowResults(true);
+  };
+
+  // useEffect(() => {
+  //   if (searchQuery.length > 0) {
+  //     // console.log("Search Results:", searchResults?.user);
+  //   }
+  // }, [searchResults, searchQuery]);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (!event.target.closest(`.${styles.searchContainer}`)) {
+        setShowResults(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
   return (
     <div className={styles.container}>
       <Sidebar currSelection="feed" />
 
       <main className={styles.main}>
         <nav className={styles.nav}>
-          <SearchBar />
+          <div className={styles.searchContainer}>
+            <SearchBar onEditorChange={handleSearchBarChange} />
+            {showResults && searchQuery && (
+              <SearchResults results={searchResults?.user || []} />
+            )}
+          </div>
           <div>
             <Filter items={["top", "recent", "relevant"]} />
           </div>

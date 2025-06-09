@@ -5,11 +5,11 @@ import useFetch from "../hooks/use-fetch";
 import styles from "../styles/profile-page-sections.module.css";
 import Post from "./Post.jsx";
 
-const AllPosts = () => {
+const AllPosts = ({ userId }) => {
   const [showPosts, setShowPosts] = useState(false);
   const { user } = useAuth();
   const options = { credentials: "include" };
-  const { data, loading, error } = useFetch(`${import.meta.env.VITE_API_SERVER_URL}/posts/${user.id}`, options);
+  const { data, loading, error } = useFetch(`${import.meta.env.VITE_API_SERVER_URL}/posts/${userId}`, options);
 
   const togglePosts = () => {
     setShowPosts(!showPosts);

@@ -23,7 +23,7 @@ const months = [
   "December",
 ];
 
-export default function ExperienceSection({ data }) {
+export default function ExperienceSection({ data, curUserId }) {
   const { user } = useAuth();
 
   const [experiences, setExperiences] = useState(data?.experiences || []);
@@ -137,9 +137,9 @@ export default function ExperienceSection({ data }) {
     <section className={styles.main}>
       <div className={styles.header}>
         <p className={styles.title}>Experience</p>
-        <button className={styles.edit} onClick={() => setIsModalOpen(true)}>
+        {curUserId === user.id && <button className={styles.edit} onClick={() => setIsModalOpen(true)}>
           <Edit />
-        </button>
+        </button>}
       </div>
 
       <div className={styles.content}>

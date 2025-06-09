@@ -6,6 +6,7 @@ import ProfileSection from "../components/ProfileSection.jsx";
 import SideBar from "../components/Sidebar.jsx";
 import SkillsSection from "../components/SkillsSection.jsx";
 
+import { useParams } from "react-router-dom";
 import { useAuth } from "../contexts/auth-context.jsx";
 
 import useFetch from "../hooks/use-fetch.js";
@@ -16,13 +17,14 @@ const options = { credentials: "include" };
 
 export default function ProfilePage() {
   const { user } = useAuth();
+  const { userId } = useParams();
 
   const {
     data: profileData,
     loading,
     error,
   } = useFetch(
-    `${import.meta.env.VITE_API_SERVER_URL}/user/${user.id}`,
+    `${import.meta.env.VITE_API_SERVER_URL}/user/${userId}`,
     options
   );
 
@@ -44,7 +46,7 @@ export default function ProfilePage() {
 
       <main className={styles.main}>
         <ProfileSection
-          currUserId={user.id}
+          currUserId={userId}
           data={{
             id: profileData.user.id,
             name: profileData.user.name,
@@ -53,30 +55,34 @@ export default function ProfilePage() {
           }}
         />
         <ExperienceSection
+          curUserId={userId}
           data={{
             id: profileData.user.id,
             experiences: profileData.user.experiences,
           }}
         />
         <EducationSection
+          curUserId={userId}
           data={{
             id: profileData.user.id,
             education: profileData.user.education,
           }}
         />
         <SkillsSection
+          curUserId={userId}
           data={{
             id: profileData.user.id,
             skills: profileData.user.skills,
           }}
         />
         <AchievementsSection
+          curUserId={userId}
           data={{
             id: profileData.user.id,
             achievements: profileData.user.achievements,
           }}
         />
-        <AllPosts />
+        <AllPosts userId={userId} />
       </main>
     </div>
   );

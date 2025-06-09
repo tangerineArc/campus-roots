@@ -1,4 +1,4 @@
-import { Navigate, Routes, Route } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 
 import Connections from "./components/ConnectionsPage.jsx";
 import SettingsPage from "./components/SettingsPage.jsx";
@@ -51,7 +51,7 @@ export default function App() {
         }
       />
       <Route
-        path="/profile"
+        path="/profile/:userId"
         element={
           <ProtectedRoute>
             <ProfilePage />

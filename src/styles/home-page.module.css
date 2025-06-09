@@ -159,6 +159,12 @@
   }
 }
 
+.searchContainer {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+}
+
 @media (max-width: 1024px) {
   .main {
     margin-bottom: 4rem;

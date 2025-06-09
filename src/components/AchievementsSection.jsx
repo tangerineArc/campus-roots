@@ -23,7 +23,7 @@ const months = [
   "December",
 ];
 
-export default function AchievementsSection({ data }) {
+export default function AchievementsSection({ data, curUserId }) {
   const { user } = useAuth();
 
   const [achievements, setAchievements] = useState(data?.achievements || []);
@@ -132,9 +132,9 @@ export default function AchievementsSection({ data }) {
     <section className={styles.main}>
       <div className={styles.header}>
         <p className={styles.title}>Achievements</p>
-        <button className={styles.edit} onClick={() => setIsModalOpen(true)}>
+        {curUserId === user.id && <button className={styles.edit} onClick={() => setIsModalOpen(true)}>
           <Edit />
-        </button>
+        </button>}
       </div>
 
       <div className={styles.content}>

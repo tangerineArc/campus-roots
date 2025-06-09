@@ -23,7 +23,7 @@ const months = [
   "December",
 ];
 
-export default function EducationSection({ data }) {
+export default function EducationSection({ data, curUserId }) {
   const { user } = useAuth();
 
   const [allEducation, setAllEducation] = useState(data?.education || []);
@@ -137,9 +137,9 @@ export default function EducationSection({ data }) {
     <section className={styles.main}>
       <div className={styles.header}>
         <p className={styles.title}>Education</p>
-        <button className={styles.edit} onClick={() => setIsModalOpen(true)}>
+        {curUserId === user.id && <button className={styles.edit} onClick={() => setIsModalOpen(true)}>
           <Edit />
-        </button>
+        </button>}
       </div>
 
       <div className={styles.content}>

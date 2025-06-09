@@ -2,6 +2,7 @@ import { UserPen } from "lucide-react";
 import { exact, string } from "prop-types";
 import { useRef, useState } from "react";
 import defaultProfilePic from "../assets/default-profile-picture.jpg";
+import { useAuth } from "../contexts/auth-context.jsx";
 import styles from "../styles/profile-section.module.css";
 import Modal from "./Modal.jsx";
 
@@ -15,6 +16,7 @@ export default function ProfileSection({ currUserId, data }) {
   const [tempImageUrl, setTempImageUrl] = useState(data?.avatar || defaultProfilePic);
   const [error, setError] = useState("");
   const fileInputRef = useRef(null);
+  const { user } = useAuth();
 
   const handleAvatarChange = async (event) => {
     const file = event.target.files[0];
@@ -108,9 +110,9 @@ export default function ProfileSection({ currUserId, data }) {
             </p>
           </div>
         </div>
-        <button className={styles.edit} onClick={() => setIsModalOpen(true)}>
+        {currUserId === user.id && <button className={styles.edit} onClick={() => setIsModalOpen(true)}>
           <UserPen />
-        </button>
+        </button>}
       </div>
 
       {isModalOpen && (

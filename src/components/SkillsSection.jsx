@@ -1,12 +1,13 @@
 import { Edit, Trash2 } from "lucide-react";
 import { array, exact, string } from "prop-types";
 import { useState } from "react";
+import { useAuth } from "../contexts/auth-context.jsx";
 
 import Modal from "./Modal.jsx";
 
 import styles from "../styles/profile-page-sections.module.css";
 
-export default function SkillsSection({ data }) {
+export default function SkillsSection({ data, curUserId }) {
   const [skills, setSkills] = useState(data?.skills || []);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -15,6 +16,7 @@ export default function SkillsSection({ data }) {
   const [newSkill, setNewSkill] = useState({ label: "" });
 
   const [error, setError] = useState();
+  const { user } = useAuth();
 
   const handleEditSkill = (id) => {
     const skill = skills.find((s) => s.id === id);
@@ -103,9 +105,9 @@ export default function SkillsSection({ data }) {
     <section className={styles.main}>
       <div className={styles.header}>
         <p className={styles.title}>Skills</p>
-        <button className={styles.edit} onClick={() => setIsModalOpen(true)}>
+        {curUserId === user.id && <button className={styles.edit} onClick={() => setIsModalOpen(true)}>
           <Edit />
-        </button>
+        </button>}
       </div>
 
       <div className={styles.skillContent}>
