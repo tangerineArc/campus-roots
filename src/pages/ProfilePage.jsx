@@ -7,7 +7,6 @@ import SideBar from "../components/Sidebar.jsx";
 import SkillsSection from "../components/SkillsSection.jsx";
 
 import { useParams } from "react-router-dom";
-import { useAuth } from "../contexts/auth-context.jsx";
 
 import useFetch from "../hooks/use-fetch.js";
 
@@ -16,7 +15,6 @@ import styles from "../styles/profile-page.module.css";
 const options = { credentials: "include" };
 
 export default function ProfilePage() {
-  const { user } = useAuth();
   const { userId } = useParams();
 
   const {

@@ -45,14 +45,14 @@
   padding: 0.5rem;
   cursor: pointer;
 
-  & > svg {
+  &>svg {
     stroke: #999;
     stroke-width: 2;
   }
 }
 
 .edit:hover {
-  & > svg {
+  &>svg {
     stroke: #6e44ff;
   }
 }
@@ -146,6 +146,34 @@
 
 .updateButton:hover {
   background-color: #6e44ff;
+}
+
+.connectButton {
+  background-color: #ffffff;
+  border: 1px solid #6e44ff;
+  color: #6e44ff;
+  padding: 0.6rem 1.2rem;
+  border-radius: 10rem;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.9rem;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+  margin-left: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.connectButton:hover {
+  background-color: #e6f2ff;
+  border-color: #6e44ff;
+  color: #6e44ff;
+}
+
+.buttonContainer {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
 }
 
 @media (max-width: 500px) {

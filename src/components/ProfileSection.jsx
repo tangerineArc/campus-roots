@@ -1,8 +1,9 @@
-import { UserPen } from "lucide-react";
+import { UserMinus, UserPen, Users, X } from "lucide-react";
 import { exact, string } from "prop-types";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import defaultProfilePic from "../assets/default-profile-picture.jpg";
 import { useAuth } from "../contexts/auth-context.jsx";
+import useFetch from "../hooks/use-fetch.js";
 import styles from "../styles/profile-section.module.css";
 import Modal from "./Modal.jsx";
 
@@ -15,8 +16,26 @@ export default function ProfileSection({ currUserId, data }) {
   const [tempAbout, setTempAbout] = useState(about || "");
   const [tempImageUrl, setTempImageUrl] = useState(data?.avatar || defaultProfilePic);
   const [error, setError] = useState("");
+  const [connectionStatus, setConnectionStatus] = useState(null);
   const fileInputRef = useRef(null);
   const { user } = useAuth();
+  const options = { credentials: "include" };
+  const { data: connectionsData } = useFetch(`${import.meta.env.VITE_API_SERVER_URL}/user/connections/${user.id}`, options);
+
+  useEffect(() => {
+    if (connectionsData?.connections) {
+      const connection = connectionsData.connections.find(
+        (conn) => conn.user.id === currUserId
+      );
+      if (connectionStatus !== "PENDING") {
+        setConnectionStatus(connection?.status || null);
+      }
+    }
+  }, [connectionsData, currUserId]);
+
+  const getConnectionStatus = () => {
+    return connectionStatus;
+  };
 
   const handleAvatarChange = async (event) => {
     const file = event.target.files[0];
@@ -98,6 +117,52 @@ export default function ProfileSection({ currUserId, data }) {
     }
   };
 
+  const handleSendConnection = async (currUserId) => {
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_API_SERVER_URL}/user/connections/add/${user.id}/${currUserId}`,
+        {
+          method: "PUT",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to send connection request");
+      }
+      setConnectionStatus("PENDING");
+    } catch (err) {
+      console.error(err);
+      setError("Failed to send connection request. Please try again.");
+    }
+  };
+
+  const handleRemoveConnection = async (currUserId) => {
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_API_SERVER_URL}/user/connections/remove/${user.id}/${currUserId}`,
+        {
+          method: 'PUT',
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error('Failed to remove connection');
+      }
+      setConnectionStatus(null);
+    } catch (error) {
+      console.error('Error removing connection:', error);
+      setError('Failed to remove connection. Please try again.');
+    }
+  };
+
   return (
     <section className={styles.container}>
       <div className={styles.main}>
@@ -108,6 +173,26 @@ export default function ProfileSection({ currUserId, data }) {
             <p className={styles.about}>
               {about || (currUserId === data.id ? "write a catchy headline..." : "")}
             </p>
+            {currUserId !== user.id && (
+              <div className={styles.buttonContainer}>
+                {getConnectionStatus() === "ACCEPTED" ? (
+                  <button className={styles.connectButton} onClick={() => handleRemoveConnection(currUserId)}>
+                    <span>Remove Connection</span>
+                    <UserMinus size={16} />
+                  </button>
+                ) : getConnectionStatus() === "PENDING" ? (
+                  <button className={styles.connectButton} onClick={() => handleRemoveConnection(currUserId)}>
+                    <span>Withdraw Request</span>
+                    <X size={16} />
+                  </button>
+                ) : (
+                  <button className={styles.connectButton} onClick={() => handleSendConnection(currUserId)}>
+                    <span>Send Connection Request</span>
+                    <Users size={16} />
+                  </button>
+                )}
+              </div>
+            )}
           </div>
         </div>
         {currUserId === user.id && <button className={styles.edit} onClick={() => setIsModalOpen(true)}>

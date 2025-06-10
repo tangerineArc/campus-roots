@@ -9,7 +9,6 @@ import SearchResults from "../components/SearchResults.jsx";
 import SecondarySidebar from "../components/SecondarySidebar.jsx";
 import Sidebar from "../components/Sidebar.jsx";
 
-import profilePic from "../assets/default-profile-picture.jpg";
 import Post from "../components/Post.jsx";
 import useFetch from "../hooks/use-fetch.js";
 import styles from "../styles/home-page.module.css";
@@ -73,15 +72,8 @@ export default function HomePage() {
 
   const handleSearchBarChange = (event) => {
     setSearchQuery(event.target.value);
-    // console.log("Search Query:", event.target.value);
     setShowResults(true);
   };
-
-  // useEffect(() => {
-  //   if (searchQuery.length > 0) {
-  //     // console.log("Search Results:", searchResults?.user);
-  //   }
-  // }, [searchResults, searchQuery]);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -125,7 +117,7 @@ export default function HomePage() {
 
         {!isEditorVisible && (
           <div className={styles.startPost}>
-            <img src={profilePic} alt="User Avatar" className={styles.avatar} />
+            <img src={user.avatar} alt="User Avatar" className={styles.avatar} />
             <button className={styles.postBtn} onClick={handleStartPost}>
               <Pencil /> Start a Post...
             </button>
