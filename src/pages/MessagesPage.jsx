@@ -9,14 +9,23 @@ import { useAuth } from "../contexts/auth-context.jsx";
 
 import styles from "../styles/messages-page.module.css";
 
-const socket = io(import.meta.env.VITE_API_SERVER_URL, {
-  withCredentials: true,
-});
-
 const messageExists = (messageList, incomingMessage) =>
   messageList.some((msg) => msg.id === incomingMessage.id);
 
 export default function MessagesPage() {
+  const socketRef = useRef(null);
+
+  useEffect(() => {
+    socketRef.current = io(import.meta.env.VITE_API_SERVER_URL, {
+      withCredentials: true,
+      transports: ["websocket"],
+    });
+
+    return () => {
+      socketRef.current?.disconnect();
+    };
+  }, []);
+
   const { user } = useAuth();
 
   const messageInput = useRef(null);
@@ -28,11 +37,11 @@ export default function MessagesPage() {
   const [messagesMap, setMessagesMap] = useState({});
 
   useEffect(() => {
-    socket.emit("register", user.id);
+    socketRef.emit("register", user.id);
   }, [user]);
 
   useEffect(() => {
-    socket.on("receive-message", (msg) => {
+    socketRef.on("receive-message", (msg) => {
       const { senderId } = msg;
 
       setMessagesMap((prev) => {
@@ -47,7 +56,7 @@ export default function MessagesPage() {
     });
 
     return () => {
-      socket.off("receive-message");
+      socketRef.off("receive-message");
     };
   }, [receiverId]);
 
@@ -60,7 +69,7 @@ export default function MessagesPage() {
       text: messageInput.current.value.trim(),
     };
 
-    socket.emit("send-message", msg);
+    socketRef.emit("send-message", msg);
 
     setMessagesMap((prev) => {
       msg.time = new Date();
